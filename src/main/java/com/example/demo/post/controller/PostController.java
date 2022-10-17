@@ -29,6 +29,6 @@ public class PostController {
         List<Post> postList = postService.findPosts();
         model.addAttribute("postList", postList);
 
-        return "posts/postList";
+        return "posts/post_list";
     }
 }
