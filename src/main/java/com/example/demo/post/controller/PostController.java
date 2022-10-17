@@ -36,6 +36,24 @@ public class PostController {
     }
 
 
+
+    /**
+     * 글 상세
+     * - 번호, 제목, 작성자, 작성날짜, 수정날짜, 내용
+     * - 해시태그
+     */
+    @GetMapping("/{id}")
+    public String postDetail(
+            Model model,
+            @PathVariable("id") Long id) {
+
+        Post post = postService.getPost(id);
+        model.addAttribute("post", post);
+
+        return "posts/post_detail";
+    }
+
+
     /**
      * 글 등록
      * - 폼 입력
@@ -67,21 +85,6 @@ public class PostController {
     }
 
 
-    /**
-     * 글 상세
-     * - 번호, 제목, 작성자, 작성날짜, 수정날짜, 내용
-     * - 해시태그
-     */
-    @GetMapping("/{id}")
-    public String postDetail(
-            Model model,
-            @PathVariable("id") Long id) {
-
-        Post post = postService.getPost(id);
-        model.addAttribute("post", post);
-
-        return "posts/post_detail";
-    }
 
 
 
