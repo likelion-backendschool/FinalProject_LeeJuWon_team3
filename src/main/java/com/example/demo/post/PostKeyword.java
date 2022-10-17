@@ -1,6 +1,5 @@
 package com.example.demo.post;
 
-import com.example.demo.user.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

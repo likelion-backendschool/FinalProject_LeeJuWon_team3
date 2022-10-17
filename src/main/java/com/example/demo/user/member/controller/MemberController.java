@@ -2,6 +2,7 @@ package com.example.demo.user.member.controller;
 
 import com.example.demo.user.member.MemberCreateForm;
 import com.example.demo.user.member.service.MemberService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -57,6 +58,12 @@ public class MemberController {
 
 
         return "redirect:/";
+    }
+
+
+    @GetMapping("/login")
+    public String login() {
+        return "members/login_form";
     }
 
 }

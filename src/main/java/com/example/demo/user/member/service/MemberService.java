@@ -1,9 +1,9 @@
 package com.example.demo.user.member.service;
 
 import com.example.demo.user.member.Member;
+import com.example.demo.user.member.MemberRole;
 import com.example.demo.user.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +26,7 @@ public class MemberService {
         member.setUsername(username);
         member.setEmail(email);
         member.setCreatedAt(LocalDateTime.now());
+        member.setAchieveLevel(MemberRole.USER);
         member.setPassword(passwordEncoder.encode(password));
 
         memberRepository.save(member);

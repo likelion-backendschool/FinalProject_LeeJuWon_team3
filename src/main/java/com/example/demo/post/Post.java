@@ -1,10 +1,7 @@
 package com.example.demo.post;
 
-import com.example.demo.user.BaseEntity;
 import com.example.demo.user.member.Member;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;

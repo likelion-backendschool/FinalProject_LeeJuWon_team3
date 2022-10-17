@@ -1,6 +1,5 @@
 package com.example.demo.ebook;
 
-import com.example.demo.user.BaseEntity;
 import com.example.demo.post.PostKeyword;
 import com.example.demo.user.member.Member;
 import lombok.AccessLevel;
