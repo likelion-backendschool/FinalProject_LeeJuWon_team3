@@ -48,7 +48,7 @@ public class PostController {
      *             #자바 #스프링부트 #스프링배치
      */
     @GetMapping("/write")
-    public String postWrite() {
+    public String postWrite(PostForm postForm) {
         return "posts/post_form";
     }
 
@@ -57,7 +57,6 @@ public class PostController {
     public String postWrite(
             @Valid PostForm postForm,
             BindingResult bindingResult
-//            @RequestParam String keywords
     ) {
 
         if( bindingResult.hasErrors()) {
