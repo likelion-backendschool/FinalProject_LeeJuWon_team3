@@ -40,4 +40,12 @@ public class PostService {
 
         return post;
     }
+
+    public void modify(Post post, String subject, String content) {
+
+        post.setSubject(subject);
+        post.setContent(content);
+        post.setUpdatedAt(LocalDateTime.now());
+        postRepository.save(post);
+    }
 }

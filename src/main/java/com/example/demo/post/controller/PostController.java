@@ -85,5 +85,40 @@ public class PostController {
 
 
 
+    /**
+     * 글 수정
+     * - 폼 입력
+     *     - subject
+     *     - content
+     *     - postKeywordContents
+     *         - 입력예시
+     *
+     *             #자바 #스프링부트
+     */
+//    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/{id}/modify")
+    public String postModify(
+            @Valid PostForm postForm,
+            BindingResult bindingResult,
+            @PathVariable("id") Long id,
+            Principal principal) {
+
+        if(bindingResult.hasErrors()) {
+            return "posts/post_form";
+        }
+
+        Post post = postService.getPost(id);
+
+//        if(!post.getAuthor().getUsername().equals(principal.getName())) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+//        }
+
+
+        postService.modify(post, post.getSubject(), post.getContent());
+
+        return String.format("redirect:post/%s", id);
+    }
+
+
 
 }

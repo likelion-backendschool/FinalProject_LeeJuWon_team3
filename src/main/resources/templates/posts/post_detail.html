@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -8,6 +8,14 @@
 
 <h1 th:text="${post.subject}"></h1>
 <div th:text="${post.content}"></div>
+
+<div class="my-3">
+    <a th:href="@{|/post/modify/${post.id}|}" class="btn btn-sm btn-outline-secondary"
+       sec:authorize="isAuthenticated()"
+       th:text="수정"></a>
+<!--       th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author.username}"-->
+
+</div>
 
 </body>
 </html>

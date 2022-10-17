@@ -1,7 +1,9 @@
 <html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
 <div layout:fragment="content" class="container">
   <h5 class="my-3 border-bottom pb-2">글 등록</h5>
-  <form th:action="@{/post/write}" th:object="${postForm}" method="post">
+  <form th:object="${postForm}" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
     <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
       <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
     </div>
