@@ -3,7 +3,10 @@ package com.example.demo.post.controller;
 import com.example.demo.post.entity.Post;
 import com.example.demo.post.form.PostForm;
 import com.example.demo.post.service.PostService;
+import com.example.demo.user.member.entity.Member;
+import com.example.demo.user.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +22,8 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+    private final MemberService memberService;
+
 
     /**
      * 글 리스트
@@ -62,23 +67,28 @@ public class PostController {
      *         - 입력예시
      *             #자바 #스프링부트 #스프링배치
      */
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/write")
     public String postWrite(PostForm postForm) {
         return "posts/post_form";
     }
 
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/write")
     public String postWrite(
             @Valid PostForm postForm,
-            BindingResult bindingResult) {
+            BindingResult bindingResult,
+            Principal principal) {
 
         if( bindingResult.hasErrors()) {
             return "posts/post_form";
         }
 
-        postService.write(postForm.getSubject(),
-                postForm.getContent());
+        Member member = memberService.getMember(principal.getName());
+
+        postService.write(postForm.getSubject(), postForm.getContent(), member);
+
 
         return "redirect:/post/list"; //글 저장후 글목록으로 이동
     }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -31,6 +32,13 @@ public class MemberService {
 
         memberRepository.save(member);
         return member;
+    }
+
+    public Member getMember(String username) {
+        return memberRepository.findByUsername(username)
+                .orElseThrow(
+                        () -> new RuntimeException(username + "is not found.")
+                );
     }
 
 }

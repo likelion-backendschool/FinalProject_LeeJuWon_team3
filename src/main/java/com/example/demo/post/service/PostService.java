@@ -2,6 +2,7 @@ package com.example.demo.post.service;
 
 import com.example.demo.post.entity.Post;
 import com.example.demo.post.repository.PostRepository;
+import com.example.demo.user.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,13 +21,14 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    public void write(String subject, String content
+    public void write(String subject, String content, Member member
 //            , String keywords
     ) {
 
         Post post = new Post();
         post.setSubject(subject);
         post.setContent(content);
+        post.setMember(member);
 //        post.setKeywords(keywords);
         post.setCreatedAt(LocalDateTime.now());
         postRepository.save(post);
