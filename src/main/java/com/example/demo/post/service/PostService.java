@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -30,5 +31,13 @@ public class PostService {
 //        post.setKeywords(keywords);
         post.setCreatedAt(LocalDateTime.now());
         postRepository.save(post);
+    }
+
+    public Post getPost(Long id) {
+
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Post id" + id + "not found"));
+
+        return post;
     }
 }

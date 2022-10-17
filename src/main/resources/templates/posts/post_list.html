@@ -5,16 +5,19 @@
         <tr>
             <th>번호</th>
             <th>제목</th>
-            <th>작성일시</th>
+<!--            <th>작성자</th>-->
+            <th>작성날짜</th>
+            <th>수정날짜</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="post, loop : ${postList}">
             <td th:text="${loop.count}"></td>
             <td>
-                <a th:href="@{|/post/detail/${post.id}|}" th:text="${post.subject}"></a>
+                <a th:href="@{|/post/${post.id}|}" th:text="${post.subject}"></a>
             </td>
             <td th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${#temporals.format(post.updatedAt, 'yyyy-MM-dd HH:mm')}"></td>
         </tr>
         </tbody>
     </table>
