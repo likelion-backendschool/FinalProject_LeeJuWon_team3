@@ -3,8 +3,8 @@ package com.example.demo.user.member;
 
 import com.example.demo.user.BaseEntity;
 import com.example.demo.ebook.Product;
-import com.example.demo.article.Post;
-import com.example.demo.article.PostHashTag;
+import com.example.demo.post.Post;
+import com.example.demo.post.PostHashTag;
 import lombok.Getter;
 
 import javax.persistence.Entity;

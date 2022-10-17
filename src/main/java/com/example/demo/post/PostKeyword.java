@@ -1,4 +1,4 @@
-package com.example.demo.article;
+package com.example.demo.post;
 
 import com.example.demo.user.BaseEntity;
 import lombok.Getter;
