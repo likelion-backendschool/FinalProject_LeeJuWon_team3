@@ -16,11 +16,9 @@ import static javax.persistence.FetchType.*;
 public class Post extends BaseEntity {
 
 
-    private String subjectTitle;
+    private String subject;
 
     private String content;
-
-    private String keywords;
 
     //contentHtml
 

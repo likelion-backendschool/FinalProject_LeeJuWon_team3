@@ -12,7 +12,7 @@
         <tr th:each="post, loop : ${postList}">
             <td th:text="${loop.count}"></td>
             <td>
-                <a th:href="@{|/post/detail/${post.id}|}" th:text="${post.subjectTitle}"></a>
+                <a th:href="@{|/post/detail/${post.id}|}" th:text="${post.subject}"></a>
             </td>
             <td th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
         </tr>

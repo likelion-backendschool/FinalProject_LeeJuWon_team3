@@ -20,12 +20,14 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    public void write(String subject, String content, String keywords) {
+    public void write(String subject, String content
+//            , String keywords
+    ) {
 
         Post post = new Post();
-        post.setSubjectTitle(subject);
+        post.setSubject(subject);
         post.setContent(content);
-        post.setKeywords(keywords);
+//        post.setKeywords(keywords);
         post.setCreatedAt(LocalDateTime.now());
         postRepository.save(post);
     }
