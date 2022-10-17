@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -17,5 +18,15 @@ public class PostService {
 
     public List<Post> findPosts() {
         return postRepository.findAll();
+    }
+
+    public void write(String subject, String content, String keywords) {
+
+        Post post = new Post();
+        post.setSubjectTitle(subject);
+        post.setContent(content);
+        post.setKeywords(keywords);
+        post.setCreatedAt(LocalDateTime.now());
+        postRepository.save(post);
     }
 }

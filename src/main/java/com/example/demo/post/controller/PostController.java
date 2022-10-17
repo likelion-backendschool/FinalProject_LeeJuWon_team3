@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
@@ -31,4 +33,32 @@ public class PostController {
 
         return "posts/post_list";
     }
+
+
+    /**
+     * 글 등록
+     * - 폼 입력
+     *     - subject
+     *     - content
+     *     - keywords
+     *         - 입력예시
+     *             #자바 #스프링부트 #스프링배치
+     */
+    @GetMapping("/write")
+    public String postWrite() {
+        return "posts/post_form";
+    }
+
+
+    @PostMapping("/write")
+    public String postWrite(
+            @RequestParam String subject,
+            @RequestParam String content,
+            @RequestParam String keywords) {
+
+        postService.write(subject, content, keywords);
+
+        return "redirect:/post/list"; //글 저장후 글목록으로 이동
+    }
+
 }
