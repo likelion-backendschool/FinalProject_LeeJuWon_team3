@@ -3,7 +3,6 @@ package com.example.demo.user.member.controller;
 import com.example.demo.user.member.MemberCreateForm;
 import com.example.demo.user.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,24 +19,24 @@ public class MemberController {
     private final MemberService memberService;
 
 
-    @GetMapping("/signup")
-    public String signup(MemberCreateForm memberCreateForm) {
-        return "member/signup_form";
+    @GetMapping("/join")
+    public String join(MemberCreateForm memberCreateForm) {
+        return "members/join_form";
     }
 
 
-    @PostMapping("/signup")
-    public String signup(
+    @PostMapping("/join")
+    public String join(
             @Valid MemberCreateForm memberCreateForm,
             BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
-            return "member/signup_form";
+            return "members/join_form";
         }
 
-        if(memberCreateForm.getPassword1().equals(memberCreateForm.getPassword2())) {
+        if(!memberCreateForm.getPassword1().equals(memberCreateForm.getPassword2())) {
             bindingResult.rejectValue("password2", "passwordInCorrect",
                     "2개의 패스워드가 일치하지 않습니다.");
-            return "member/signup_form";
+            return "members/join_form";
         }
 
 

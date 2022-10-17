@@ -1,28 +1,37 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<div layout:fragment="content" class="container my-3">
 <body>
 
-<h1 th:text="${post.subject}"></h1>
-<div th:text="${post.content}"></div>
+<div class="container my-3">
+    <!-- 글 -->
+    <h2 class="border-bottom py-2" th:text="${post.subject}"></h2>
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;" th:text="${post.content}"></div>
+            <div class="d-flex justify-content-end">
+                <div class="badge bg-light text-dark p-2 text-start">
+                    <div th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></div>
+                    <div th:text="${#temporals.format(post.updatedAt, 'yyyy-MM-dd HH:mm')}"></div>
+                </div>
+            </div>
 
-<div class="my-3">
-    <a th:href="@{|/post/modify/${post.id}|}" class="btn btn-sm btn-outline-secondary"
-       sec:authorize="isAuthenticated()"
-       th:text="수정"></a>
-<!--       th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author.username}"-->
+            <div class="my-3">
+                <a th:href="@{|/post/modify/${post.id}|}" class="btn btn-sm btn-outline-secondary"
+                   sec:authorize="isAuthenticated()"
+                       th:if="${post.member != null and #authentication.getPrincipal().getUsername() == post.member.username}"
+                th:text="수정"></a>
 
 
-    <a href="javascript:void(0);" th:data-uri="@{|/post/delete/${post.id}|}"
-       class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
-       th:text="삭제"></a>
-<!--    th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author.username}"-->
+                <a href="javascript:void(0);" th:data-uri="@{|/post/delete/${post.id}|}"
+                   class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+                    th:if="${post.member != null and #authentication.getPrincipal().getUsername() == post.member.username}"
+                th:text="삭제"></a>
 
+            </div>
+
+        </div>
+    </div>
 </div>
-
 
 <script type='text/javascript'>
     const delete_elements = document.getElementsByClassName("delete");
@@ -36,4 +45,5 @@
 </script>
 
 </body>
+</div>
 </html>

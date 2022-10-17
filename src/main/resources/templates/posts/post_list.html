@@ -1,4 +1,5 @@
-<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+<html layout:decorate="~{global/layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<div layout:fragment="content" class="container my-3">
 <div class="container my-3">
     <table class="table">
         <thead class="table-dark">
@@ -23,3 +24,5 @@
     </table>
     <a th:href="@{/post/write}" class="btn btn-primary">글 등록하기</a>
 </div>
+</div>
+</html>
