@@ -120,5 +120,24 @@ public class PostController {
     }
 
 
+    /**
+     * 글 삭제
+     */
+//    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/{id}/delete")
+    public String postDelete(
+            Principal principal,
+            @PathVariable("id") Long id) {
+
+        Post post = postService.getPost(id);
+
+//        if(!post.getAuthor().getUsername().equals(principal.getName())) {
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+//        }
+
+        postService.delete(post);
+
+        return "redirect:/";
+    }
 
 }

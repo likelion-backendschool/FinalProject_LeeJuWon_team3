@@ -15,7 +15,25 @@
        th:text="수정"></a>
 <!--       th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author.username}"-->
 
+
+    <a href="javascript:void(0);" th:data-uri="@{|/post/delete/${post.id}|}"
+       class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+       th:text="삭제"></a>
+<!--    th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author.username}"-->
+
 </div>
+
+
+<script type='text/javascript'>
+    const delete_elements = document.getElementsByClassName("delete");
+    Array.from(delete_elements).forEach(function(element) {
+        element.addEventListener('click', function() {
+            if(confirm("정말로 삭제하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            };
+        });
+    });
+</script>
 
 </body>
 </html>

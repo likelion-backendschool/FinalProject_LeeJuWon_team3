@@ -48,4 +48,8 @@ public class PostService {
         post.setUpdatedAt(LocalDateTime.now());
         postRepository.save(post);
     }
+
+    public void delete(Post post) {
+        postRepository.delete(post);
+    }
 }
