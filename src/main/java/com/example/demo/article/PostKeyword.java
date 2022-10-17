@@ -1,16 +1,16 @@
-package com.example.demo;
+package com.example.demo.article;
 
+import com.example.demo.user.BaseEntity;
 import lombok.Getter;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
-public class PostKeyword extends BaseEntity{
+public class PostKeyword extends BaseEntity {
 
     private String content;
 

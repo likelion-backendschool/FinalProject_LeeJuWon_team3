@@ -1,8 +1,11 @@
-package com.example.demo;
+package com.example.demo.user.member;
 
 
+import com.example.demo.user.BaseEntity;
+import com.example.demo.ebook.Product;
+import com.example.demo.article.Post;
+import com.example.demo.article.PostHashTag;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;

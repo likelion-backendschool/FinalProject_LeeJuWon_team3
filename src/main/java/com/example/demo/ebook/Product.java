@@ -1,5 +1,8 @@
-package com.example.demo;
+package com.example.demo.ebook;
 
+import com.example.demo.user.BaseEntity;
+import com.example.demo.article.PostKeyword;
+import com.example.demo.user.member.Member;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -8,7 +11,7 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter
-public class Product extends BaseEntity{
+public class Product extends BaseEntity {
 
     private String subjectName;
     private Long price;

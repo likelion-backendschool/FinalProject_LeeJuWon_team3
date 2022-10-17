@@ -1,9 +1,10 @@
-package com.example.demo;
+package com.example.demo.article;
 
+import com.example.demo.user.BaseEntity;
+import com.example.demo.user.member.Member;
 import lombok.Getter;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
