@@ -1,7 +1,7 @@
 package com.example.demo.user.member.service;
 
-import com.example.demo.user.member.Member;
-import com.example.demo.user.member.MemberRole;
+import com.example.demo.user.member.entity.Member;
+import com.example.demo.user.member.role.MemberRole;
 import com.example.demo.user.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

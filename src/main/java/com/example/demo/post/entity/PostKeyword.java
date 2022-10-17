@@ -1,4 +1,4 @@
-package com.example.demo.post;
+package com.example.demo.post.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;

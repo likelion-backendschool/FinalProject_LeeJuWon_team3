@@ -1,4 +1,4 @@
-package com.example.demo.user.member;
+package com.example.demo.user.member.form;
 
 import lombok.Getter;
 import lombok.Setter;

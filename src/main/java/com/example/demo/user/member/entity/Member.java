@@ -1,16 +1,14 @@
-package com.example.demo.user.member;
+package com.example.demo.user.member.entity;
 
 import com.example.demo.ebook.Product;
-import com.example.demo.post.Post;
-import com.example.demo.post.PostHashTag;
+import com.example.demo.post.entity.Post;
+import com.example.demo.post.entity.PostHashTag;
+import com.example.demo.user.member.role.MemberRole;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

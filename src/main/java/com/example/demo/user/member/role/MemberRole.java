@@ -1,4 +1,4 @@
-package com.example.demo.user.member;
+package com.example.demo.user.member.role;
 
 import lombok.Getter;
 

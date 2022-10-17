@@ -1,6 +1,6 @@
-package com.example.demo.post;
+package com.example.demo.post.entity;
 
-import com.example.demo.user.member.Member;
+import com.example.demo.user.member.entity.Member;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

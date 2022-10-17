@@ -1,4 +1,4 @@
-package com.example.demo.post;
+package com.example.demo.post.form;
 
 import lombok.Getter;
 import lombok.Setter;

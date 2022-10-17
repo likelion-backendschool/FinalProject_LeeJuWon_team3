@@ -1,7 +1,7 @@
 package com.example.demo.ebook;
 
-import com.example.demo.post.PostKeyword;
-import com.example.demo.user.member.Member;
+import com.example.demo.post.entity.PostKeyword;
+import com.example.demo.user.member.entity.Member;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

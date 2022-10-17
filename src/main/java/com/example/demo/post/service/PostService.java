@@ -1,6 +1,6 @@
 package com.example.demo.post.service;
 
-import com.example.demo.post.Post;
+import com.example.demo.post.entity.Post;
 import com.example.demo.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)

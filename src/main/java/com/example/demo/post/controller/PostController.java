@@ -1,9 +1,8 @@
 package com.example.demo.post.controller;
 
-import com.example.demo.post.Post;
-import com.example.demo.post.PostForm;
+import com.example.demo.post.entity.Post;
+import com.example.demo.post.form.PostForm;
 import com.example.demo.post.service.PostService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
