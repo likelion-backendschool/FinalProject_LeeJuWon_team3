@@ -23,4 +23,13 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member")
     private List<Product> productList = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "member")
+    private List<PostHashTag> postHashTagList = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "member")
+    private List<Post> postList = new ArrayList<>();
+
 }
