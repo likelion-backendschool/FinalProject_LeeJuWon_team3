@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -17,11 +19,13 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
 
+    @Transactional
     public Member create(String username, String email, String password) {
 
         Member member = new Member();
         member.setUsername(username);
         member.setEmail(email);
+        member.setCreatedAt(LocalDateTime.now());
         member.setPassword(passwordEncoder.encode(password));
 
         memberRepository.save(member);
