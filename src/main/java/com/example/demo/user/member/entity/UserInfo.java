@@ -1,10 +1,9 @@
 package com.example.demo.user.member.entity;
 
 import com.example.demo.ebook.Product;
-import com.example.demo.post.entity.Post;
 import com.example.demo.post.entity.PostHashTag;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -18,9 +17,15 @@ import java.util.*;
 
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @EntityListeners(AuditingEntityListener.class)
-public class Member implements UserDetails {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@DiscriminatorColumn
+@SuperBuilder
+public class UserInfo implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,34 +45,17 @@ public class Member implements UserDetails {
     private String password;
     private String nickname;
 
-//    @Column(name = "achieveLevel")
-//    @Enumerated(EnumType.STRING)
-//    private MemberRole achieveLevel;
+    @Column(name = "auth")
+    protected String auth;    // 권한(member, author, admin)
 
     @Column(name = "email", unique = true)
     private String email;
-
-    @Column(name = "achieveLevel")
-    protected String achieveLevel; // ADMIN, USER
-
-    //authLevel
-
-    @OneToMany(mappedBy = "member")
-    private List<Product> productList = new ArrayList<>();
-
-
-    @OneToMany(mappedBy = "member")
-    private List<PostHashTag> postHashTagList = new ArrayList<>();
-
-
-//    @OneToMany(mappedBy = "member")
-//    private List<Post> postList = new ArrayList<>();
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> roles = new HashSet<>();
-        for (String role : achieveLevel.split(",")) {
+        for (String role : auth.split(",")) {
             roles.add(new SimpleGrantedAuthority(role));
         }
         return roles;
@@ -107,5 +95,4 @@ public class Member implements UserDetails {
     public String getEmail() {
         return email;
     }
-
 }

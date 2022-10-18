@@ -1,6 +1,6 @@
 package com.example.demo.config;
 
-import com.example.demo.user.member.service.MemberSecurityService;
+import com.example.demo.user.member.service.UserSecurityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final MemberSecurityService userSecurityService;
+    private final UserSecurityService userSecurityService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

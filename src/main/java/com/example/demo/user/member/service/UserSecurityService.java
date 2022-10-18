@@ -17,7 +17,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MemberSecurityService implements UserDetailsService {
+public class UserSecurityService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
@@ -37,5 +37,8 @@ public class MemberSecurityService implements UserDetailsService {
 
         return new User(siteUser.getUsername(), siteUser.getPassword(), authorities);
     }
+
+
+
 
 }

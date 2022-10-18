@@ -19,8 +19,7 @@ public class MemberModifyForm {
     @Email
     private String email;
 
-    @NotEmpty(message = "닉네임은 필수항목입니다.")
-    @Size(min = 1, max = 25)
+
     private String nickname;
 
 }

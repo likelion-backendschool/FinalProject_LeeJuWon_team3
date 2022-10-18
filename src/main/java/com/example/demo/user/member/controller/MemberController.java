@@ -118,19 +118,9 @@ public class MemberController {
 
         SiteUser siteUser = memberService.getSiteUser(principal.getName());
 
-        try {
-            memberService.modify(siteUser,
-                    memberModifyForm.getEmail(),
-                    memberModifyForm.getNickname());
-        } catch (DataIntegrityViolationException e) {
-            e.printStackTrace();
-            bindingResult.reject("joinFailed", "이미 등록된 사용자입니다.");
-            return "members/modify_form";
-        } catch (Exception e) {
-            e.printStackTrace();
-            bindingResult.reject("joinFailed", e.getMessage());
-            return "members/modify_form";
-        }
+        memberService.modify(siteUser,
+                memberModifyForm.getEmail(),
+                memberModifyForm.getNickname());
 
         return "redirect:/";
     }

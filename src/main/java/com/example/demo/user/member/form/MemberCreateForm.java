@@ -27,8 +27,8 @@ public class MemberCreateForm {
     @Email
     private String email;
 
-    @NotEmpty(message = "닉네임은 필수항목입니다.")
-    @Size(min = 1, max = 25)
+
+    @Size(min = 0, max = 25)
     private String nickname;
 
 }

@@ -18,18 +18,24 @@ public class MemberService {
 
 
     @Transactional
-    public SiteUser create(String username, String email, String password, String nickname) {
+    public void create(String username, String email, String password, String nickname) {
 
         SiteUser siteUser = new SiteUser();
         siteUser.setUsername(username);
         siteUser.setEmail(email);
-//        member.setCreatedAt(LocalDateTime.now());
-//        member.setAchieveLevel("USER");
         siteUser.setPassword(passwordEncoder.encode(password));
-        siteUser.setNickname(nickname);
+
+
+        if(nickname == null || nickname.isEmpty()) {
+            siteUser.setAuth("ROLE_MEMBER");
+        }
+        else {
+            siteUser.setNickname(nickname);
+            siteUser.setAuth("ROLE_AUTHOR");
+        }
 
         memberRepository.save(siteUser);
-        return siteUser;
+
     }
 
     public SiteUser getSiteUser(String username) {
@@ -39,8 +45,17 @@ public class MemberService {
 
     @Transactional
     public void modify(SiteUser siteUser, String email, String nickname) {
-        siteUser.setEmail(email);
-        siteUser.setNickname(nickname);
+
+        if(nickname == null || nickname.isEmpty()) {
+            if(siteUser.getAuth().equals("ROLE_AUTHOR")) {
+                siteUser.setNickname(nickname);
+            }
+            siteUser.setEmail(email);
+        }
+        else {
+            siteUser.setNickname(nickname);
+            siteUser.setAuth("ROLE_AUTHOR");
+        }
     }
 
 
@@ -55,4 +70,5 @@ public class MemberService {
 
         return passwordEncoder.matches(inputOldPassword, encodedOldPassword);
     }
+
 }

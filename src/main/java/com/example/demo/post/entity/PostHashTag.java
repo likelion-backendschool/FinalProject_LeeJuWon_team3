@@ -1,6 +1,6 @@
 package com.example.demo.post.entity;
 
-import com.example.demo.user.member.entity.Member;
+import com.example.demo.user.member.entity.SiteUser;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,7 +33,7 @@ public class PostHashTag {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
-    private Member member;
+    private SiteUser member;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "post_id")

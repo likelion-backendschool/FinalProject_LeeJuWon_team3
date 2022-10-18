@@ -28,7 +28,6 @@ public class PostService {
         post.setSubject(subject);
         post.setContent(content);
         post.setAuthor(author);
-//        post.setKeywords(keywords);
         post.setCreatedAt(LocalDateTime.now());
         postRepository.save(post);
     }
