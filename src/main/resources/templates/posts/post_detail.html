@@ -28,13 +28,11 @@
                    th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author.username}"
                    th:text="수정"></a>
 
-<!--                th:if="${post.member != null and #authentication.getPrincipal().getEmail() == post.member.username}"-->
-
-<!--                <a href="javascript:void(0);" th:data-uri="@{|/post/delete/${post.id}|}"-->
-<!--                   class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"-->
-<!--                    th:if="${post.member != null and #authentication.getPrincipal().getUsername() == post.member.username}"-->
-<!--                th:text="삭제"></a>-->
-
+                <a href="javascript:void(0);" th:data-uri="@{|/post/${post.id}/delete|}"
+                   class="delete btn btn-sm btn-outline-secondary"
+                   sec:authorize="isAuthenticated()"
+                   th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author.username}"
+                   th:text="삭제"></a>
             </div>
 
         </div>
