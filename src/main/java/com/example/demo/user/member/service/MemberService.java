@@ -35,4 +35,11 @@ public class MemberService {
         return memberRepository.findByUsername(username).orElseThrow(
                 () -> new RuntimeException(username + "is not found."));
     }
+
+    @Transactional
+    public void modify(SiteUser siteUser, String email, String nickname) {
+//        siteUser.setPassword(passwordEncoder.encode(password));
+        siteUser.setEmail(email);
+        siteUser.setNickname(nickname);
+    }
 }
