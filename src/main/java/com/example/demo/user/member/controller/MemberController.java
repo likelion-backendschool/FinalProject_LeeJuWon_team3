@@ -5,6 +5,7 @@ import com.example.demo.post.form.PostForm;
 import com.example.demo.user.member.entity.SiteUser;
 import com.example.demo.user.member.form.MemberCreateForm;
 import com.example.demo.user.member.form.MemberModifyForm;
+import com.example.demo.user.member.form.MemberModifyPasswordForm;
 import com.example.demo.user.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -139,58 +140,49 @@ public class MemberController {
      * 비밀번호변경
      * password
      */
-//    @PreAuthorize("isAuthenticated()")
-//    @GetMapping("/modifyPassword")
-//    public String infoModifyPassword(
-//            MemberModifyForm memberModifyForm,
-//            Principal principal) {
-//
-//        SiteUser siteUser = memberService.getSiteUser(principal.getName());
-//
-//        memberModifyForm.setPassword(siteUser.getPassword());
-//
-//        return "members/modify_password_form";
-//    }
-//
-//    @PreAuthorize("isAuthenticated()")
-//    @PostMapping("/modifyPassword")
-//    public String infoModifyPassword(
-//            @Valid MemberCreateForm memberCreateForm,
-//            BindingResult bindingResult,
-//            Principal principal) {
-//
-//        if(bindingResult.hasErrors()) {
-//            return "members/modify_password_form";
-//        }
-//
-//        SiteUser siteUser = memberService.getSiteUser(principal.getName());
-//
-//
-//        if(!memberCreateForm.getPassword().equals(memberCreateForm.getPasswordConfirm())) {
-//            bindingResult.rejectValue("passwordConfirm", "passwordInCorrect",
-//                    "2개의 패스워드가 일치하지 않습니다.");
-//            return "members/modify_password_form";
-//        }
-//
-//        try {
-//            memberService.modify(siteUser,
-//                    memberCreateForm.getEmail(),
-//                    memberCreateForm.getNickname());
-//        } catch (DataIntegrityViolationException e) {
-//            e.printStackTrace();
-//            bindingResult.reject("joinFailed", "이미 등록된 사용자입니다.");
-//            return "members/modify_password_form";
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            bindingResult.reject("joinFailed", e.getMessage());
-//            return "members/modify_password_form";
-//        }
-//
-//        return "redirect:/";
-//    }
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/modifyPassword")
+    public String infoModifyPassword(
+            MemberModifyPasswordForm memberModifyPasswordForm,
+            Principal principal) {
 
+        SiteUser siteUser = memberService.getSiteUser(principal.getName());
+        memberModifyPasswordForm.setUsername(siteUser.getUsername());
 
+        return "members/modify_password_form";
+    }
 
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/modifyPassword")
+    public String infoModifyPassword(
+            @Valid MemberModifyPasswordForm memberModifyPasswordForm,
+            BindingResult bindingResult,
+            Principal principal) {
+
+        if(bindingResult.hasErrors()) {
+            return "members/modify_password_form";
+        }
+
+        SiteUser siteUser = memberService.getSiteUser(principal.getName());
+
+        boolean sameOldPassword = memberService.isSameOldPassword(siteUser, memberModifyPasswordForm);
+
+        if(!sameOldPassword) {
+            bindingResult.rejectValue("oldPassword", "passwordInCorrect",
+                    "이전 패스워드가 일치하지 않습니다.");
+            return "members/modify_password_form";
+        }
+
+        if(!memberModifyPasswordForm.getPassword().equals(memberModifyPasswordForm.getPasswordConfirm())) {
+            bindingResult.rejectValue("passwordConfirm", "passwordInCorrect",
+                    "2개의 패스워드가 일치하지 않습니다.");
+            return "members/modify_password_form";
+        }
+
+        memberService.modifyPassword(siteUser, memberModifyPasswordForm.getPassword());
+
+        return "redirect:/";
+    }
 
 
 }

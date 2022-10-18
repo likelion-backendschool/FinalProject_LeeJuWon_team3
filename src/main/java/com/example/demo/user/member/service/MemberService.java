@@ -1,6 +1,7 @@
 package com.example.demo.user.member.service;
 
 import com.example.demo.user.member.entity.SiteUser;
+import com.example.demo.user.member.form.MemberModifyPasswordForm;
 import com.example.demo.user.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,8 +39,20 @@ public class MemberService {
 
     @Transactional
     public void modify(SiteUser siteUser, String email, String nickname) {
-//        siteUser.setPassword(passwordEncoder.encode(password));
         siteUser.setEmail(email);
         siteUser.setNickname(nickname);
+    }
+
+
+    @Transactional
+    public void modifyPassword(SiteUser siteUser, String password) {
+        siteUser.setPassword(passwordEncoder.encode(password));
+    }
+
+    public boolean isSameOldPassword(SiteUser siteUser, MemberModifyPasswordForm memberModifyPasswordForm) {
+        String encodedOldPassword = siteUser.getPassword();
+        String inputOldPassword = memberModifyPasswordForm.getOldPassword();
+
+        return passwordEncoder.matches(inputOldPassword, encodedOldPassword);
     }
 }
