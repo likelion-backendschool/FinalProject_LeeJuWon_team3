@@ -1,7 +1,6 @@
 package com.example.demo.user.member.service;
 
-import com.example.demo.user.member.entity.Member;
-import com.example.demo.user.member.entity.SiteMember;
+import com.example.demo.user.member.entity.SiteUser;
 import com.example.demo.user.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,23 +17,22 @@ public class MemberService {
 
 
     @Transactional
-    public SiteMember create(String username, String email, String password) {
+    public SiteUser create(String username, String email, String password, String nickname) {
 
-        SiteMember member = new SiteMember();
-        member.setUsername(username);
-        member.setEmail(email);
+        SiteUser siteUser = new SiteUser();
+        siteUser.setUsername(username);
+        siteUser.setEmail(email);
 //        member.setCreatedAt(LocalDateTime.now());
 //        member.setAchieveLevel("USER");
-        member.setPassword(passwordEncoder.encode(password));
+        siteUser.setPassword(passwordEncoder.encode(password));
+        siteUser.setNickname(nickname);
 
-        memberRepository.save(member);
-        return member;
+        memberRepository.save(siteUser);
+        return siteUser;
     }
 
-    public SiteMember getMember(String name) {
-//        long l = Long.parseLong(name);
-        return memberRepository.findByUsername(name).orElseThrow(
-                () -> new RuntimeException(name + "is not found.")
-        );
+    public SiteUser getSiteUser(String username) {
+        return memberRepository.findByUsername(username).orElseThrow(
+                () -> new RuntimeException(username + "is not found."));
     }
 }

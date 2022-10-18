@@ -34,8 +34,8 @@ public class MemberController {
             return "members/join_form";
         }
 
-        if(!memberCreateForm.getPassword1().equals(memberCreateForm.getPassword2())) {
-            bindingResult.rejectValue("password2", "passwordInCorrect",
+        if(!memberCreateForm.getPassword().equals(memberCreateForm.getPasswordConfirm())) {
+            bindingResult.rejectValue("passwordConfirm", "passwordInCorrect",
                     "2개의 패스워드가 일치하지 않습니다.");
             return "members/join_form";
         }
@@ -44,7 +44,9 @@ public class MemberController {
         try {
             memberService.create(memberCreateForm.getUsername(),
                     memberCreateForm.getEmail(),
-                    memberCreateForm.getPassword1());
+                    memberCreateForm.getPassword(),
+                    memberCreateForm.getNickname());
+
         } catch (DataIntegrityViolationException e) {
             e.printStackTrace();
             bindingResult.reject("joinFailed", "이미 등록된 사용자입니다.");

@@ -17,14 +17,18 @@ public class MemberCreateForm {
 
 
     @NotEmpty(message = "비밀번호는 필수항목입니다.")
-    private String password1;
+    private String password;
 
     @NotEmpty(message = "비밀번호 확인은 필수항목입니다.")
-    private String password2;
+    private String passwordConfirm;
 
 
     @NotEmpty(message = "이메일은 필수항목입니다.")
     @Email
     private String email;
+
+    @NotEmpty(message = "닉네임은 필수항목입니다.")
+    @Size(min = 1, max = 25)
+    private String nickname;
 
 }

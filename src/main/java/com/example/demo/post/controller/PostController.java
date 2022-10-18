@@ -3,8 +3,7 @@ package com.example.demo.post.controller;
 import com.example.demo.post.entity.Post;
 import com.example.demo.post.form.PostForm;
 import com.example.demo.post.service.PostService;
-import com.example.demo.user.member.entity.Member;
-import com.example.demo.user.member.entity.SiteMember;
+import com.example.demo.user.member.entity.SiteUser;
 import com.example.demo.user.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -90,10 +89,9 @@ public class PostController {
             return "posts/post_form";
         }
 
-        String name = principal.getName();
-        SiteMember siteMember = memberService.getMember(name);
+        SiteUser siteUser = memberService.getSiteUser(principal.getName());
 
-        postService.write(postForm.getSubject(), postForm.getContent(), siteMember);
+        postService.write(postForm.getSubject(), postForm.getContent(), siteUser);
 
 
         return "redirect:/post/list"; //글 저장후 글목록으로 이동

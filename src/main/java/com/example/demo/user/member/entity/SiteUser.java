@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class SiteMember {
+public class SiteUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +24,8 @@ public class SiteMember {
 
     @Column(unique = true)
     private String email;
+
+    private String nickname;
 
     @OneToMany(mappedBy = "author")
     private List<Post> postList = new ArrayList<>();
