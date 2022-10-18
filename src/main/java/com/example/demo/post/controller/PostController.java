@@ -46,6 +46,7 @@ public class PostController {
      * - 번호, 제목, 작성자, 작성날짜, 수정날짜, 내용
      * - 해시태그
      */
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
     public String postDetail(
             Model model,
@@ -96,8 +97,6 @@ public class PostController {
 
 
 
-
-
     /**
      * 글 수정
      * - 폼 입력
@@ -108,7 +107,7 @@ public class PostController {
      *
      *             #자바 #스프링부트
      */
-//    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}/modify")
     public String postModify(
             @Valid PostForm postForm,
@@ -136,7 +135,7 @@ public class PostController {
     /**
      * 글 삭제
      */
-//    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/{id}/delete")
     public String postDelete(
             Principal principal,

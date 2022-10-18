@@ -1,4 +1,4 @@
-<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html layout:decorate="~{global/layout}" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <div layout:fragment="content" class="container my-3">
 <body>
 
@@ -7,9 +7,16 @@
     <h2 class="border-bottom py-2" th:text="${post.subject}"></h2>
     <div class="card my-3">
         <div class="card-body">
+
             <div class="card-text" style="white-space: pre-line;" th:text="${post.content}"></div>
+
             <div class="d-flex justify-content-end">
                 <div class="badge bg-light text-dark p-2 text-start">
+
+                    <div class="mb-2">
+                        <span th:if="${post.member != null}" th:text="${post.member.username}"></span>
+                    </div>
+
                     <div th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></div>
                     <div th:text="${#temporals.format(post.updatedAt, 'yyyy-MM-dd HH:mm')}"></div>
                 </div>
