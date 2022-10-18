@@ -114,6 +114,29 @@ public class PostController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}/modify")
     public String postModify(
+            PostForm postForm,
+            @PathVariable("id") Long id,
+            Principal principal) {
+        Post post = postService.getPost(id);
+
+//        if ( post == null ) {
+//            throw new DataNotFoundException("%d번 질문은 존재하지 않습니다.");
+//        }
+
+        if(!post.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+
+        postForm.setSubject(post.getSubject());
+        postForm.setContent(post.getContent());
+
+        return "posts/post_form";
+    }
+
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/{id}/modify")
+    public String postModify(
             @Valid PostForm postForm,
             BindingResult bindingResult,
             @PathVariable("id") Long id,
@@ -125,15 +148,13 @@ public class PostController {
 
         Post post = postService.getPost(id);
 
-        //getID 인데 ㅡ.ㅡ
         if(!post.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
 
+        postService.modify(post, postForm.getSubject(), postForm.getContent());
 
-        postService.modify(post, post.getSubject(), post.getContent());
-
-        return String.format("redirect:post/%s", id);
+        return String.format("redirect:/post/%s", id);
     }
 
 
