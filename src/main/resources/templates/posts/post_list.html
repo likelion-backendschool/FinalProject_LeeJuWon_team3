@@ -17,7 +17,7 @@
             <td class="text-start">
                 <a th:href="@{|/post/${post.id}|}" th:text="${post.subject}"></a>
             </td>
-            <td><span th:if="${post.member != null}" th:text="${post.member.username}"></span></td>
+            <td><span th:if="${post.author != null}" th:text="${post.author.username}"></span></td>
             <td th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
             <td th:text="${#temporals.format(post.updatedAt, 'yyyy-MM-dd HH:mm')}"></td>
         </tr>

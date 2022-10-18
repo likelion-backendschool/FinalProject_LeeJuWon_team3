@@ -1,6 +1,6 @@
 package com.example.demo.post.entity;
 
-import com.example.demo.user.member.entity.Member;
+import com.example.demo.user.member.entity.SiteMember;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -36,8 +36,9 @@ public class Post {
     //contentHtml
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "author_id")
+    private SiteMember author;
+
 
     @OneToMany(mappedBy = "post")
     private List<PostHashTag> postHashTagList = new ArrayList<>();

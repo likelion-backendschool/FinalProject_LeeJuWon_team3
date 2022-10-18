@@ -14,7 +14,7 @@
                 <div class="badge bg-light text-dark p-2 text-start">
 
                     <div class="mb-2">
-                        <span th:if="${post.member != null}" th:text="${post.member.username}"></span>
+                        <span th:if="${post.author?.username != null}" th:text="${post.author?.username}"></span>
                     </div>
 
                     <div th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></div>
@@ -23,16 +23,17 @@
             </div>
 
             <div class="my-3">
-                <a th:href="@{|/post/modify/${post.id}|}" class="btn btn-sm btn-outline-secondary"
+                <a th:href="@{|/post/${post.id}/modify|}" class="btn btn-sm btn-outline-secondary"
                    sec:authorize="isAuthenticated()"
-                       th:if="${post.member != null and #authentication.getPrincipal().getUsername() == post.member.username}"
-                th:text="수정"></a>
+                   th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author.username}"
+                   th:text="수정"></a>
 
+<!--                th:if="${post.member != null and #authentication.getPrincipal().getEmail() == post.member.username}"-->
 
-                <a href="javascript:void(0);" th:data-uri="@{|/post/delete/${post.id}|}"
-                   class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
-                    th:if="${post.member != null and #authentication.getPrincipal().getUsername() == post.member.username}"
-                th:text="삭제"></a>
+<!--                <a href="javascript:void(0);" th:data-uri="@{|/post/delete/${post.id}|}"-->
+<!--                   class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"-->
+<!--                    th:if="${post.member != null and #authentication.getPrincipal().getUsername() == post.member.username}"-->
+<!--                th:text="삭제"></a>-->
 
             </div>
 

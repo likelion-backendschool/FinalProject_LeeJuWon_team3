@@ -1,15 +1,12 @@
 package com.example.demo.user.member.service;
 
 import com.example.demo.user.member.entity.Member;
-import com.example.demo.user.member.role.MemberRole;
+import com.example.demo.user.member.entity.SiteMember;
 import com.example.demo.user.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -21,22 +18,22 @@ public class MemberService {
 
 
     @Transactional
-    public Member create(String username, String email, String password) {
+    public SiteMember create(String username, String email, String password) {
 
-        Member member = new Member();
+        SiteMember member = new SiteMember();
         member.setUsername(username);
         member.setEmail(email);
-        member.setCreatedAt(LocalDateTime.now());
-        member.setAchieveLevel(MemberRole.USER);
+//        member.setCreatedAt(LocalDateTime.now());
+//        member.setAchieveLevel("USER");
         member.setPassword(passwordEncoder.encode(password));
 
         memberRepository.save(member);
         return member;
     }
 
-    public Member findById(String name) {
-        long l = Long.parseLong(name);
-        return memberRepository.findById(l).orElseThrow(
+    public SiteMember getMember(String name) {
+//        long l = Long.parseLong(name);
+        return memberRepository.findByUsername(name).orElseThrow(
                 () -> new RuntimeException(name + "is not found.")
         );
     }

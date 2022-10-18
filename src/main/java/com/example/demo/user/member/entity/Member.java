@@ -3,20 +3,18 @@ package com.example.demo.user.member.entity;
 import com.example.demo.ebook.Product;
 import com.example.demo.post.entity.Post;
 import com.example.demo.post.entity.PostHashTag;
-import com.example.demo.user.member.role.MemberRole;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 
 @Entity
@@ -42,12 +40,15 @@ public class Member implements UserDetails {
     private String password;
     private String nickname;
 
-    @Column(name = "achieveLevel")
-    @Enumerated(EnumType.STRING)
-    private MemberRole achieveLevel;
+//    @Column(name = "achieveLevel")
+//    @Enumerated(EnumType.STRING)
+//    private MemberRole achieveLevel;
 
-    @Column(unique = true)
+    @Column(name = "email", unique = true)
     private String email;
+
+    @Column(name = "achieveLevel")
+    protected String achieveLevel; // ADMIN, USER
 
     //authLevel
 
@@ -59,13 +60,17 @@ public class Member implements UserDetails {
     private List<PostHashTag> postHashTagList = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "member")
-    private List<Post> postList = new ArrayList<>();
+//    @OneToMany(mappedBy = "member")
+//    private List<Post> postList = new ArrayList<>();
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        Set<GrantedAuthority> roles = new HashSet<>();
+        for (String role : achieveLevel.split(",")) {
+            roles.add(new SimpleGrantedAuthority(role));
+        }
+        return roles;
     }
 
     @Override
@@ -97,4 +102,10 @@ public class Member implements UserDetails {
     public String getPassword() {
         return password;
     }
+
+
+    public String getEmail() {
+        return email;
+    }
+
 }

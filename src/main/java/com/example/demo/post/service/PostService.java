@@ -3,6 +3,7 @@ package com.example.demo.post.service;
 import com.example.demo.post.entity.Post;
 import com.example.demo.post.repository.PostRepository;
 import com.example.demo.user.member.entity.Member;
+import com.example.demo.user.member.entity.SiteMember;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,12 +22,13 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    public void write(String subject, String content, Member member) {
+    @Transactional
+    public void write(String subject, String content, SiteMember author) {
 
         Post post = new Post();
         post.setSubject(subject);
         post.setContent(content);
-        post.setMember(member);
+        post.setAuthor(author);
 //        post.setKeywords(keywords);
         post.setCreatedAt(LocalDateTime.now());
         postRepository.save(post);
@@ -40,6 +42,7 @@ public class PostService {
         return post;
     }
 
+    @Transactional
     public void modify(Post post, String subject, String content) {
 
         post.setSubject(subject);
@@ -48,6 +51,8 @@ public class PostService {
         postRepository.save(post);
     }
 
+
+    @Transactional
     public void delete(Post post) {
         postRepository.delete(post);
     }

@@ -4,13 +4,16 @@ import com.example.demo.post.entity.Post;
 import com.example.demo.post.form.PostForm;
 import com.example.demo.post.service.PostService;
 import com.example.demo.user.member.entity.Member;
+import com.example.demo.user.member.entity.SiteMember;
 import com.example.demo.user.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -53,6 +56,7 @@ public class PostController {
             @PathVariable("id") Long id) {
 
         Post post = postService.getPost(id);
+
         model.addAttribute("post", post);
 
         return "posts/post_detail";
@@ -87,9 +91,9 @@ public class PostController {
         }
 
         String name = principal.getName();
-        Member member = memberService.findById(name);
+        SiteMember siteMember = memberService.getMember(name);
 
-        postService.write(postForm.getSubject(), postForm.getContent(), member);
+        postService.write(postForm.getSubject(), postForm.getContent(), siteMember);
 
 
         return "redirect:/post/list"; //글 저장후 글목록으로 이동
@@ -121,9 +125,10 @@ public class PostController {
 
         Post post = postService.getPost(id);
 
-//        if(!post.getAuthor().getUsername().equals(principal.getName())) {
-//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
-//        }
+        //getID 인데 ㅡ.ㅡ
+        if(!post.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
 
 
         postService.modify(post, post.getSubject(), post.getContent());
