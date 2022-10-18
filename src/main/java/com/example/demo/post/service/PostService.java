@@ -21,9 +21,7 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    public void write(String subject, String content, Member member
-//            , String keywords
-    ) {
+    public void write(String subject, String content, Member member) {
 
         Post post = new Post();
         post.setSubject(subject);

@@ -85,7 +85,8 @@ public class PostController {
             return "posts/post_form";
         }
 
-        Member member = memberService.getMember(principal.getName());
+        String name = principal.getName();
+        Member member = memberService.findById(name);
 
         postService.write(postForm.getSubject(), postForm.getContent(), member);
 

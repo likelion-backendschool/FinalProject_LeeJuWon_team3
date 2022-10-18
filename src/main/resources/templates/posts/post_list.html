@@ -3,20 +3,21 @@
 <div class="container my-3">
     <table class="table">
         <thead class="table-dark">
-        <tr>
+        <tr class="text-center">
             <th>번호</th>
-            <th>제목</th>
-<!--            <th>작성자</th>-->
+            <th style="width: 50%">제목</th>
+            <th>작성자</th>
             <th>작성날짜</th>
             <th>수정날짜</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="post, loop : ${postList}">
+        <tr class="text-center" th:each="post, loop : ${postList}">
             <td th:text="${loop.count}"></td>
-            <td>
+            <td class="text-start">
                 <a th:href="@{|/post/${post.id}|}" th:text="${post.subject}"></a>
             </td>
+            <td><span th:if="${post.member != null}" th:text="${post.member.username}"></span></td>
             <td th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
             <td th:text="${#temporals.format(post.updatedAt, 'yyyy-MM-dd HH:mm')}"></td>
         </tr>

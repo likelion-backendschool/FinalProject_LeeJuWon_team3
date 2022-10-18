@@ -34,11 +34,10 @@ public class MemberService {
         return member;
     }
 
-    public Member getMember(String username) {
-        return memberRepository.findByUsername(username)
-                .orElseThrow(
-                        () -> new RuntimeException(username + "is not found.")
-                );
+    public Member findById(String name) {
+        long l = Long.parseLong(name);
+        return memberRepository.findById(l).orElseThrow(
+                () -> new RuntimeException(name + "is not found.")
+        );
     }
-
 }
