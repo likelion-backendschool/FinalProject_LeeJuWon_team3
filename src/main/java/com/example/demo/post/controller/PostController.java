@@ -6,6 +6,7 @@ import com.example.demo.post.service.PostService;
 import com.example.demo.user.member.entity.Member;
 import com.example.demo.user.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -91,7 +92,15 @@ public class PostController {
 
         Member siteUser = memberService.getMember(principal.getName());
 
-        postService.write(postForm.getSubject(), postForm.getContent(), siteUser);
+
+        try {
+            postService.write(postForm.getSubject(), postForm.getContent(), siteUser);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            bindingResult.reject("writeFailed", e.getMessage());
+            return "posts/post_form";
+        }
 
 
         return "redirect:/post/list"; //글 저장후 글목록으로 이동
@@ -150,7 +159,14 @@ public class PostController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
 
-        postService.modify(post, postForm.getSubject(), postForm.getContent());
+        try {
+            postService.modify(post, postForm.getSubject(), postForm.getContent());
+        } catch (Exception e) {
+            e.printStackTrace();
+            bindingResult.reject("modifyFailed", e.getMessage());
+            return "posts/post_form";
+        }
+
 
         return String.format("redirect:/post/%s", id);
     }

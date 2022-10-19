@@ -8,6 +8,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +33,17 @@ public class Post {
 
     private String subject;
 
-    @Column(columnDefinition = "TEXT", length=10485760)
+
+    @Column(columnDefinition = "TEXT", length = 10485760)
     private String content;
 
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "author_id")
     private Member author;
+
+
+    //contentHtml 내용(토스트에디터의 렌더링 결과, HTML)
 
 
     @OneToMany(mappedBy = "post")
