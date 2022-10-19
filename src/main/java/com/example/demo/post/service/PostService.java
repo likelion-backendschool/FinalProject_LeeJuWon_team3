@@ -46,7 +46,7 @@ public class PostService {
         post.setSubject(subject);
         post.setContent(content);
         post.setUpdatedAt(LocalDateTime.now());
-        postRepository.save(post);
+//        postRepository.save(post);
     }
 
 

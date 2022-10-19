@@ -39,4 +39,21 @@ public class ProductService {
         product.setCreatedAt(LocalDateTime.now());
         productRepository.save(product);
     }
+
+    public Product getProduct(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product id" + id + "not found"));
+    }
+
+    @Transactional
+    public void modify(Product product, String subject, int price) {
+        product.setSubject(subject);
+        product.setPrice(price);
+    }
+
+
+    @Transactional
+    public void delete(Product product) {
+        productRepository.delete(product);
+    }
 }

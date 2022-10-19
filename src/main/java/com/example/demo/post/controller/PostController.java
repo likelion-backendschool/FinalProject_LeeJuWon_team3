@@ -168,7 +168,7 @@ public class PostController {
         }
 
 
-        return String.format("redirect:/post/%s", id);
+        return String.format("redirect:/usr/post/%s", id);
     }
 
 
