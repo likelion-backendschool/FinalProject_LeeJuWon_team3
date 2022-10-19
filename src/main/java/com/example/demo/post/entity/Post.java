@@ -31,9 +31,9 @@ public class Post {
 
     private String subject;
 
+    @Column(columnDefinition = "TEXT", length=10485760)
     private String content;
 
-    //contentHtml
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "author_id")
