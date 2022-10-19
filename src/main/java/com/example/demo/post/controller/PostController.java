@@ -3,7 +3,7 @@ package com.example.demo.post.controller;
 import com.example.demo.post.entity.Post;
 import com.example.demo.post.form.PostForm;
 import com.example.demo.post.service.PostService;
-import com.example.demo.user.member.entity.SiteUser;
+import com.example.demo.user.member.entity.Member;
 import com.example.demo.user.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -89,7 +89,7 @@ public class PostController {
             return "posts/post_form";
         }
 
-        SiteUser siteUser = memberService.getSiteUser(principal.getName());
+        Member siteUser = memberService.getMember(principal.getName());
 
         postService.write(postForm.getSubject(), postForm.getContent(), siteUser);
 

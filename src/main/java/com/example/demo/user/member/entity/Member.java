@@ -21,7 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 @SuperBuilder
 @EntityListeners(AuditingEntityListener.class)
-public class SiteUser extends UserInfo{
+public class Member extends UserInfo{
 
     @OneToMany(mappedBy = "author")
     private List<Product> productList = new ArrayList<>();

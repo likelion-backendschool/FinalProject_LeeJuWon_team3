@@ -2,7 +2,7 @@ package com.example.demo.post.service;
 
 import com.example.demo.post.entity.Post;
 import com.example.demo.post.repository.PostRepository;
-import com.example.demo.user.member.entity.SiteUser;
+import com.example.demo.user.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +22,7 @@ public class PostService {
     }
 
     @Transactional
-    public void write(String subject, String content, SiteUser author) {
+    public void write(String subject, String content, Member author) {
 
         Post post = new Post();
         post.setSubject(subject);

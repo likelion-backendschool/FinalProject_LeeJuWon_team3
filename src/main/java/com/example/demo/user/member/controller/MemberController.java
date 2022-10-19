@@ -1,23 +1,18 @@
 package com.example.demo.user.member.controller;
 
-import com.example.demo.post.entity.Post;
-import com.example.demo.post.form.PostForm;
-import com.example.demo.user.member.entity.SiteUser;
+import com.example.demo.user.member.entity.Member;
 import com.example.demo.user.member.form.MemberCreateForm;
 import com.example.demo.user.member.form.MemberModifyForm;
 import com.example.demo.user.member.form.MemberModifyPasswordForm;
 import com.example.demo.user.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -96,11 +91,11 @@ public class MemberController {
             MemberModifyForm memberModifyForm,
             Principal principal) {
 
-        SiteUser siteUser = memberService.getSiteUser(principal.getName());
+        Member member = memberService.getMember(principal.getName());
 
-        memberModifyForm.setUsername(siteUser.getUsername());
-        memberModifyForm.setEmail(siteUser.getEmail());
-        memberModifyForm.setNickname(siteUser.getNickname());
+        memberModifyForm.setUsername(member.getUsername());
+        memberModifyForm.setEmail(member.getEmail());
+        memberModifyForm.setNickname(member.getNickname());
 
         return "members/modify_form";
     }
@@ -116,9 +111,9 @@ public class MemberController {
             return "members/modify_form";
         }
 
-        SiteUser siteUser = memberService.getSiteUser(principal.getName());
+        Member member = memberService.getMember(principal.getName());
 
-        memberService.modify(siteUser,
+        memberService.modify(member,
                 memberModifyForm.getEmail(),
                 memberModifyForm.getNickname());
 
@@ -136,8 +131,8 @@ public class MemberController {
             MemberModifyPasswordForm memberModifyPasswordForm,
             Principal principal) {
 
-        SiteUser siteUser = memberService.getSiteUser(principal.getName());
-        memberModifyPasswordForm.setUsername(siteUser.getUsername());
+        Member member = memberService.getMember(principal.getName());
+        memberModifyPasswordForm.setUsername(member.getUsername());
 
         return "members/modify_password_form";
     }
@@ -153,9 +148,9 @@ public class MemberController {
             return "members/modify_password_form";
         }
 
-        SiteUser siteUser = memberService.getSiteUser(principal.getName());
+        Member member = memberService.getMember(principal.getName());
 
-        boolean sameOldPassword = memberService.isSameOldPassword(siteUser, memberModifyPasswordForm);
+        boolean sameOldPassword = memberService.isSameOldPassword(member, memberModifyPasswordForm);
 
         if(!sameOldPassword) {
             bindingResult.rejectValue("oldPassword", "passwordInCorrect",
@@ -169,7 +164,7 @@ public class MemberController {
             return "members/modify_password_form";
         }
 
-        memberService.modifyPassword(siteUser, memberModifyPasswordForm.getPassword());
+        memberService.modifyPassword(member, memberModifyPasswordForm.getPassword());
 
         return "redirect:/";
     }

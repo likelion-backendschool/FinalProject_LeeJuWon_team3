@@ -1,7 +1,7 @@
 package com.example.demo.ebook;
 
 import com.example.demo.post.entity.PostKeyword;
-import com.example.demo.user.member.entity.SiteUser;
+import com.example.demo.user.member.entity.Member;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,7 +36,7 @@ public class Product {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "author_id")
-    private SiteUser author;
+    private Member author;
 
     @OneToOne
     @JoinColumn(name = "postKeyword_id")

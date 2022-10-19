@@ -1,6 +1,6 @@
 package com.example.demo.user.member.service;
 
-import com.example.demo.user.member.entity.SiteUser;
+import com.example.demo.user.member.entity.Member;
 import com.example.demo.user.member.form.MemberModifyPasswordForm;
 import com.example.demo.user.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,52 +20,52 @@ public class MemberService {
     @Transactional
     public void create(String username, String email, String password, String nickname) {
 
-        SiteUser siteUser = new SiteUser();
-        siteUser.setUsername(username);
-        siteUser.setEmail(email);
-        siteUser.setPassword(passwordEncoder.encode(password));
+        Member member = new Member();
+        member.setUsername(username);
+        member.setEmail(email);
+        member.setPassword(passwordEncoder.encode(password));
 
 
         if(nickname == null || nickname.isEmpty()) {
-            siteUser.setAuth("ROLE_MEMBER");
+            member.setAuth("ROLE_MEMBER");
         }
         else {
-            siteUser.setNickname(nickname);
-            siteUser.setAuth("ROLE_AUTHOR");
+            member.setNickname(nickname);
+            member.setAuth("ROLE_AUTHOR");
         }
 
-        memberRepository.save(siteUser);
+        memberRepository.save(member);
 
     }
 
-    public SiteUser getSiteUser(String username) {
+    public Member getMember(String username) {
         return memberRepository.findByUsername(username).orElseThrow(
                 () -> new RuntimeException(username + "is not found."));
     }
 
     @Transactional
-    public void modify(SiteUser siteUser, String email, String nickname) {
+    public void modify(Member member, String email, String nickname) {
 
         if(nickname == null || nickname.isEmpty()) {
-            if(siteUser.getAuth().equals("ROLE_AUTHOR")) {
-                siteUser.setNickname(nickname);
+            if(member.getAuth().equals("ROLE_AUTHOR")) {
+                member.setNickname(nickname);
             }
-            siteUser.setEmail(email);
+            member.setEmail(email);
         }
         else {
-            siteUser.setNickname(nickname);
-            siteUser.setAuth("ROLE_AUTHOR");
+            member.setNickname(nickname);
+            member.setAuth("ROLE_AUTHOR");
         }
     }
 
 
     @Transactional
-    public void modifyPassword(SiteUser siteUser, String password) {
-        siteUser.setPassword(passwordEncoder.encode(password));
+    public void modifyPassword(Member member, String password) {
+        member.setPassword(passwordEncoder.encode(password));
     }
 
-    public boolean isSameOldPassword(SiteUser siteUser, MemberModifyPasswordForm memberModifyPasswordForm) {
-        String encodedOldPassword = siteUser.getPassword();
+    public boolean isSameOldPassword(Member member, MemberModifyPasswordForm memberModifyPasswordForm) {
+        String encodedOldPassword = member.getPassword();
         String inputOldPassword = memberModifyPasswordForm.getOldPassword();
 
         return passwordEncoder.matches(inputOldPassword, encodedOldPassword);

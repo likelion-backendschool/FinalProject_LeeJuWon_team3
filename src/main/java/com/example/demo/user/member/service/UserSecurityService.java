@@ -1,6 +1,6 @@
 package com.example.demo.user.member.service;
 
-import com.example.demo.user.member.entity.SiteUser;
+import com.example.demo.user.member.entity.Member;
 import com.example.demo.user.member.repository.MemberRepository;
 import com.example.demo.user.member.role.MemberRole;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class UserSecurityService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        SiteUser siteUser = memberRepository.findByUsername(username)
+        Member member = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을수 없습니다."));
 
         List<GrantedAuthority> authorities = new ArrayList<>();
@@ -35,7 +35,7 @@ public class UserSecurityService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(MemberRole.USER.getValue()));
         }
 
-        return new User(siteUser.getUsername(), siteUser.getPassword(), authorities);
+        return new User(member.getUsername(), member.getPassword(), authorities);
     }
 
 

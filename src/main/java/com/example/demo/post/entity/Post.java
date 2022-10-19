@@ -1,6 +1,6 @@
 package com.example.demo.post.entity;
 
-import com.example.demo.user.member.entity.SiteUser;
+import com.example.demo.user.member.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -37,7 +37,7 @@ public class Post {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "author_id")
-    private SiteUser author;
+    private Member author;
 
 
     @OneToMany(mappedBy = "post")
