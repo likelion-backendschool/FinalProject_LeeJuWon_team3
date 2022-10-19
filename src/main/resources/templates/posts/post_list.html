@@ -1,4 +1,5 @@
-<html layout:decorate="~{global/layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<html layout:decorate="~{global/layout}" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <div layout:fragment="content" class="container my-3">
 <div class="container my-3">
     <table class="table">
@@ -23,7 +24,10 @@
         </tr>
         </tbody>
     </table>
+
+    <a sec:authorize="isAuthenticated()">
     <a th:href="@{/usr/post/write}" class="btn btn-primary">글 등록하기</a>
+    </a>
 </div>
 </div>
 </html>
