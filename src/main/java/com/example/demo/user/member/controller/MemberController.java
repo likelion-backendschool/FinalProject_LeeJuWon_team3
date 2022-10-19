@@ -19,7 +19,7 @@ import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/member")
+@RequestMapping("/usr/member")
 public class MemberController {
 
     private final MemberService memberService;
@@ -72,13 +72,6 @@ public class MemberController {
     }
 
 
-    /**
-     * 로그인
-     */
-    @GetMapping("/login")
-    public String login() {
-        return "members/login_form";
-    }
 
 
     /**

@@ -25,7 +25,12 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/**").permitAll()
+        http.
+                authorizeRequests()
+                .antMatchers( "/user/login", "/join", "/user", "/", "/usr/member/join").permitAll()
+//                .antMatchers("/usr/author/product/**").hasRole("AUTHOR")
+                .antMatchers("/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .csrf().ignoringAntMatchers("/h2-console/**")
                 .and()
@@ -35,11 +40,11 @@ public class SecurityConfig {
                 ))
                 .and()
                     .formLogin()
-                    .loginPage("/member/login")
+                    .loginPage("/user/login")
                     .defaultSuccessUrl("/")
                 .and()
                     .logout()
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                     .logoutSuccessUrl("/")
                     .invalidateHttpSession(true);
 

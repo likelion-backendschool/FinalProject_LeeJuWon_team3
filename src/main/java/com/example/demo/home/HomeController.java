@@ -9,7 +9,7 @@ public class HomeController {
 
     @RequestMapping("/")
     public String root() {
-        return "redirect:/post/list";
+        return "redirect:/usr/post/list";
     }
 
 }

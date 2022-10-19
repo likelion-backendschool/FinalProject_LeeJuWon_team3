@@ -22,12 +22,12 @@ public class PostService {
     }
 
     @Transactional
-    public void write(String subject, String content, Member author) {
+    public void write(String subject, String content, Member member) {
 
         Post post = new Post();
         post.setSubject(subject);
         post.setContent(content);
-        post.setAuthor(author);
+        post.setAuthor(member);
         post.setCreatedAt(LocalDateTime.now());
         postRepository.save(post);
     }

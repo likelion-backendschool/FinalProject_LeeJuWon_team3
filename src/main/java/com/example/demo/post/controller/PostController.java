@@ -21,7 +21,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/post")
+@RequestMapping("/usr/post")
 public class PostController {
 
     private final PostService postService;
@@ -90,11 +90,11 @@ public class PostController {
             return "posts/post_form";
         }
 
-        Member siteUser = memberService.getMember(principal.getName());
+        Member member = memberService.getMember(principal.getName());
 
 
         try {
-            postService.write(postForm.getSubject(), postForm.getContent(), siteUser);
+            postService.write(postForm.getSubject(), postForm.getContent(), member);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -103,7 +103,7 @@ public class PostController {
         }
 
 
-        return "redirect:/post/list"; //글 저장후 글목록으로 이동
+        return "redirect:/usr/post/list"; //글 등록 후 글목록으로 이동
     }
 
 
