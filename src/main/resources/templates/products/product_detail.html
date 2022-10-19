@@ -4,11 +4,20 @@
 
   <div class="container my-3">
     <!-- 상품(도서) -->
-    <h2 class="border-bottom py-2" th:text="${product.subject}"></h2>
+    <h2>상품(도서) 상세화면</h2>
     <div class="card my-3">
       <div class="card-body">
-
+        <h2 class="border-bottom py-2" th:text="${product.subject}"></h2>
         <h2 class="border-bottom py-2" th:text="${product.price}"></h2>
+
+
+        <div class="badge bg-light text-dark p-2 text-start">
+
+          <div class="mb-2">
+            <span th:if="${product.author?.username != null}" th:text="${product.author?.username}"></span>
+          </div>
+
+        </div>
 
         <div class="my-3">
           <a th:href="@{|/usr/author/product/${product.id}/modify|}" class="btn btn-sm btn-outline-secondary"

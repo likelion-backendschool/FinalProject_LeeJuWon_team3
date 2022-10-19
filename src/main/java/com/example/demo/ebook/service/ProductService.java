@@ -31,13 +31,14 @@ public class ProductService {
 
 
     @Transactional
-    public void create(String subject, int price, Member member) {
+    public Product create(String subject, int price, Member member) {
         Product product = new Product();
         product.setSubject(subject);
         product.setPrice(price);
         product.setAuthor(member);
         product.setCreatedAt(LocalDateTime.now());
-        productRepository.save(product);
+        Product result = productRepository.save(product);
+        return result;
     }
 
     public Product getProduct(Long id) {

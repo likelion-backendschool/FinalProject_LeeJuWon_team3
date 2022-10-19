@@ -17,7 +17,7 @@
             <tr class="text-center" th:each="product, loop : ${productList}">
                 <td th:text="${loop.count}"></td>
                 <td class="text-start">
-                    <a th:href="@{|/usr/product/${product.id}|}" th:text="${product.subject}"></a>
+                    <a th:href="@{|/usr/author/product/${product.id}|}" th:text="${product.subject}"></a>
                 </td>
                 <td><span th:text="${product.price}"></span></td>
                 <td><span th:if="${product.author != null}" th:text="${product.author.username}"></span></td>

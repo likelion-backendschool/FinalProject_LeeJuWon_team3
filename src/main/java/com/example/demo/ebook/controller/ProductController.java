@@ -71,7 +71,9 @@ public class ProductController {
 
 
         try {
-            productService.create(productForm.getSubject(), productForm.getPrice(), member);
+            Product product = productService.create(productForm.getSubject(), productForm.getPrice(), member);
+            Long id = product.getId();
+            return String.format("redirect:/usr/author/product/%s", id); //상품(도서)등록 후 해당 상품(도서) 상세페이지로 이동
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,7 +81,6 @@ public class ProductController {
             return "products/product_form";
         }
 
-        return "redirect:/usr/product/list"; //상품(도서)등록 후 상품(도서)목록으로 이동
     }
 
 
@@ -87,7 +88,7 @@ public class ProductController {
      * 상품(도서) 상세
      */
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/product/{id}")
+    @GetMapping("/author/product/{id}")
     public String productDetail(
             Model model,
             @PathVariable("id") Long id) {
