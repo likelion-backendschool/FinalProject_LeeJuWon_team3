@@ -4,10 +4,12 @@ import com.example.demo.user.member.entity.Member;
 import com.example.demo.user.member.form.MemberCreateForm;
 import com.example.demo.user.member.form.MemberModifyForm;
 import com.example.demo.user.member.form.MemberModifyPasswordForm;
+import com.example.demo.user.member.form.MemberFindIdForm;
 import com.example.demo.user.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -158,6 +160,38 @@ public class MemberController {
         }
 
         memberService.modifyPassword(member, memberModifyPasswordForm.getPassword());
+
+        return "redirect:/";
+    }
+
+
+
+
+    /**
+     * 아이디 찾기
+     * TODO 오류 해결하기
+     */
+    @GetMapping("/findUsername")
+    public String findId(
+            MemberFindIdForm memberFindIdForm) {
+        return "members/find_id_form";
+    }
+
+    @PostMapping("/findUsername")
+    public String findId(@Valid MemberFindIdForm memberFindIdForm,
+                         BindingResult bindingResult
+    ) {
+
+        if(bindingResult.hasErrors()) {
+            return "members/find_id_form";
+        }
+
+        String email = memberFindIdForm.getEmail();
+        Member member = memberService.findByEmail(email);
+
+
+        String username = member.getUsername();
+        System.out.println("username = " + username);
 
         return "redirect:/";
     }

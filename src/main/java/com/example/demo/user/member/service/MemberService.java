@@ -75,4 +75,10 @@ public class MemberService {
         return passwordEncoder.matches(inputOldPassword, encodedOldPassword);
     }
 
+    public Member findByEmail(String email) {
+        return memberRepository.findByEmail(email)
+                .orElseThrow(
+                        () -> new RuntimeException(email + " is not Found")
+                );
+    }
 }
