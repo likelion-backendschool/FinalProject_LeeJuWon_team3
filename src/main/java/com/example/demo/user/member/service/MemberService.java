@@ -8,6 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -24,7 +26,7 @@ public class MemberService {
         member.setUsername(username);
         member.setEmail(email);
         member.setPassword(passwordEncoder.encode(password));
-
+        member.setCreatedAt(LocalDateTime.now());
 
         if(nickname == null || nickname.isEmpty()) {
             member.setAuth("ROLE_MEMBER");
@@ -46,6 +48,7 @@ public class MemberService {
     @Transactional
     public void modify(Member member, String email, String nickname) {
 
+        member.setUpdatedAt(LocalDateTime.now());
         if(nickname == null || nickname.isEmpty()) {
             if(member.getAuth().equals("ROLE_AUTHOR")) {
                 member.setNickname(nickname);
@@ -61,6 +64,7 @@ public class MemberService {
 
     @Transactional
     public void modifyPassword(Member member, String password) {
+        member.setUpdatedAt(LocalDateTime.now());
         member.setPassword(passwordEncoder.encode(password));
     }
 
