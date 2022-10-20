@@ -49,6 +49,7 @@ public class MemberService {
         member.setEmail(email);
         member.setUpdatedAt(LocalDateTime.now());
 
+        //TODO nickname 등록 다르게 구현
 //        if(nickname == null || nickname.isEmpty()) {
 //            if(member.getAuth().equals("ROLE_AUTHOR")) {
 //                member.setNickname(nickname);
