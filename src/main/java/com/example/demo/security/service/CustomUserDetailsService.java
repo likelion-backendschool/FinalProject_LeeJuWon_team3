@@ -1,8 +1,9 @@
-package com.example.demo.domain.member.service;
+package com.example.demo.security.service;
 
 import com.example.demo.domain.member.repository.MemberRepository;
 import com.example.demo.domain.member.role.MemberRole;
 import com.example.demo.domain.member.entity.Member;
+import com.example.demo.security.dto.MemberContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserSecurityService implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
@@ -27,15 +28,18 @@ public class UserSecurityService implements UserDetailsService {
         Member member = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을수 없습니다."));
 
-        List<GrantedAuthority> authorities = new ArrayList<>();
 
-        if ("admin".equals(username)) {
-            authorities.add(new SimpleGrantedAuthority(MemberRole.ADMIN.getValue()));
-        } else {
-            authorities.add(new SimpleGrantedAuthority(MemberRole.USER.getValue()));
-        }
+        return new MemberContext(member, member.getAuthorities());
 
-        return new User(member.getUsername(), member.getPassword(), authorities);
+//        List<GrantedAuthority> authorities = new ArrayList<>();
+
+//        if ("admin".equals(username)) {
+//            authorities.add(new SimpleGrantedAuthority(MemberRole.ADMIN.getValue()));
+//        } else {
+//            authorities.add(new SimpleGrantedAuthority(MemberRole.USER.getValue()));
+//        }
+//
+//        return new User(member.getUsername(), member.getPassword(), authorities);
     }
 
 

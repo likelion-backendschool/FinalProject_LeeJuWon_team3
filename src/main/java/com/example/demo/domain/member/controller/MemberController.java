@@ -4,7 +4,6 @@ import com.example.demo.domain.member.entity.Member;
 import com.example.demo.domain.member.form.MemberCreateForm;
 import com.example.demo.domain.member.form.MemberFindIdForm;
 import com.example.demo.domain.member.form.MemberModifyForm;
-import com.example.demo.domain.member.service.UserSecurityService;
 import com.example.demo.domain.member.form.MemberModifyPasswordForm;
 import com.example.demo.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,6 @@ import java.security.Principal;
 public class MemberController {
 
     private final MemberService memberService;
-    private final UserSecurityService userSecurityService;
 
 
     /**
