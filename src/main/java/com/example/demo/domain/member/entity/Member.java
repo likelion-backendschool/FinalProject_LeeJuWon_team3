@@ -45,8 +45,8 @@ public class Member {
     private String nickname;
 
     //TODO 삭제 예정
-    @Column(name = "auth")
-    protected String auth;    // 권한(member, author, admin)
+//    @Column(name = "auth")
+//    protected String auth;    // 권한(member, author, admin)
 
     @Column(name = "email", unique = true)
     private String email;

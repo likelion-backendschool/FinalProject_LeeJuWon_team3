@@ -6,9 +6,14 @@ import com.example.demo.domain.member.form.MemberFindIdForm;
 import com.example.demo.domain.member.form.MemberModifyForm;
 import com.example.demo.domain.member.form.MemberModifyPasswordForm;
 import com.example.demo.domain.member.service.MemberService;
+import com.example.demo.security.dto.MemberContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -28,7 +33,7 @@ import java.security.Principal;
 public class MemberController {
 
     private final MemberService memberService;
-
+    private final AuthenticationManager authenticationManager;
 
     /**
      * 로그인
@@ -105,14 +110,12 @@ public class MemberController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify")
     public String infoModify(
-            MemberModifyForm memberModifyForm,
-            Principal principal) {
+            @AuthenticationPrincipal MemberContext memberContext,
+            MemberModifyForm memberModifyForm) {
 
-        Member member = memberService.findMember(principal.getName());
-
-        memberModifyForm.setUsername(member.getUsername());
-        memberModifyForm.setEmail(member.getEmail());
-        memberModifyForm.setNickname(member.getNickname());
+        memberModifyForm.setUsername(memberContext.getUsername());
+        memberModifyForm.setEmail(memberContext.getEmail());
+        memberModifyForm.setNickname(memberContext.getNickname());
 
         return "members/modify_form";
     }
@@ -120,19 +123,23 @@ public class MemberController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/modify")
     public String infoModify(
+            @AuthenticationPrincipal MemberContext memberContext,
             @Valid MemberModifyForm memberModifyForm,
-            BindingResult bindingResult,
-            Principal principal) {
+            BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()) {
             return "members/modify_form";
         }
 
-        Member member = memberService.findMember(principal.getName());
 
-        memberService.modify(member,
+        memberService.modify(memberModifyForm.getUsername(),
                 memberModifyForm.getEmail(),
                 memberModifyForm.getNickname());
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(memberContext.getUsername(), memberModifyForm.getEmail()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return "redirect:/";
     }
@@ -145,11 +152,10 @@ public class MemberController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modifyPassword")
     public String infoModifyPassword(
-            MemberModifyPasswordForm memberModifyPasswordForm,
-            Principal principal) {
+            @AuthenticationPrincipal MemberContext memberContext,
+            MemberModifyPasswordForm memberModifyPasswordForm) {
 
-        Member member = memberService.findMember(principal.getName());
-        memberModifyPasswordForm.setUsername(member.getUsername());
+        memberModifyPasswordForm.setUsername(memberContext.getUsername());
 
         return "members/modify_password_form";
     }
@@ -157,17 +163,16 @@ public class MemberController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/modifyPassword")
     public String infoModifyPassword(
+            @AuthenticationPrincipal MemberContext memberContext,
             @Valid MemberModifyPasswordForm memberModifyPasswordForm,
-            BindingResult bindingResult,
-            Principal principal) {
+            BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()) {
             return "members/modify_password_form";
         }
 
-        Member member = memberService.findMember(principal.getName());
 
-        boolean sameOldPassword = memberService.isSameOldPassword(member, memberModifyPasswordForm);
+        boolean sameOldPassword = memberService.isSameOldPassword(memberContext, memberModifyPasswordForm);
 
         if(!sameOldPassword) {
             bindingResult.rejectValue("oldPassword", "passwordInCorrect",
@@ -177,11 +182,17 @@ public class MemberController {
 
         if(!memberModifyPasswordForm.getPassword().equals(memberModifyPasswordForm.getPasswordConfirm())) {
             bindingResult.rejectValue("passwordConfirm", "passwordInCorrect",
-                    "2개의 패스워드가 일치하지 않습니다.");
+                    "새로운 2개의 패스워드가 일치하지 않습니다.");
             return "members/modify_password_form";
         }
 
-        memberService.modifyPassword(member, memberModifyPasswordForm.getPassword());
+        memberService.modifyPassword(memberContext.getUsername(), memberModifyPasswordForm.getPassword());
+
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(memberContext.getUsername(), memberModifyPasswordForm.getPassword()));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return "redirect:/";
     }

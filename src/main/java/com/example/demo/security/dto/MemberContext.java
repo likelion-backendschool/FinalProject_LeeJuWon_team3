@@ -16,6 +16,7 @@ public class MemberContext extends User {
     private final LocalDateTime createAt;
     private final LocalDateTime updatedAT;
     private final String username;
+    private final String password;
     private final String email;
     private final String nickname;
 
@@ -25,6 +26,7 @@ public class MemberContext extends User {
         this.createAt = member.getCreatedAt();
         this.updatedAT = member.getUpdatedAt();
         this.username = member.getUsername();
+        this.password = member.getPassword();
         this.email = member.getEmail();
         this.nickname = member.getNickname();
     }
