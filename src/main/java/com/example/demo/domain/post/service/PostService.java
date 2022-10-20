@@ -22,7 +22,7 @@ public class PostService {
     }
 
     @Transactional
-    public void write(String subject, String content, Member member) {
+    public Post write(String subject, String content, Member member) {
 
         Post post = Post.builder()
                 .subject(subject)
@@ -30,7 +30,8 @@ public class PostService {
                 .author(member)
                 .build();
 
-        postRepository.save(post);
+        Post result = postRepository.save(post);
+        return result;
     }
 
     public Post getPost(Long id) {

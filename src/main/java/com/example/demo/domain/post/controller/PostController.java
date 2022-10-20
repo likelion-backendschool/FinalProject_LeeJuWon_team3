@@ -91,18 +91,15 @@ public class PostController {
 
         Member member = memberService.findMember(principal.getName());
 
-
         try {
-            postService.write(postForm.getSubject(), postForm.getContent(), member);
-
+            Post post = postService.write(postForm.getSubject(), postForm.getContent(), member);
+            Long id = post.getId();
+            return String.format("redirect:/post/%s", id); //글 등록 후 해당 글로 이동
         } catch (Exception e) {
             e.printStackTrace();
             bindingResult.reject("writeFailed", e.getMessage());
             return "posts/post_form";
         }
-
-
-        return "redirect:/post/list"; //글 등록 후 글목록으로 이동
     }
 
 
@@ -124,10 +121,6 @@ public class PostController {
             @PathVariable("id") Long id,
             Principal principal) {
         Post post = postService.getPost(id);
-
-//        if ( post == null ) {
-//            throw new DataNotFoundException("%d번 질문은 존재하지 않습니다.");
-//        }
 
         if(!post.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
