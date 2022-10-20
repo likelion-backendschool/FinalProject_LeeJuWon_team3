@@ -110,7 +110,7 @@ public class MemberController {
             MemberModifyForm memberModifyForm,
             Principal principal) {
 
-        Member member = memberService.getMember(principal.getName());
+        Member member = memberService.findMember(principal.getName());
 
         memberModifyForm.setUsername(member.getUsername());
         memberModifyForm.setEmail(member.getEmail());
@@ -130,7 +130,7 @@ public class MemberController {
             return "members/modify_form";
         }
 
-        Member member = memberService.getMember(principal.getName());
+        Member member = memberService.findMember(principal.getName());
 
         memberService.modify(member,
                 memberModifyForm.getEmail(),
@@ -150,7 +150,7 @@ public class MemberController {
             MemberModifyPasswordForm memberModifyPasswordForm,
             Principal principal) {
 
-        Member member = memberService.getMember(principal.getName());
+        Member member = memberService.findMember(principal.getName());
         memberModifyPasswordForm.setUsername(member.getUsername());
 
         return "members/modify_password_form";
@@ -167,7 +167,7 @@ public class MemberController {
             return "members/modify_password_form";
         }
 
-        Member member = memberService.getMember(principal.getName());
+        Member member = memberService.findMember(principal.getName());
 
         boolean sameOldPassword = memberService.isSameOldPassword(member, memberModifyPasswordForm);
 

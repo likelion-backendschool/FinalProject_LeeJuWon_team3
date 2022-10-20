@@ -89,7 +89,7 @@ public class PostController {
             return "posts/post_form";
         }
 
-        Member member = memberService.getMember(principal.getName());
+        Member member = memberService.findMember(principal.getName());
 
 
         try {

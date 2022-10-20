@@ -65,7 +65,7 @@ public class ProductController {
             return "products/product_form";
         }
 
-        Member member = memberService.getMember(principal.getName());
+        Member member = memberService.findMember(principal.getName());
 
 
         try {

@@ -40,7 +40,7 @@ public class MemberService {
 
     }
 
-    public Member getMember(String username) {
+    public Member findMember(String username) {
         return memberRepository.findByUsername(username).orElseThrow(
                 () -> new RuntimeException(username + "is not found."));
     }
