@@ -1,6 +1,6 @@
 <html layout:decorate="~{global/layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
 <div layout:fragment="content" class="container my-3">
-    <form th:action="@{/user/login}" method="post">
+    <form th:action="@{/member/login}" method="post">
         <div th:if="${param.error}">
             <div class="alert alert-danger">
                 사용자 ID 또는 비밀번호를 확인해 주세요.

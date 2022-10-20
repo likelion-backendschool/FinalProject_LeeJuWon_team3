@@ -6,25 +6,50 @@ import com.example.demo.user.member.form.MemberModifyForm;
 import com.example.demo.user.member.form.MemberModifyPasswordForm;
 import com.example.demo.user.member.form.MemberFindIdForm;
 import com.example.demo.user.member.service.MemberService;
+import com.example.demo.user.member.service.UserSecurityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/usr/member")
+@RequestMapping("/member")
 public class MemberController {
 
     private final MemberService memberService;
+    private final UserSecurityService userSecurityService;
+
+
+    /**
+     * 로그인
+     */
+    @GetMapping("/login")
+    public String login() {
+        return "members/login_form";
+    }
+
+
+    /**
+     * 로그아웃
+     */
+    @GetMapping("/logout")
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+        return "redirect:/";
+    }
 
 
     /**

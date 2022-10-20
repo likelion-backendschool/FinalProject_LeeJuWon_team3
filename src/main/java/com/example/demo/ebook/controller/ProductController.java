@@ -25,7 +25,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/usr")
+@RequestMapping("")
 public class ProductController {
 
 

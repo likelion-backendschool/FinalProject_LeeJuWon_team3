@@ -16,7 +16,7 @@
         <tr class="text-center" th:each="post, loop : ${postList}">
             <td th:text="${loop.count}"></td>
             <td class="text-start">
-                <a th:href="@{|/usr/post/${post.id}|}" th:text="${post.subject}"></a>
+                <a th:href="@{|/post/${post.id}|}" th:text="${post.subject}"></a>
             </td>
             <td><span th:if="${post.author != null}" th:text="${post.author.username}"></span></td>
             <td th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
@@ -26,7 +26,7 @@
     </table>
 
     <a sec:authorize="isAuthenticated()">
-    <a th:href="@{/usr/post/write}" class="btn btn-primary">글 등록하기</a>
+    <a th:href="@{/post/write}" class="btn btn-primary">글 등록하기</a>
     </a>
 </div>
 </div>

@@ -7,7 +7,7 @@
         </div>
     </div>
 
-    <form th:action="@{/usr/member/join}" th:object="${memberCreateForm}" method="post">
+    <form th:action="@{/member/join}" th:object="${memberCreateForm}" method="post">
         <div th:replace="~{/global/form_errors :: formErrorsFragment}"></div>
 
         <div class="mb-3">
