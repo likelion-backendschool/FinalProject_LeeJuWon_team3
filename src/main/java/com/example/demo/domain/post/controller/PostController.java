@@ -102,7 +102,7 @@ public class PostController {
         }
 
 
-        return "redirect:/usr/post/list"; //글 등록 후 글목록으로 이동
+        return "redirect:/post/list"; //글 등록 후 글목록으로 이동
     }
 
 
@@ -167,7 +167,7 @@ public class PostController {
         }
 
 
-        return String.format("redirect:/usr/post/%s", id);
+        return String.format("redirect:/post/%s", id);
     }
 
 

@@ -24,11 +24,12 @@ public class PostService {
     @Transactional
     public void write(String subject, String content, Member member) {
 
-        Post post = new Post();
-        post.setSubject(subject);
-        post.setContent(content);
-        post.setAuthor(member);
-        post.setCreatedAt(LocalDateTime.now());
+        Post post = Post.builder()
+                .subject(subject)
+                .content(content)
+                .author(member)
+                .build();
+
         postRepository.save(post);
     }
 
@@ -42,11 +43,9 @@ public class PostService {
 
     @Transactional
     public void modify(Post post, String subject, String content) {
-
         post.setSubject(subject);
         post.setContent(content);
         post.setUpdatedAt(LocalDateTime.now());
-//        postRepository.save(post);
     }
 
 
