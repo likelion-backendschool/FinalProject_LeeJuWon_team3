@@ -5,6 +5,7 @@ import com.example.demo.domain.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -18,6 +19,7 @@ import static javax.persistence.FetchType.*;
 @Getter @Setter
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor
+@SuperBuilder
 public class Product {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

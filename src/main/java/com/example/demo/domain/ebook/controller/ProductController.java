@@ -71,7 +71,7 @@ public class ProductController {
         try {
             Product product = productService.create(productForm.getSubject(), productForm.getPrice(), member);
             Long id = product.getId();
-            return String.format("redirect:/usr/author/product/%s", id); //상품(도서)등록 후 해당 상품(도서) 상세페이지로 이동
+            return String.format("redirect:/author/product/%s", id); //상품(도서)등록 후 해당 상품(도서) 상세페이지로 이동
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,7 +148,7 @@ public class ProductController {
             return "products/product_modify_form";
         }
 
-        return String.format("redirect:/usr/product/%s", id);
+        return String.format("redirect:/product/%s", id);
     }
 
 
