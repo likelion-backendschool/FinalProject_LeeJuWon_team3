@@ -22,22 +22,14 @@ public class MemberService {
     @Transactional
     public void create(String username, String email, String password, String nickname) {
 
-        Member member = new Member();
-        member.setUsername(username);
-        member.setEmail(email);
-        member.setPassword(passwordEncoder.encode(password));
-        member.setCreatedAt(LocalDateTime.now());
-
-        if(nickname == null || nickname.isEmpty()) {
-            member.setAuth("ROLE_MEMBER");
-        }
-        else {
-            member.setNickname(nickname);
-            member.setAuth("ROLE_AUTHOR");
-        }
+        Member member = Member.builder()
+                .username(username)
+                .password(passwordEncoder.encode(password))
+                .email(email)
+                .nickname(nickname)
+                .build();
 
         memberRepository.save(member);
-
     }
 
     public Member findMember(String username) {
@@ -59,6 +51,7 @@ public class MemberService {
             member.setNickname(nickname);
             member.setAuth("ROLE_AUTHOR");
         }
+
     }
 
 

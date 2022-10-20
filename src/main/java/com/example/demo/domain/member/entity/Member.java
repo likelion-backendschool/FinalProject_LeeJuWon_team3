@@ -57,6 +57,7 @@ public class Member {
 
         authorities.add(new SimpleGrantedAuthority("MEMBER"));
 
+        //닉네임이 있으면 작가권한 얻음
         if(StringUtils.hasText(nickname)) {
             authorities.add(new SimpleGrantedAuthority("AUTHOR"));
         }
