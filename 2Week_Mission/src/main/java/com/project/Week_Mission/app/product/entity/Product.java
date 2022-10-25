@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.Week_Mission.app.base.entity.BaseEntity;
 import com.project.Week_Mission.app.cart.entity.CartItem;
 import com.project.Week_Mission.app.member.entity.Member;
+import com.project.Week_Mission.app.order.entity.OrderItem;
 import com.project.Week_Mission.app.postkeyword.entity.PostKeyword;
 import com.project.Week_Mission.app.productTag.entity.ProductTag;
 import lombok.*;
@@ -38,6 +39,11 @@ public class Product extends BaseEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<CartItem> cartItems = new ArrayList<>();
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product")
+    private List<OrderItem> orderItems = new ArrayList<>();
 
 
     public Product(long id) {

@@ -4,6 +4,7 @@ package com.project.Week_Mission.app.member.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.Week_Mission.app.base.entity.BaseEntity;
 import com.project.Week_Mission.app.cart.entity.CartItem;
+import com.project.Week_Mission.app.order.entity.Order;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
@@ -37,6 +38,11 @@ public class Member extends BaseEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<CartItem> cartItems = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
+
 
 
     public String getName() {
