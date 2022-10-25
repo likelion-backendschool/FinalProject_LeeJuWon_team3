@@ -28,7 +28,7 @@ public class CartController {
      */
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/list")
-    public String cartList(String email, Model model) {
+    public String list(String email, Model model) {
 
         MemberDto memberDto = memberService.findByEmail(email).orElse(null);
 
@@ -53,4 +53,7 @@ public class CartController {
     /**
      * 품목추가
      */
+    public String cartAdd() {
+
+    }
 }
