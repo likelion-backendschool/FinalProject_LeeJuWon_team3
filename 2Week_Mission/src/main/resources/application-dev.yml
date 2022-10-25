@@ -3,7 +3,7 @@ server:
 spring:
   thymeleaf:
     cache: false
-    prefix: file:src/main/resources/templates/
+    prefix: file:2Week_Mission/src/main/resources/templates/
   devtools:
     livereload:
       enabled: true
