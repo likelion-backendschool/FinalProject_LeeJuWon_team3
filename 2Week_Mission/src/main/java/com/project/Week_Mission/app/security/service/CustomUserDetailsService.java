@@ -1,8 +1,8 @@
 package com.project.Week_Mission.app.security.service;
 
-import com.ll.exam.final__2022_10_08.app.member.entity.Member;
-import com.ll.exam.final__2022_10_08.app.member.repository.MemberRepository;
-import com.ll.exam.final__2022_10_08.app.security.dto.MemberContext;
+import com.project.Week_Mission.app.member.entity.Member;
+import com.project.Week_Mission.app.member.repository.MemberRepository;
+import com.project.Week_Mission.app.security.dto.MemberContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

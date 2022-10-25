@@ -3,8 +3,8 @@ package com.project.Week_Mission.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ll.exam.final__2022_10_08.app.AppConfig;
-import com.ll.exam.final__2022_10_08.app.base.dto.RsData;
+import com.project.Week_Mission.app.AppConfig;
+import com.project.Week_Mission.app.base.dto.RsData;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

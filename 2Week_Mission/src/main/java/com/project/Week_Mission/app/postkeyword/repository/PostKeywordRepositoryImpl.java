@@ -1,11 +1,16 @@
 package com.project.Week_Mission.app.postkeyword.repository;
 
 import com.project.Week_Mission.app.postkeyword.entity.PostKeyword;
-import groovy.lang.Tuple;
+import com.project.Week_Mission.app.postkeyword.entity.QPostKeyword;
+import com.querydsl.core.Tuple;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.project.Week_Mission.app.postTag.entity.QPostTag.postTag;
+import static com.project.Week_Mission.app.postkeyword.entity.QPostKeyword.postKeyword;
 
 
 @RequiredArgsConstructor
