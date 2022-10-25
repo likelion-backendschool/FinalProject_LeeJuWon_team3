@@ -3,6 +3,7 @@ package com.project.Week_Mission.app.member.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.Week_Mission.app.base.entity.BaseEntity;
+import com.project.Week_Mission.app.cart.entity.CartItem;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,6 +12,7 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +32,12 @@ public class Member extends BaseEntity {
     private boolean emailVerified;
     private long restCash;
     private String nickname;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "member")
+    private List<CartItem> cartItems = new ArrayList<>();
+
 
     public String getName() {
         if (nickname != null) {

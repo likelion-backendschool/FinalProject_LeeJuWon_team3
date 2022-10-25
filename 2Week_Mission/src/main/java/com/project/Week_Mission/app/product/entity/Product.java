@@ -1,6 +1,8 @@
 package com.project.Week_Mission.app.product.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.Week_Mission.app.base.entity.BaseEntity;
+import com.project.Week_Mission.app.cart.entity.CartItem;
 import com.project.Week_Mission.app.member.entity.Member;
 import com.project.Week_Mission.app.postkeyword.entity.PostKeyword;
 import com.project.Week_Mission.app.productTag.entity.ProductTag;
@@ -9,6 +11,8 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -29,6 +33,12 @@ public class Product extends BaseEntity {
     private PostKeyword postKeyword;
     private String subject;
     private int price;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product")
+    private List<CartItem> cartItems = new ArrayList<>();
+
 
     public Product(long id) {
         super(id);
