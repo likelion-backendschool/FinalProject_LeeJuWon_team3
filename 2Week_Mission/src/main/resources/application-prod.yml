@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:mariadb://${prodDbIp}:3306/final_project_prod?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
-    username: ${prodDbId}
-    password: ${prodDbPw}
+    username: ${prodDbId:fpuser}
+    password: ${prodDbPw:fpuser1234!}
   jpa:
     properties:
       hibernate:
