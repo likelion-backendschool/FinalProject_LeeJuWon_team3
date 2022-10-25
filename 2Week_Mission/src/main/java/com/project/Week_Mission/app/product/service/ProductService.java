@@ -1,11 +1,16 @@
 package com.project.Week_Mission.app.product.service;
 
+import com.project.Week_Mission.app.cart.controller.CartItemDto;
+import com.project.Week_Mission.app.cart.entity.CartItem;
+import com.project.Week_Mission.app.cart.repository.CartRepository;
+import com.project.Week_Mission.app.cart.service.CartService;
 import com.project.Week_Mission.app.member.entity.Member;
 import com.project.Week_Mission.app.post.entity.Post;
 import com.project.Week_Mission.app.postTag.entity.PostTag;
 import com.project.Week_Mission.app.postTag.service.PostTagService;
 import com.project.Week_Mission.app.postkeyword.entity.PostKeyword;
 import com.project.Week_Mission.app.postkeyword.service.PostKeywordService;
+import com.project.Week_Mission.app.product.dto.ProductDto;
 import com.project.Week_Mission.app.product.entity.Product;
 import com.project.Week_Mission.app.product.repository.ProductRepository;
 import com.project.Week_Mission.app.productTag.entity.ProductTag;
@@ -158,6 +163,8 @@ public class ProductService {
                 .map(PostTag::getPost)
                 .collect(Collectors.toList());
     }
+
+
 
     @Transactional
     public void remove(Product product) {

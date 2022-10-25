@@ -4,6 +4,7 @@ import com.project.Week_Mission.app.base.dto.RsData;
 import com.project.Week_Mission.app.base.rq.Rq;
 import com.project.Week_Mission.app.member.entity.Member;
 import com.project.Week_Mission.app.member.form.JoinForm;
+import com.project.Week_Mission.app.member.service.MemberDto;
 import com.project.Week_Mission.app.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -57,13 +58,13 @@ public class MemberController {
     @PreAuthorize("isAnonymous()")
     @PostMapping("/findUsername")
     public String findUsername(String email, Model model) {
-        Member member = memberService.findByEmail(email).orElse(null);
 
-        if (member == null) {
+        MemberDto memberDto = memberService.findByEmail(email).orElse(null);
+        if (memberDto == null) {
             return rq.historyBack("일치하는 회원이 존재하지 않습니다.");
         }
 
-        return Rq.redirectWithMsg("/member/login?username=%s".formatted(member.getUsername()), "해당 이메일로 가입한 계정의 아이디는 '%s' 입니다.".formatted(member.getUsername()));
+        return Rq.redirectWithMsg("/member/login?username=%s".formatted(memberDto.getUsername()), "해당 이메일로 가입한 계정의 아이디는 '%s' 입니다.".formatted(memberDto.getUsername()));
     }
 
     @PreAuthorize("isAnonymous()")

@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,8 +71,12 @@ public class MemberService {
         return memberRepository.findByUsernameAndEmail(username, email);
     }
 
-    public Optional<Member> findByEmail(String email) {
-        return memberRepository.findByEmail(email);
+    public Optional<MemberDto> findByEmail(String email) {
+
+        Optional<Member> optionalMember = memberRepository.findByEmail(email);
+        Optional<MemberDto> memberDto = optionalMember.map(o -> new MemberDto(o));
+
+        return memberDto;
     }
 
     @Transactional
@@ -141,4 +144,5 @@ public class MemberService {
         context.setAuthentication(authentication);
         SecurityContextHolder.setContext(context);
     }
+
 }

@@ -52,6 +52,7 @@ public class Product extends BaseEntity {
 
 
 
+
     public Product(long id) {
         super(id);
     }
