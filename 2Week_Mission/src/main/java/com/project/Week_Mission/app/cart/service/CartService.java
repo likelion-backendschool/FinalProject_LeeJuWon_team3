@@ -5,12 +5,16 @@ import com.project.Week_Mission.app.cart.repository.CartRepository;
 import com.project.Week_Mission.app.member.entity.Member;
 import com.project.Week_Mission.app.member.repository.MemberRepository;
 import com.project.Week_Mission.app.member.service.MemberDto;
+import com.project.Week_Mission.app.mybook.MyBook;
 import com.project.Week_Mission.app.product.dto.ProductDto;
 import com.project.Week_Mission.app.product.entity.Product;
 import com.project.Week_Mission.app.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -22,19 +26,11 @@ public class CartService {
     private final MemberRepository memberRepository;
 
 
-//    public List<CartItem> findCartItemsByMyBook(List<MyBookDto> myBookDtos) {
-//
-//        Member member = myBookDtos.
-//        Product product = myBookDtos.getProduct();
-//        List<CartItem> cartItems = cartRepository.findCartItemListByMemberIdAndProductId(member.getId(), product.getId());
-//
-//        return postTags
-//                .stream()
-//                .map(PostTag::getPost)
-//                .collect(Collectors.toList());
-//    }
-//
-//
+//  Test 용도
+    public List<CartItem> findCartItems(Member member) {
+        return cartRepository.findAllByMemberId(member.getId());
+    }
+
 //
 //    public List<CartItemDto> findCartItemsByMemberDto(MemberDto memberDto) {
 //

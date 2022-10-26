@@ -1,6 +1,7 @@
 package com.project.Week_Mission.app.cart.controller;
 
 import com.project.Week_Mission.app.base.rq.Rq;
+import com.project.Week_Mission.app.cart.entity.CartItem;
 import com.project.Week_Mission.app.cart.service.CartService;
 import com.project.Week_Mission.app.member.entity.Member;
 import com.project.Week_Mission.app.member.service.MemberDto;
@@ -11,10 +12,13 @@ import com.project.Week_Mission.app.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -26,6 +30,23 @@ public class CartController {
     private final MemberService memberService;
     private final ProductService productService;
     private final Rq rq;
+
+
+    /**
+     * 품목리스트 Test
+     */
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/list")
+    public String list(Model model) {
+
+        Member member = rq.getMember();
+
+        List<CartItem> cartItems = cartService.findCartItems(member);
+
+        model.addAttribute("cartItems", cartItems);
+
+        return "cart/list";
+    }
 
 
     /**
