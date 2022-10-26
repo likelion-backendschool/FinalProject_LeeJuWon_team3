@@ -6,6 +6,7 @@ import com.project.Week_Mission.app.base.entity.BaseEntity;
 import com.project.Week_Mission.app.cart.entity.CartItem;
 import com.project.Week_Mission.app.mybook.MyBook;
 import com.project.Week_Mission.app.order.entity.Order;
+import com.project.Week_Mission.app.product.entity.Product;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
@@ -50,6 +51,8 @@ public class Member extends BaseEntity {
     private List<MyBook> myBooks = new ArrayList<>();
 
 
+    @OneToMany(mappedBy = "author")
+    private List<Product> products = new ArrayList<>();
 
 
     public String getName() {

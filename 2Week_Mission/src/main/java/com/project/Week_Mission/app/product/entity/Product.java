@@ -12,6 +12,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
@@ -29,12 +30,17 @@ import static javax.persistence.FetchType.LAZY;
 @SuperBuilder
 @ToString(callSuper = true)
 public class Product extends BaseEntity {
-    @ManyToOne(fetch = LAZY)
-    private Member author;
-    @ManyToOne(fetch = LAZY)
-    private PostKeyword postKeyword;
+
     private String subject;
     private int price;
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "author_id")
+    private Member author;
+
+
+    @ManyToOne(fetch = LAZY)
+    private PostKeyword postKeyword;
 
 
     @JsonIgnore

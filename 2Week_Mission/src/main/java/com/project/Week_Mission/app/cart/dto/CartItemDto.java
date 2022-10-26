@@ -1,4 +1,4 @@
-package com.project.Week_Mission.app.cart.controller;
+package com.project.Week_Mission.app.cart.dto;
 
 import com.project.Week_Mission.app.cart.entity.CartItem;
 import lombok.AllArgsConstructor;
