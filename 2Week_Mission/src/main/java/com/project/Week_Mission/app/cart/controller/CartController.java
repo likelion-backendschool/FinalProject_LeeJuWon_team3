@@ -75,10 +75,10 @@ public class CartController {
 
 
     /**
-     * 품목삭제 TODO
+     * 품목삭제
      */
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/remove/{productId}")
+    @GetMapping("/remove/{productId}")
     public String remove(@PathVariable long productId) {
 
         Member member = rq.getMember();

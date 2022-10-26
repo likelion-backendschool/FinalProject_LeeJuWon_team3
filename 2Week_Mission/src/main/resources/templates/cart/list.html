@@ -42,7 +42,7 @@
                                     <td th:text="${item.price * item.quantity}"></td>
 
                                     <td>
-                                        <a href="javascript:void(0);" th:data-uri="@{|/cart/remove/${item.product.id}|}"
+                                        <a th:href="@{|/cart/remove/${item.product.id}|}"
                                            class="delete btn btn-sm btn-primary"
                                            sec:authorize="isAuthenticated()"
                                            th:text="삭제"></a>
