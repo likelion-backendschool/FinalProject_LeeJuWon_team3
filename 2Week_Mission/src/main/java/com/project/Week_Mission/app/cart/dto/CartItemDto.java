@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CartItemDto {
 
     private Long id;
@@ -18,6 +20,7 @@ public class CartItemDto {
 
     private LocalDateTime createDate;
     private LocalDateTime modifyDate;
+    private int quantity;
 
 
     public CartItemDto(CartItem cartItem) {

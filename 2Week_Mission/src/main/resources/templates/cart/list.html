@@ -1,10 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html layout:decorate="~{layout/layout.html}">
 
+<head>
+    <title>장바구니 목록</title>
+</head>
+
+<body>
+<main layout:fragment="main">
+    <section class="section section-post-list container mx-auto">
+
+        <div class="px-2 pt-4">
+            <h1 class="font-bold text-lg">
+                <i class="fa-solid fa-book"></i>
+                장바구니 목록
+            </h1>
+
+            <div class="mt-2">
+                <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+
+
+                        <div>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+<!--                                    <th>상품ID</th>-->
+                                    <th>상품명</th>
+                                    <th>한개당 가격</th>
+                                    <th>수량</th>
+                                    <th>총 가격</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="item : ${cartItems}">
+                                    <td th:text="${item.id}"></td>
+<!--                                    <td th:text="${item.product.id}">-->
+                                    <td th:text="${item.name}"></td>
+                                    <td th:text="${item.price}"></td>
+                                    <td th:text="${item.quantity}"></td>
+                                    <td th:text="${item.price * item.quantity}"></td>
+
+                                    <td>
+                                        <a href="javascript:void(0);" th:data-uri="@{|/cart/remove/${item.product.id}|}"
+                                           class="delete btn btn-sm btn-primary"
+                                           sec:authorize="isAuthenticated()"
+                                           th:text="삭제"></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                </ul>
+            </div>
+        </div>
+    </section>
+
+</main>
 </body>
+
+<script type='text/javascript'>
+    const delete_elements = document.getElementsByClassName("delete");
+    Array.from(delete_elements).forEach(function(element) {
+        element.addEventListener('click', function() {
+            if(confirm("정말로 삭제하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            };
+        });
+    });
+</script>
+
+
+
 </html>

@@ -25,6 +25,10 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 public class CartItem extends BaseEntity {
 
+    private String name;
+    private int quantity;
+    private int price;
+
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;

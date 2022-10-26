@@ -64,35 +64,35 @@ class CartServiceTests {
 //    }
 
 
-    @Test
-    @DisplayName("품목추가 및 품목리스트")
-    void t2() throws Exception {
-
-        //given
-        Member member = new Member();
-        member.setUsername("홍길동");
-        em.persist(member);
-
-        Product product = new Product();
-        product.setSubject("책1");
-        em.persist(product);
-
-        Product product2 = new Product();
-        product2.setSubject("책2");
-        em.persist(product2);
-
-        //when
-        CartItem cartItem = cartService.addCartItem(member, product);
-        em.persist(cartItem);
-        CartItem cartItem2 = cartService.addCartItem(member, product2);
-        em.persist(cartItem2);
-
-
-        List<CartItem> cartItems = cartRepository.findAllByMemberId(member.getId());
-
-        //then
-        assertEquals(cartItems.size(), 2);
-    }
+//    @Test
+//    @DisplayName("품목추가 및 품목리스트")
+//    void t2() throws Exception {
+//
+//        //given
+//        Member member = new Member();
+//        member.setUsername("홍길동");
+//        em.persist(member);
+//
+//        Product product = new Product();
+//        product.setSubject("책1");
+//        em.persist(product);
+//
+//        Product product2 = new Product();
+//        product2.setSubject("책2");
+//        em.persist(product2);
+//
+//        //when
+//        CartItem cartItem = cartService.addCartItem(member, product);
+//        em.persist(cartItem);
+//        CartItem cartItem2 = cartService.addCartItem(member, product2);
+//        em.persist(cartItem2);
+//
+//
+//        List<CartItem> cartItems = cartRepository.findAllByMemberId(member.getId());
+//
+//        //then
+//        assertEquals(cartItems.size(), 2);
+//    }
 
 
 

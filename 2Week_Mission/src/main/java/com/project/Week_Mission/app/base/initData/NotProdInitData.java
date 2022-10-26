@@ -4,11 +4,14 @@ import com.project.Week_Mission.app.member.entity.Member;
 import com.project.Week_Mission.app.member.service.MemberService;
 import com.project.Week_Mission.app.post.service.PostService;
 import com.project.Week_Mission.app.product.entity.Product;
+import com.project.Week_Mission.app.product.entity.ProductOption;
 import com.project.Week_Mission.app.product.service.ProductService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+
+import java.util.Arrays;
 
 @Configuration
 @Profile({"dev", "test"})

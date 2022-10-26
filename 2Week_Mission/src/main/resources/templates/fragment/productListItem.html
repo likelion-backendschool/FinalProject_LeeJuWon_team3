@@ -4,6 +4,7 @@
 <body>
 <th:block th:fragment="productListItem">
     <div class="card bg-base-100 shadow-xl">
+
         <a th:href="@{|/product/${product.id}|}" class="block">
             <figure>
                 <svg width="200" height="200" th:data-jdenticon-value="${product.jdenticon}"></svg>
@@ -37,7 +38,7 @@
                 </div>
             </div>
             <div class="card-actions justify-end">
-                <a th:href class="btn btn-sm">
+                <a th:href="@{|/cart/add/${product.id}|}" class="btn btn-sm">
                     <i class="fa-solid fa-cart-plus"></i>
                     <span class="ml-2">장바구니</span>
                 </a>

@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
@@ -32,7 +33,10 @@ import static javax.persistence.FetchType.LAZY;
 public class Product extends BaseEntity {
 
     private String subject;
+    private int stockQuantity;
     private int price;
+
+    private boolean isSoldOut; // 관련 옵션들이 전부 판매불능 상태일 때 '주의:품절이 아님'
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "author_id")
@@ -57,7 +61,18 @@ public class Product extends BaseEntity {
     private List<MyBook> myBooks = new ArrayList<>();
 
 
+    @Builder.Default
+    @JsonIgnore
+    @OneToMany(mappedBy = "product", cascade = ALL, orphanRemoval = true)
+    private List<ProductOption> productOptions = new ArrayList<>();
 
+
+    public void addOption(ProductOption option) {
+        option.setProduct(this);
+        option.setPrice(getPrice());
+
+        productOptions.add(option);
+    }
 
     public Product(long id) {
         super(id);
