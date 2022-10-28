@@ -6,6 +6,7 @@ import com.project.Week_Mission.app.postTag.entity.PostTag;
 import com.project.Week_Mission.app.postTag.service.PostTagService;
 import com.project.Week_Mission.app.postkeyword.entity.PostKeyword;
 import com.project.Week_Mission.app.postkeyword.service.PostKeywordService;
+import com.project.Week_Mission.app.product.dto.ProductDto;
 import com.project.Week_Mission.app.product.entity.Product;
 import com.project.Week_Mission.app.product.repository.ProductRepository;
 import com.project.Week_Mission.app.productTag.entity.ProductTag;
@@ -65,6 +66,17 @@ public class ProductService {
     @Transactional
     public void applyProductTags(Product product, String productTagContents) {
         productTagService.applyProductTags(product, productTagContents);
+    }
+
+    public ProductDto findByProductId(long id) {
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        Optional<ProductDto> productDto = optionalProduct.map(o -> new ProductDto(o));
+        return findByProductId(productDto);
+    }
+
+    private ProductDto findByProductId(Optional<ProductDto> productDto) {
+        return productDto.orElseThrow(
+                () -> new RuntimeException(productDto + " productDto is not found"));
     }
 
     public Optional<Product> findById(long id) {

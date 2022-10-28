@@ -49,8 +49,15 @@ public class MemberService {
         return member;
     }
 
-    public Optional<Member> findByUsername(String username) {
-        return memberRepository.findByUsername(username);
+    public MemberDto findByUsername(String username) {
+        Optional<Member> optionalMember = memberRepository.findByUsername(username);
+        Optional<MemberDto> memberDto = optionalMember.map(o -> new MemberDto(o));
+
+        return findByUsername(memberDto);
+    }
+
+    private MemberDto findByUsername(Optional<MemberDto> memberDto) {
+        return memberDto.orElseThrow(() -> new RuntimeException(memberDto + " is not found"));
     }
 
     @Transactional
@@ -69,14 +76,6 @@ public class MemberService {
 
     public Optional<Member> findByUsernameAndEmail(String username, String email) {
         return memberRepository.findByUsernameAndEmail(username, email);
-    }
-
-    public Optional<MemberDto> findByEmail(String email) {
-
-        Optional<Member> optionalMember = memberRepository.findByEmail(email);
-        Optional<MemberDto> memberDto = optionalMember.map(o -> new MemberDto(o));
-
-        return memberDto;
     }
 
     @Transactional

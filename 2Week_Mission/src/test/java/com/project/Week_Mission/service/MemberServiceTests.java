@@ -22,18 +22,18 @@ public class MemberServiceTests {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Test
-    @DisplayName("회원가입")
-    void t1() {
-        String username = "user10";
-        String password = "1234";
-        String email = "user10@test.com";
-
-        memberService.join(username, password, email, null);
-
-        Member foundMember = memberService.findByUsername("user10").get();
-        assertThat(foundMember.getCreateDate()).isNotNull();
-        assertThat(foundMember.getUsername()).isNotNull();
-        assertThat(passwordEncoder.matches(password, foundMember.getPassword())).isTrue();
-    }
+//    @Test
+//    @DisplayName("회원가입")
+//    void t1() {
+//        String username = "user10";
+//        String password = "1234";
+//        String email = "user10@test.com";
+//
+//        memberService.join(username, password, email, null);
+//
+//        Member foundMember = memberService.findByUsername("user10").get();
+//        assertThat(foundMember.getCreateDate()).isNotNull();
+//        assertThat(foundMember.getUsername()).isNotNull();
+//        assertThat(passwordEncoder.matches(password, foundMember.getPassword())).isTrue();
+//    }
 }

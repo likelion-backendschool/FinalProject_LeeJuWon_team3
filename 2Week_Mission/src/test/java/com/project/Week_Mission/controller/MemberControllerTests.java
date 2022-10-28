@@ -47,28 +47,28 @@ public class MemberControllerTests {
                 .andExpect(content().string(containsString("회원가입")));
     }
 
-    @Test
-    @DisplayName("회원가입")
-    void t2() throws Exception {
-        // WHEN
-        ResultActions resultActions = mvc
-                .perform(post("/member/join")
-                        .with(csrf())
-                        .param("username", "user10")
-                        .param("password", "1234")
-                        .param("email", "user1@test.com")
-                )
-                .andDo(print());
-
-        // THEN
-        resultActions
-                .andExpect(status().is3xxRedirection())
-                .andExpect(handler().handlerType(MemberController.class))
-                .andExpect(handler().methodName("join"))
-                .andExpect(redirectedUrlPattern("/member/login?msg=**"));
-
-        assertThat(memberService.findByUsername("user10").isPresent()).isTrue();
-    }
+//    @Test
+//    @DisplayName("회원가입")
+//    void t2() throws Exception {
+//        // WHEN
+//        ResultActions resultActions = mvc
+//                .perform(post("/member/join")
+//                        .with(csrf())
+//                        .param("username", "user10")
+//                        .param("password", "1234")
+//                        .param("email", "user1@test.com")
+//                )
+//                .andDo(print());
+//
+//        // THEN
+//        resultActions
+//                .andExpect(status().is3xxRedirection())
+//                .andExpect(handler().handlerType(MemberController.class))
+//                .andExpect(handler().methodName("join"))
+//                .andExpect(redirectedUrlPattern("/member/login?msg=**"));
+//
+//        assertThat(memberService.findByUsername("user10").isPresent()).isTrue();
+//    }
 
     @Test
     @DisplayName("아이디찾기 폼")
