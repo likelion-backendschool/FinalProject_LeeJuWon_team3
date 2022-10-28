@@ -43,5 +43,9 @@ public class CartItem extends BaseEntity {
         product.getCartItems().add(this);
     }
 
+    public CartItem(Member member, Product product) {
+        this.member = member;
+        this.product = product;
+    }
 
 }

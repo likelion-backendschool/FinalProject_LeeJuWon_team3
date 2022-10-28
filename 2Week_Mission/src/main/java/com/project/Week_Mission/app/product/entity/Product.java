@@ -78,6 +78,12 @@ public class Product extends BaseEntity {
         super(id);
     }
 
+
+    public Product(Member author, PostKeyword postKeyword) {
+        this.author = author;
+        this.postKeyword = postKeyword;
+    }
+
     public int getSalePrice() {
         return getPrice();
     }

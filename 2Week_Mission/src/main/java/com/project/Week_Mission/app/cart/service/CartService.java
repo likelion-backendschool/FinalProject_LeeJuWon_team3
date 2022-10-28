@@ -111,6 +111,11 @@ public class CartService {
         cartRepository.delete(cartItem);
     }
 
+    @Transactional
+    public void removeCartItem(CartItem cartItem) {
+        cartRepository.delete(cartItem);
+    }
+
 
 
 

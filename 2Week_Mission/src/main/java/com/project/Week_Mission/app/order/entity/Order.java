@@ -47,4 +47,23 @@ public class Order extends BaseEntity {
     private String name; //주문명
 
 
+    public void addOrderItem(OrderItem orderItem) {
+        orderItem.setOrder(this);
+
+        orderItems.add(orderItem);
+    }
+
+    public void makeName() {
+        String name = orderItems.get(0).getProduct().getSubject();
+
+        if(orderItems.size() > 1) {
+            name += " 외 %d 상품".formatted(orderItems.size() - 1);
+        }
+
+        this.name = name;
+    }
+
+    public Order(Member member) {
+        this.member = member;
+    }
 }

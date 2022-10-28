@@ -7,7 +7,6 @@ import com.project.Week_Mission.app.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,25 +26,19 @@ public class OrderController {
     /**
      * 주문생성
      */
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/create")
-    public String create(OrderForm orderForm) {
-        return "order/create";
-    }
+//    @PreAuthorize("isAuthenticated()")
+//    @GetMapping("/create")
+//    public String create() {
+//        return "order/create";
+//    }
 
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
-    public String create(@Valid OrderForm orderForm,
-                         BindingResult bindingResult) {
-
-        if( bindingResult.hasErrors()) {
-            return "order/create";
-        }
+    public String create() {
 
         Member member = rq.getMember();
-
-        orderService.create(member, orderForm);
+        orderService.createFromCart(member);
 
         return "order/list";
     }

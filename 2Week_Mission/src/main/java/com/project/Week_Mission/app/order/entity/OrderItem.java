@@ -53,4 +53,9 @@ public class OrderItem extends BaseEntity {
 
     private boolean isPaid; //결제여부
 
+
+    public OrderItem(Product product) {
+
+    }
+
 }
