@@ -1,6 +1,7 @@
 package com.project.Week_Mission.app.order.controller;
 
 import com.project.Week_Mission.app.base.rq.Rq;
+import com.project.Week_Mission.app.cart.dto.CartItemDto;
 import com.project.Week_Mission.app.member.service.MemberDto;
 import com.project.Week_Mission.app.member.service.MemberService;
 import com.project.Week_Mission.app.order.entity.Order;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -41,6 +43,30 @@ public class OrderController {
         return "order/detail";
     }
 
+
+    /**
+     * 주문리스트
+     */
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/list")
+    public String list(Model model, Principal principal) {
+
+        MemberDto memberDto = memberService.findByUsername(principal.getName());
+        List<Order> orders = orderService.findOrdersByMemberDto(memberDto);
+
+        model.addAttribute("orders", orders);
+
+        return "order/list";
+    }
+
+
+
+    /**
+     * 주문상세
+     */
+
+
+
     /**
      * 주문취소
      */
@@ -55,15 +81,6 @@ public class OrderController {
 
 
 
-    /**
-     * 주문리스트
-     */
-
-
-
-    /**
-     * 주문상세
-     */
 
 
 

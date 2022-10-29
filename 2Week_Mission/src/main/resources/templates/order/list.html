@@ -1,10 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html layout:decorate="~{layout/layout.html}" xmlns:sec="http://www.w3.org/1999/xhtml">
 
+<head>
+    <title>주문목록</title>
+</head>
+
+<body>
+<main layout:fragment="main">
+    <section class="section section-post-list container mx-auto">
+
+        <div class="px-2 pt-4">
+            <h1 class="font-bold text-lg">
+                <i class="fa-solid fa-book"></i>
+                주문목록
+            </h1>
+
+            <div class="mt-2">
+                <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+
+
+                    <div>
+                        <table class="table">
+                            <thead class="table-dark">
+                            <tr class="text-center">
+                                <th>번호</th>
+                                <th>주문이름</th>
+                                <th>가격</th>
+                                <th>주문상세</th>
+                                <th>주문취소</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr class="text-center" th:each="order : ${orders}">
+
+                                <td th:text="${order.id}"></td>
+
+                                <td class="text-start">
+                                    <span th:text="${order.name}"></span>
+                                </td>
+
+                                <td><span th:text="${order.isPaid}"></span></td>
+
+                                <td>
+                                    <a th:href="@{|/order/id|}"
+                                       class="btn btn-sm btn-primary"
+                                       sec:authorize="isAuthenticated()"
+                                       th:text="주문상세"></a>
+                                </td>
+
+                                <td>
+                                    <a th:href="@{|/order/id/cancel|}"
+                                       class="btn btn-sm btn-primary"
+                                       sec:authorize="isAuthenticated()"
+                                       th:text="주문취소"></a>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </ul>
+            </div>
+        </div>
+    </section>
+
+</main>
 </body>
+
+<script type='text/javascript'>
+    const delete_elements = document.getElementsByClassName("delete");
+    Array.from(delete_elements).forEach(function(element) {
+        element.addEventListener('click', function() {
+            if(confirm("정말로 삭제하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            };
+        });
+    });
+</script>
+
+
+
 </html>

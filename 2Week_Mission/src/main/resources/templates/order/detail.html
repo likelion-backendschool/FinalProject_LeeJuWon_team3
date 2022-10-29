@@ -2,7 +2,7 @@
 <html layout:decorate="~{layout/layout.html}" xmlns:layout="http://www.w3.org/1999/xhtml">
 
 <head>
-  <title>주문내역</title>
+  <title>주문/결제</title>
 </head>
 
 <body>
@@ -13,7 +13,7 @@
 
 
     <div class="px-2 pt-4">
-      <h1 class="font-bold text-lg">주문내역</h1>
+      <h1 class="font-bold text-lg">주문/결제</h1>
 
       <div class="flex flex-col gap-3 mt-3">
         <div>
@@ -66,6 +66,14 @@
               <td><span th:text="${orderItem.salePrice}"></span></td>
 
             </tr>
+
+            <td>
+                <a th:href="@{|/order/list|}"
+                   class="btn btn-sm btn-primary"
+                   sec:authorize="isAuthenticated()"
+                   th:text="결제하기"></a>
+            </td>
+
             </tbody>
           </table>
         </div>

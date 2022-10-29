@@ -41,8 +41,8 @@ public class OrderService {
             if(product.isOrderable()) {
                 orderItems.add(new OrderItem(product));
             }
-//            주문완료하면 장바구니를 비우는 것으로 수정하기
-//            cartService.removeCartItem(cartItem);
+//            TODO 주문완료하면 장바구니를 비우는 것으로 수정하기
+            cartService.removeCartItem(cartItem);
         }
 
         return create(memberDto, orderItems);
@@ -65,6 +65,7 @@ public class OrderService {
 
         order.makeName();
 
+//        TODO 결제를 하면 주문을 저장하도록 구현하기
         orderRepository.save(order);
 
         return order;
@@ -86,5 +87,9 @@ public class OrderService {
                 .orElseThrow(() -> new RuntimeException(orderId + " orderId is not found."));
 
         order.setCanceled(true);
+    }
+
+    public List<Order> findOrdersByMemberDto(MemberDto memberDto) {
+        return orderRepository.findOrderListByMemberId(memberDto.getId());
     }
 }
