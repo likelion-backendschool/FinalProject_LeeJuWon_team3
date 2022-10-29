@@ -28,14 +28,14 @@
                     주문자 : [[${order.member.username}]]
                 </div>
 
-                <div>
-                    개수 : [[${order.orderItems.size()}]]
-                </div>
+<!--                <div>-->
+<!--                    개수 : [[${order.orderItems.size()}]]-->
+<!--                </div>-->
 
-
-                <div>
-                    주문가격 : [[${order.getPayPrice()}]]
-                </div>
+<!--                TODO 주문가격 나오도록 구현-->
+<!--                <div>-->
+<!--                    주문가격 : [[${order.getPayPrice()}]]-->
+<!--                </div>-->
 
                 <div>
                     <table class="table">
@@ -45,7 +45,10 @@
                             <th>이미지</th>
                             <th style="width:50%">도서명</th>
                             <th>글쓴이</th>
-                            <th>가격</th>
+                            <th>한개당 가격</th>
+                            <th>주문개수</th>
+                            <th>총가격</th>
+
                         </tr>
                         </thead>
                         <tbody>
@@ -63,6 +66,8 @@
 
                             <td><span th:text="${orderItem.product.author.username}"></span></td>
 
+                            <td><span th:text="${orderItem.price}"></span></td>
+                            <td><span th:text="${orderItem.quantity}"></span></td>
                             <td><span th:text="${orderItem.salePrice}"></span></td>
 
                         </tr>
