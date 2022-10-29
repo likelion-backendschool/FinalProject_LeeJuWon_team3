@@ -7,18 +7,15 @@ import com.project.Week_Mission.app.member.entity.Member;
 import com.project.Week_Mission.app.member.repository.MemberRepository;
 import com.project.Week_Mission.app.member.service.MemberDto;
 import com.project.Week_Mission.app.order.entity.OrderItem;
-import com.project.Week_Mission.app.order.form.OrderForm;
 import com.project.Week_Mission.app.order.entity.Order;
 import com.project.Week_Mission.app.order.repository.OrderRepository;
 import com.project.Week_Mission.app.product.entity.Product;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -44,7 +41,8 @@ public class OrderService {
             if(product.isOrderable()) {
                 orderItems.add(new OrderItem(product));
             }
-            cartService.removeCartItem(cartItem);
+//            주문완료하면 장바구니를 비우는 것으로 수정하기
+//            cartService.removeCartItem(cartItem);
         }
 
         return create(memberDto, orderItems);
@@ -74,5 +72,19 @@ public class OrderService {
 
     public Order findByMemberId(Long memberId) {
         return orderRepository.findByMemberId(memberId);
+    }
+
+    public Order findById(long orderId) {
+        return orderRepository.findById(orderId).orElseThrow(
+                () -> new RuntimeException(orderId + " orderId is not found."));
+    }
+
+
+    @Transactional
+    public void cancelOrder(Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException(orderId + " orderId is not found."));
+
+        order.setCanceled(true);
     }
 }
