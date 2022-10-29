@@ -40,7 +40,7 @@ public class OrderController {
 
         model.addAttribute("order", order);
 
-        return "order/detail";
+        return "order/create";
     }
 
 
@@ -64,6 +64,16 @@ public class OrderController {
     /**
      * 주문상세
      */
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/{id}")
+    public String detail(Model model, @PathVariable long id) {
+
+        Order order = orderService.findByOrderId(id);
+
+        model.addAttribute("order", order);
+
+        return "order/detail";
+    }
 
 
 

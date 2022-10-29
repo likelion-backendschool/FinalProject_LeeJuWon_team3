@@ -2,87 +2,80 @@
 <html layout:decorate="~{layout/layout.html}" xmlns:layout="http://www.w3.org/1999/xhtml">
 
 <head>
-  <title>주문/결제</title>
+    <title>주문상세</title>
 </head>
 
 <body>
 <main layout:fragment="main">
-  <section class="section section-join flex-grow flex flex-col items-center justify-center">
+    <section class="section section-join flex-grow flex flex-col items-center justify-center">
 
-    <script src="https://js.tosspayments.com/v1"></script>
+        <script src="https://js.tosspayments.com/v1"></script>
 
 
-    <div class="px-2 pt-4">
-      <h1 class="font-bold text-lg">주문/결제</h1>
+        <div class="px-2 pt-4">
+            <h1 class="font-bold text-lg">주문상세</h1>
 
-      <div class="flex flex-col gap-3 mt-3">
-        <div>
-          주문번호 : [[${order.id}]]
+            <div class="flex flex-col gap-3 mt-3">
+                <div>
+                    주문번호 : [[${order.id}]]
+                </div>
+
+                <div>
+                    주문날짜 : [[${order.createDate}]]
+                </div>
+
+                <div>
+                    주문자 : [[${order.member.username}]]
+                </div>
+
+                <div>
+                    개수 : [[${order.orderItems.size()}]]
+                </div>
+
+
+                <div>
+                    주문가격 : [[${order.getPayPrice()}]]
+                </div>
+
+                <div>
+                    <table class="table">
+                        <thead class="table-dark">
+                        <tr class="text-center">
+                            <th>번호</th>
+                            <th>이미지</th>
+                            <th style="width:50%">도서명</th>
+                            <th>글쓴이</th>
+                            <th>가격</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr class="text-center" th:each="orderItem : ${order.orderItems}">
+                            <td th:text="${orderItem.product.id}"></td>
+
+                            <td>
+                                <svg width="80" height="80" th:data-jdenticon-value="${orderItem.product.jdenticon}"></svg>
+                            </td>
+
+                            <td class="text-start">
+                                <span th:text="${orderItem.product.subject}"></span>
+                            </td>
+
+                            <td><span th:text="${orderItem.product.author.username}"></span></td>
+
+                            <td><span th:text="${orderItem.salePrice}"></span></td>
+
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
         </div>
 
-        <div>
-          주문날짜 : [[${order.createDate}]]
-        </div>
 
-        <div>
-          주문자 : [[${order.member.username}]]
-        </div>
-
-        <div>
-          개수 : [[${order.orderItems.size()}]]
-        </div>
-
-
-        <div>
-          주문가격 : [[${order.getPayPrice()}]]
-        </div>
-
-        <div>
-          <table class="table">
-            <thead class="table-dark">
-            <tr class="text-center">
-              <th>번호</th>
-              <th>이미지</th>
-              <th style="width:50%">도서명</th>
-              <th>글쓴이</th>
-              <th>가격</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr class="text-center" th:each="orderItem : ${order.orderItems}">
-              <td th:text="${orderItem.product.id}"></td>
-
-              <td>
-                <svg width="80" height="80" th:data-jdenticon-value="${orderItem.product.jdenticon}"></svg>
-              </td>
-
-              <td class="text-start">
-                <span th:text="${orderItem.product.subject}"></span>
-              </td>
-
-              <td><span th:text="${orderItem.product.author.username}"></span></td>
-
-              <td><span th:text="${orderItem.salePrice}"></span></td>
-
-            </tr>
-
-            <td>
-                <a th:href="@{|/order/list|}"
-                   class="btn btn-sm btn-primary"
-                   sec:authorize="isAuthenticated()"
-                   th:text="결제하기"></a>
-            </td>
-
-            </tbody>
-          </table>
-        </div>
-
-      </div>
-    </div>
-
-
-  </section>
+    </section>
 </main>
 </body>
 </html>

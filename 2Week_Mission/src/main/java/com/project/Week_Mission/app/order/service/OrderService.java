@@ -95,4 +95,9 @@ public class OrderService {
     public List<Order> findOrdersByMemberDto(MemberDto memberDto) {
         return orderRepository.findOrderListByMemberId(memberDto.getId());
     }
+
+    public Order findByOrderId(long orderId) {
+        return orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException(orderId + "orderId is not found."));
+    }
 }

@@ -43,7 +43,7 @@
                                 <td><span th:text="${orders.isPaid}"></span></td>
 
                                 <td>
-                                    <a th:href="@{|/orders/${orders.id}|}"
+                                    <a th:href="@{|/order/${orders.id}|}"
                                        class="btn btn-sm btn-primary"
                                        sec:authorize="isAuthenticated()"
                                        th:text="주문상세"></a>
