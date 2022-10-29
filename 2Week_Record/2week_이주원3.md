@@ -7,24 +7,24 @@
 
 - [x] **품목리스트** GET /cart/list
 
-- [x] **품목삭제** ** GET /cart/remove/{productId}**
+- [x] **품목삭제** GET /cart/remove/{productId
 
-- [x] **품목추가** **POST /cart/add/{productId}**
+- [x] **품목추가** POST /cart/add/{productId
 
 
 ## 2. **주문**
 
-- [x] **주문생성** ** GET /order/create**
+- [x] **주문생성** GET /order/create
 
-- [x] **주문리스트** **GET /order/list**
+- [x] **주문리스트** GET /order/list
 
-- [x] **주문상세** ** GET /order/{id}**
+- [x] **주문상세** GET /order/{id
 
-- [x] **주문취소** ** GET /order/{id}/cancel**
+- [x] **주문취소** GET /order/{id}/cancel
 
-- [ ] **결제처리** **POST /order/{id}/pay**
+- [ ] **결제처리** POST /order/{id}/pay
 
-- [ ] **환불처리** **POST /order/{id}/refund**
+- [ ] **환불처리** POST /order/{id}/refund
 
 ---
 
