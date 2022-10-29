@@ -3,6 +3,7 @@ package com.project.Week_Mission.app.order.entity;
 
 import com.project.Week_Mission.app.base.entity.BaseEntity;
 import com.project.Week_Mission.app.member.entity.Member;
+import com.project.Week_Mission.app.order.controller.OrderStatus;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -50,6 +51,7 @@ public class Order extends BaseEntity {
 
     private String name; //주문명
 
+    private OrderStatus status;
 
     public void addOrderItem(OrderItem orderItem) {
         orderItem.setOrder(this);

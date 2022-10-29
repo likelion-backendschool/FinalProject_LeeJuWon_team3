@@ -27,30 +27,34 @@
                                 <th>주문이름</th>
                                 <th>가격</th>
                                 <th>주문상세</th>
-                                <th>주문취소</th>
+                                <th>주문상태</th>
                             </tr>
                             </thead>
                             <tbody>
 
-                            <tr class="text-center" th:each="order : ${orders}">
+                            <tr class="text-center" th:each="orders : ${orderList}">
 
-                                <td th:text="${order.id}"></td>
+                                <td th:text="${orders.id}"></td>
 
                                 <td class="text-start">
-                                    <span th:text="${order.name}"></span>
+                                    <span th:text="${orders.name}"></span>
                                 </td>
 
-                                <td><span th:text="${order.isPaid}"></span></td>
+                                <td><span th:text="${orders.isPaid}"></span></td>
 
                                 <td>
-                                    <a th:href="@{|/order/id|}"
+                                    <a th:href="@{|/orders/${orders.id}|}"
                                        class="btn btn-sm btn-primary"
                                        sec:authorize="isAuthenticated()"
                                        th:text="주문상세"></a>
                                 </td>
 
+                                <td th:text="${orders.status}"></td>
+
+
                                 <td>
-                                    <a th:href="@{|/order/id/cancel|}"
+                                    <a th:if="${orders.status.name() == 'OrderCompleted'}"
+                                       th:href="@{|/order/${orders.id}/cancel|}"
                                        class="btn btn-sm btn-primary"
                                        sec:authorize="isAuthenticated()"
                                        th:text="주문취소"></a>

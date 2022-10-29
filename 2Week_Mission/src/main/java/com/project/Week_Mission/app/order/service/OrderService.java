@@ -6,6 +6,7 @@ import com.project.Week_Mission.app.cart.service.CartService;
 import com.project.Week_Mission.app.member.entity.Member;
 import com.project.Week_Mission.app.member.repository.MemberRepository;
 import com.project.Week_Mission.app.member.service.MemberDto;
+import com.project.Week_Mission.app.order.controller.OrderStatus;
 import com.project.Week_Mission.app.order.entity.OrderItem;
 import com.project.Week_Mission.app.order.entity.Order;
 import com.project.Week_Mission.app.order.repository.OrderRepository;
@@ -57,6 +58,7 @@ public class OrderService {
 
         Order order = Order.builder()
                 .member(buyer)
+                .status(OrderStatus.OrderCompleted)
                 .build();
 
         for (OrderItem orderItem : orderItems) {
@@ -87,6 +89,7 @@ public class OrderService {
                 .orElseThrow(() -> new RuntimeException(orderId + " orderId is not found."));
 
         order.setCanceled(true);
+        order.setStatus(OrderStatus.CancelCompleted);
     }
 
     public List<Order> findOrdersByMemberDto(MemberDto memberDto) {

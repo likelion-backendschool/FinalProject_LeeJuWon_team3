@@ -52,9 +52,9 @@ public class OrderController {
     public String list(Model model, Principal principal) {
 
         MemberDto memberDto = memberService.findByUsername(principal.getName());
-        List<Order> orders = orderService.findOrdersByMemberDto(memberDto);
+        List<Order> orderList = orderService.findOrdersByMemberDto(memberDto);
 
-        model.addAttribute("orders", orders);
+        model.addAttribute("orderList", orderList);
 
         return "order/list";
     }
@@ -71,10 +71,10 @@ public class OrderController {
      * 주문취소
      */
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/{orderId}/cancel")
-    public String cancel(@PathVariable long orderId) {
+    @GetMapping("/{id}/cancel")
+    public String cancel(@PathVariable long id) {
 
-        orderService.cancelOrder(orderId);
+        orderService.cancelOrder(id);
         return "redirect:/order/list";
     }
 
