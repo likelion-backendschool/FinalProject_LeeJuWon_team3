@@ -25,12 +25,13 @@
                         <span class="label-text">상품명</span>
                     </label>
                     <i class="fa-solid fa-book-open"></i>
-                    <h2 class="font-bold" th:text="${product.subject}"></h2>
+                    <h2 class="font-bold" th:text="${productDto.subject}"></h2>
                 </div>
 
                 <div class="flex">
-                    <svg width="20" height="20" th:data-jdenticon-value="${product.author.jdenticon}"></svg>
-                    <div th:text="${product.author.name}"></div>
+                    <svg width="20" height="20" th:data-jdenticon-value="${productDto.jdentation}"></svg>
+<!--                    <svg width="20" height="20" th:data-jdenticon-value="${productDto.author.jdenticon}"></svg>-->
+                    <div th:text="${productDto.authorName}"></div>
                 </div>
                 </h2>
 
@@ -47,7 +48,7 @@
                     <label class="label">
                         <span class="label-text">한개당 가격</span>
                     </label>
-                    <div th:text="|￦ ${@ut.nf(product.salePrice)}|"></div>
+                    <div th:text="|￦ ${@ut.nf(productDto.price)}|"></div>
                 </div>
 
 

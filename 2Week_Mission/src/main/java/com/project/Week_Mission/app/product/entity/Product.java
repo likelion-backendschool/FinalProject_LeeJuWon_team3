@@ -35,6 +35,7 @@ public class Product extends BaseEntity {
     private String subject;
     private int stockQuantity;
     private int price;
+    private int quantity;
 
     private boolean isSoldOut; // 관련 옵션들이 전부 판매불능 상태일 때 '주의:품절이 아님'
 
@@ -76,6 +77,12 @@ public class Product extends BaseEntity {
 
     public Product(long id) {
         super(id);
+    }
+
+
+    public Product(Member author, PostKeyword postKeyword) {
+        this.author = author;
+        this.postKeyword = postKeyword;
     }
 
     public int getSalePrice() {

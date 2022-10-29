@@ -57,14 +57,14 @@ public class MemberController {
 
     @PreAuthorize("isAnonymous()")
     @PostMapping("/findUsername")
-    public String findUsername(String email, Model model) {
+    public String findUsername(Model model) {
 
-        MemberDto memberDto = memberService.findByEmail(email).orElse(null);
-        if (memberDto == null) {
+        Member member = rq.getMember();
+        if (member == null) {
             return rq.historyBack("일치하는 회원이 존재하지 않습니다.");
         }
 
-        return Rq.redirectWithMsg("/member/login?username=%s".formatted(memberDto.getUsername()), "해당 이메일로 가입한 계정의 아이디는 '%s' 입니다.".formatted(memberDto.getUsername()));
+        return Rq.redirectWithMsg("/member/login?username=%s".formatted(member.getUsername()), "해당 이메일로 가입한 계정의 아이디는 '%s' 입니다.".formatted(member.getUsername()));
     }
 
     @PreAuthorize("isAnonymous()")

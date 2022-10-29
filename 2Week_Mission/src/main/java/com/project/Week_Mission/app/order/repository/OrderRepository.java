@@ -1,4 +1,13 @@
 package com.project.Week_Mission.app.order.repository;
 
-public interface OrderRepository {
+import com.project.Week_Mission.app.order.entity.Order;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface OrderRepository extends JpaRepository<Order, Long> {
+    Order findByMemberId(Long memberId);
+
+    List<Order> findOrderListByMemberId(Long memberId);
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout/layout.html}">
+<html layout:decorate="~{layout/layout.html}" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <title>장바구니 목록</title>
@@ -33,7 +33,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="item : ${cartItems}">
+                                <tr th:each="item : ${cartItemDtos}">
                                     <td th:text="${item.id}"></td>
 <!--                                    <td th:text="${item.product.id}">-->
                                     <td th:text="${item.name}"></td>
@@ -42,7 +42,7 @@
                                     <td th:text="${item.price * item.quantity}"></td>
 
                                     <td>
-                                        <a href="javascript:void(0);" th:data-uri="@{|/cart/remove/${item.product.id}|}"
+                                        <a th:href="@{|/cart/remove/${item.productId}|}"
                                            class="delete btn btn-sm btn-primary"
                                            sec:authorize="isAuthenticated()"
                                            th:text="삭제"></a>
@@ -50,6 +50,16 @@
                                 </tr>
                                 </tbody>
                             </table>
+
+                            <td>
+                                <div th:if="${not #lists.isEmpty(cartItemDtos)}">
+                                    <a th:href="@{|/order/create|}"
+                                       class="btn btn-sm btn-primary"
+                                       sec:authorize="isAuthenticated()"
+                                       th:text="주문"></a>
+                                </div>
+                            </td>
+
                         </div>
 
                 </ul>

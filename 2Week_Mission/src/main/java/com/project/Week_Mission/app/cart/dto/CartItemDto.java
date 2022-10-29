@@ -18,9 +18,12 @@ public class CartItemDto {
     private Long memberId;
     private Long productId;
 
+    private String name;
+    private int quantity;
+    private int price;
+
     private LocalDateTime createDate;
     private LocalDateTime modifyDate;
-    private int quantity;
 
 
     public CartItemDto(CartItem cartItem) {
@@ -29,5 +32,8 @@ public class CartItemDto {
         productId = cartItem.getProduct().getId();
         createDate = cartItem.getCreateDate();
         modifyDate = cartItem.getModifyDate();
+        name = cartItem.getName();
+        price = cartItem.getPrice();
+        quantity = cartItem.getQuantity();
     }
 }
