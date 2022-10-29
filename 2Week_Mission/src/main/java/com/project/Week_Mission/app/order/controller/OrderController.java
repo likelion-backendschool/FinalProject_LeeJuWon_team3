@@ -45,7 +45,7 @@ public class OrderController {
      * 주문취소
      */
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/{id}/cancel")
+    @GetMapping("/{orderId}/cancel")
     public String cancel(@PathVariable long orderId) {
 
         orderService.cancelOrder(orderId);
