@@ -3,10 +3,7 @@ package com.project.Week_Mission.app.order.entity;
 
 import com.project.Week_Mission.app.base.entity.BaseEntity;
 import com.project.Week_Mission.app.member.entity.Member;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -15,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.*;
 import static lombok.AccessLevel.PROTECTED;
 
@@ -24,24 +22,30 @@ import static lombok.AccessLevel.PROTECTED;
 @SuperBuilder
 @ToString(callSuper = true)
 @NoArgsConstructor(access = PROTECTED)
+@Table(name = "orders")
 public class Order extends BaseEntity {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "order")
+    @Builder.Default
+    @OneToMany(mappedBy = "order", cascade = ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
 
 
     private LocalDateTime payDate; //결제날짜
 
+    @Column(nullable = true)
     private boolean readyStatus; //주문완료여부
 
+    @Column(nullable = true)
     private boolean isPaid; //결제완료여부
 
+    @Column(nullable = true)
     private boolean isCanceled; //취소여부
 
+    @Column(nullable = true)
     private boolean isRefunded; //환불여부
 
     private String name; //주문명
@@ -65,5 +69,15 @@ public class Order extends BaseEntity {
 
     public Order(Member member) {
         this.member = member;
+    }
+
+
+    public int getPayPrice() {
+        int payPrice = 0;
+        for (OrderItem orderItem : orderItems) {
+            payPrice += orderItem.getPayPrice();
+        }
+
+        return payPrice;
     }
 }

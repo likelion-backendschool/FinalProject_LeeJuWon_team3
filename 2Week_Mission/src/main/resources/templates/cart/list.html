@@ -48,16 +48,18 @@
                                            th:text="삭제"></a>
                                     </td>
                                 </tr>
-                                <td>
-                                    <div th:if="${not #lists.isEmpty(cartItemDtos)}">
-                                        <a th:href="@{|/order/create|}"
-                                           class="delete btn btn-sm btn-primary"
-                                           sec:authorize="isAuthenticated()"
-                                           th:text="주문"></a>
-                                    </div>
-                                </td>
                                 </tbody>
                             </table>
+
+                            <td>
+                                <div th:if="${not #lists.isEmpty(cartItemDtos)}">
+                                    <a th:href="@{|/order/create|}"
+                                       class="btn btn-sm btn-primary"
+                                       sec:authorize="isAuthenticated()"
+                                       th:text="주문"></a>
+                                </div>
+                            </td>
+
                         </div>
 
                 </ul>

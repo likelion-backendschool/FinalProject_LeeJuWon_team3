@@ -1,7 +1,10 @@
 package com.project.Week_Mission.app.base.initData;
 
+import com.project.Week_Mission.app.cart.service.CartService;
 import com.project.Week_Mission.app.member.entity.Member;
 import com.project.Week_Mission.app.member.service.MemberService;
+import com.project.Week_Mission.app.order.repository.OrderRepository;
+import com.project.Week_Mission.app.order.service.OrderService;
 import com.project.Week_Mission.app.post.service.PostService;
 import com.project.Week_Mission.app.product.entity.Product;
 import com.project.Week_Mission.app.product.entity.ProductOption;
@@ -22,7 +25,10 @@ public class NotProdInitData {
     CommandLineRunner initData(
             MemberService memberService,
             PostService postService,
-            ProductService productService
+            ProductService productService,
+            CartService cartService,
+            OrderService orderService,
+            OrderRepository orderRepository
     ) {
         return args -> {
             if (initDataDone) {
@@ -67,7 +73,7 @@ public class NotProdInitData {
             postService.write(member2, "제목 7", "내용 7", "내용 7", "#IT# 프론트엔드 #HTML #CSS");
             postService.write(member2, "제목 8", "내용 8", "내용 8", "#IT #스프링부트 #자바");
 
-            Product product1 = productService.create(member1, "상품명1 상품명1 상품명1 상품명1 상품명1 상품명1", 30_000, "카프카", "#IT #카프카");
+            Product product1 = productService.create(member1, "상품명1", 30_000, "카프카", "#IT #카프카");
             Product product2 = productService.create(member2, "상품명2", 40_000, "스프링부트", "#IT #REACT");
             Product product3 = productService.create(member1, "상품명3", 50_000, "REACT", "#IT #REACT");
             Product product4 = productService.create(member2, "상품명4", 60_000, "HTML", "#IT #HTML");

@@ -4,6 +4,8 @@ import com.project.Week_Mission.app.cart.entity.CartItem;
 import com.project.Week_Mission.app.cart.repository.CartRepository;
 import com.project.Week_Mission.app.cart.service.CartService;
 import com.project.Week_Mission.app.member.entity.Member;
+import com.project.Week_Mission.app.member.repository.MemberRepository;
+import com.project.Week_Mission.app.member.service.MemberDto;
 import com.project.Week_Mission.app.order.entity.OrderItem;
 import com.project.Week_Mission.app.order.form.OrderForm;
 import com.project.Week_Mission.app.order.entity.Order;
@@ -26,11 +28,12 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final CartRepository cartRepository;
     private final CartService cartService;
+    private final MemberRepository memberRepository;
 
     @Transactional
-    public Order createFromCart(Member buyer) {
+    public Order createFromCart(MemberDto memberDto) {
 
-        List<CartItem> cartItems = cartRepository.findAllByMemberId(buyer.getId());
+        List<CartItem> cartItems = cartRepository.findAllByMemberId(memberDto.getId());
 
         List<OrderItem> orderItems = new ArrayList<>();
 
@@ -44,12 +47,15 @@ public class OrderService {
             cartService.removeCartItem(cartItem);
         }
 
-        return create(buyer, orderItems);
+        return create(memberDto, orderItems);
     }
 
 
     @Transactional
-    public Order create(Member buyer, List<OrderItem> orderItems) {
+    public Order create(MemberDto memberDto, List<OrderItem> orderItems) {
+
+        Member buyer = memberRepository.findById(memberDto.getId()).orElseThrow(
+                () -> new RuntimeException(memberDto.getId() + " is not found."));
 
         Order order = Order.builder()
                 .member(buyer)
