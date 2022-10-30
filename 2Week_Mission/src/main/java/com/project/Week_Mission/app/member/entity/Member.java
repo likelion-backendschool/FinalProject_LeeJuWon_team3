@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.Week_Mission.app.base.entity.BaseEntity;
 import com.project.Week_Mission.app.cart.entity.CartItem;
 import com.project.Week_Mission.app.mybook.MyBook;
+import com.project.Week_Mission.app.order.entity.CashLog;
 import com.project.Week_Mission.app.order.entity.Order;
 import com.project.Week_Mission.app.product.entity.Product;
 import lombok.*;
@@ -53,6 +54,10 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "author")
     private List<Product> products = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<CashLog> cashLogs = new ArrayList<>();
+
 
 
     public String getName() {
