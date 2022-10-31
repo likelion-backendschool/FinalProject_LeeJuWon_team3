@@ -26,32 +26,24 @@ import static lombok.AccessLevel.PROTECTED;
 @Table(name = "orders")
 public class Order extends BaseEntity {
 
+    private LocalDateTime refundDate;
+    private LocalDateTime payDate;
+    private LocalDateTime cancelDate;
+
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "member_id")
     private Member member;
+
+    private String name;
+
+    private boolean isPaid; // 결제여부
+    private boolean isCanceled; // 취소여부
+    private boolean isRefunded; // 환불여부
+
+    private OrderStatus status;
 
     @Builder.Default
     @OneToMany(mappedBy = "order", cascade = ALL, orphanRemoval = true)
     private List<OrderItem> orderItems = new ArrayList<>();
-
-
-    private LocalDateTime payDate; //결제날짜
-
-    @Column(nullable = true)
-    private boolean readyStatus; //주문완료여부
-
-    @Column(nullable = true)
-    private boolean isPaid; //결제완료여부
-
-    @Column(nullable = true)
-    private boolean isCanceled; //취소여부
-
-    @Column(nullable = true)
-    private boolean isRefunded; //환불여부
-
-    private String name; //주문명
-
-    private OrderStatus status;
 
     public void addOrderItem(OrderItem orderItem) {
         orderItem.setOrder(this);
@@ -59,20 +51,41 @@ public class Order extends BaseEntity {
         orderItems.add(orderItem);
     }
 
-    public void makeName() {
-        String name = orderItems.get(0).getProduct().getSubject();
+    public int calculatePayPrice() {
+        int payPrice = 0;
 
-        if(orderItems.size() > 1) {
-            name += " 외 %d 상품".formatted(orderItems.size() - 1);
+        for (OrderItem orderItem : orderItems) {
+            payPrice += orderItem.getSalePrice();
         }
 
-        this.name = name;
+        return payPrice;
     }
 
-    public Order(Member member) {
-        this.member = member;
+    public void setCancelDone() {
+        cancelDate = LocalDateTime.now();
+
+        isCanceled = true;
     }
 
+    public void setPaymentDone() {
+        payDate = LocalDateTime.now();
+
+        for (OrderItem orderItem : orderItems) {
+            orderItem.setPaymentDone();
+        }
+
+        isPaid = true;
+    }
+
+    public void setRefundDone() {
+        refundDate = LocalDateTime.now();
+
+        for (OrderItem orderItem : orderItems) {
+            orderItem.setRefundDone();
+        }
+
+        isRefunded = true;
+    }
 
     public int getPayPrice() {
         int payPrice = 0;
@@ -81,5 +94,22 @@ public class Order extends BaseEntity {
         }
 
         return payPrice;
+    }
+
+    public void makeName() {
+        String name = orderItems.get(0).getProduct().getSubject();
+
+        if (orderItems.size() > 1) {
+            name += " 외 %d곡".formatted(orderItems.size() - 1);
+        }
+
+        this.name = name;
+    }
+
+    public boolean isPayable() {
+        if ( isPaid ) return false;
+        if ( isCanceled ) return false;
+
+        return true;
     }
 }

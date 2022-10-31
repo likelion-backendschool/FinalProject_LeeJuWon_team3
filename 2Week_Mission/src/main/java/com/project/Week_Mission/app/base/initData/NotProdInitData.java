@@ -1,11 +1,16 @@
 package com.project.Week_Mission.app.base.initData;
 
+import com.project.Week_Mission.app.cart.entity.CartItem;
+import com.project.Week_Mission.app.cart.repository.CartRepository;
 import com.project.Week_Mission.app.cart.service.CartService;
 import com.project.Week_Mission.app.member.entity.Member;
+import com.project.Week_Mission.app.member.service.MemberDto;
 import com.project.Week_Mission.app.member.service.MemberService;
+import com.project.Week_Mission.app.order.entity.Order;
 import com.project.Week_Mission.app.order.repository.OrderRepository;
 import com.project.Week_Mission.app.order.service.OrderService;
 import com.project.Week_Mission.app.post.service.PostService;
+import com.project.Week_Mission.app.product.dto.ProductDto;
 import com.project.Week_Mission.app.product.entity.Product;
 import com.project.Week_Mission.app.product.entity.ProductOption;
 import com.project.Week_Mission.app.product.service.ProductService;
@@ -13,8 +18,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.core.parameters.P;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @Profile({"dev", "test"})
@@ -28,7 +35,8 @@ public class NotProdInitData {
             ProductService productService,
             CartService cartService,
             OrderService orderService,
-            OrderRepository orderRepository
+            OrderRepository orderRepository,
+            CartRepository cartRepository
     ) {
         return args -> {
             if (initDataDone) {
@@ -78,6 +86,50 @@ public class NotProdInitData {
             Product product3 = productService.create(member1, "상품명3", 50_000, "REACT", "#IT #REACT");
             Product product4 = productService.create(member2, "상품명4", 60_000, "HTML", "#IT #HTML");
 
+            memberService.addCash(member1, 1_000_000, "충전__무통장입금");
+            memberService.addCash(member1, 2_000_000, "충전__무통장입금");
+
+            memberService.addCash(member2, 2_000_000, "충전__무통장입금");
+
+//            class Helper {
+//                public Order order(Member member, List<Product> products) {
+//                    MemberDto memberDto = new MemberDto(member);
+//                    for (int i = 0; i < products.size(); i++) {
+//                        Product product = products.get(i);
+//                        ProductDto productDto = new ProductDto(product);
+//                        CartItem oldCartItem = cartRepository.findCartItemByMemberIdAndProductId(memberDto.getId(), productDto.getId()).orElse(null);
+//
+//                        cartService.addCartItem(memberDto, productDto, oldCartItem.getQuantity());
+//                    }
+//
+//                    return orderService.createFromCart(memberDto);
+//                }
+//            }
+//
+//            Helper helper = new Helper();
+//
+//            Order order1 = helper.order(member1, Arrays.asList(
+//                            product1,
+//                            product2
+//                    )
+//            );
+
+
+//            int order1PayPrice = order1.calculatePayPrice();
+//            orderService.payByRestCashOnly(order1);
+
+            MemberDto memberDto = new MemberDto(member1);
+            ProductDto productDto = new ProductDto(product1);
+            cartService.addCartItem(memberDto, productDto, 1); // productOption__RED_44 총 수량 1
+            cartService.addCartItem(memberDto, productDto, 2); // productOption__RED_44 총 수량 3
+            cartService.addCartItem(memberDto, productDto, 1); // productOption__BLUE_44 총 수량 1
+
+            Order order1 = orderService.createFromCart(memberDto);
+
+            int order1PayPrice = order1.calculatePayPrice();
+            orderService.payByRestCashOnly(order1);
+
+//            orderService.refund(order1);
         };
     }
 }

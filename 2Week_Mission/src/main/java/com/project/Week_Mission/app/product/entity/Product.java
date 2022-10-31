@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.Week_Mission.app.base.entity.BaseEntity;
 import com.project.Week_Mission.app.cart.entity.CartItem;
 import com.project.Week_Mission.app.member.entity.Member;
-import com.project.Week_Mission.app.mybook.MyBook;
+import com.project.Week_Mission.app.mybook.entity.MyBook;
 import com.project.Week_Mission.app.order.entity.OrderItem;
 import com.project.Week_Mission.app.postkeyword.entity.PostKeyword;
 import com.project.Week_Mission.app.productTag.entity.ProductTag;
@@ -86,7 +86,12 @@ public class Product extends BaseEntity {
     }
 
     public int getSalePrice() {
-        return getPrice();
+        int price = 0;
+
+        for (CartItem cartItem : cartItems) {
+            price += cartItem.getPrice() * cartItem.getQuantity();
+        }
+        return price;
     }
 
     public int getWholesalePrice() {

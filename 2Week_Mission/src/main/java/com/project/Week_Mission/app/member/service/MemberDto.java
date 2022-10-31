@@ -22,7 +22,7 @@ public class MemberDto {
 
     private LocalDateTime createDate;
     private LocalDateTime modifyDate;
-    private List<MyBookDto> myBookDtos;
+//    private List<MyBookDto> myBookDtos;
 
     public MemberDto(Member member) {
         id = member.getId();
@@ -33,9 +33,9 @@ public class MemberDto {
         email = member.getEmail();
         restCash = member.getRestCash();
         nickname = member.getNickname();
-        myBookDtos = member.getMyBooks().stream()
-                .map(myBookDtos -> new MyBookDto(myBookDtos))
-                .collect(Collectors.toList());
+//        myBookDtos = member.getMyBooks().stream()
+//                .map(myBookDtos -> new MyBookDto(myBookDtos))
+//                .collect(Collectors.toList());
     }
 
 }

@@ -2,6 +2,8 @@ package com.project.Week_Mission.app.member.service;
 
 import com.project.Week_Mission.app.AppConfig;
 import com.project.Week_Mission.app.base.dto.RsData;
+import com.project.Week_Mission.app.cash.entity.CashLog;
+import com.project.Week_Mission.app.cash.service.CashLogService;
 import com.project.Week_Mission.app.email.service.EmailService;
 import com.project.Week_Mission.app.emailVerification.service.EmailVerificationService;
 import com.project.Week_Mission.app.member.entity.Member;
@@ -28,6 +30,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final EmailVerificationService emailVerificationService;
     private final EmailService emailService;
+    private final CashLogService cashLogService;
 
     @Transactional
     public Member join(String username, String password, String email, String nickname) {
@@ -142,6 +145,23 @@ public class MemberService {
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authentication);
         SecurityContextHolder.setContext(context);
+    }
+
+    @Transactional
+    public void addCash(Member member, long price, String eventType) {
+
+        CashLog cashLog = cashLogService.addCash(member, price, eventType);
+
+        long newRestCash = member.getRestCash() + cashLog.getPrice();
+
+        member.setRestCash(newRestCash);
+
+        // TODO save가 왜 필요한지. set으로 왜 안되는지 의문
+        memberRepository.save(member);
+    }
+
+    public long getRestCash(Member member) {
+        return memberRepository.findById(member.getId()).get().getRestCash();
     }
 
 }

@@ -46,6 +46,15 @@
                          th:text="${@rq.member.nickname != null ? @rq.member.nickname : '-'}"></div>
                 </div>
 
+
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">예치금</span>
+                    </label>
+                    <div class="badge badge-primary"
+                         th:text="|￦ ${@ut.nf(actorRestCash)}|"></div>
+                </div>
+
                 <div class="form-control">
                     <label class="label">
                         <span class="label-text">프로필이미지</span>
