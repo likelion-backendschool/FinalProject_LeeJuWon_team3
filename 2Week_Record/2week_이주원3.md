@@ -22,7 +22,7 @@
 
 - [x] **주문취소** GET /order/{id}/cancel
 
-- [ ] **결제처리** POST /order/{id}/pay
+- [x] **결제처리** POST /order/{id}/pay
 
 - [ ] **환불처리** POST /order/{id}/refund
 
