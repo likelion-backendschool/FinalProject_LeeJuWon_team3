@@ -93,7 +93,9 @@ public class MemberController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/profile")
-    public String profile() {
+    public String profile(Model model) {
+        long actorRestCash = memberService.getRestCash(rq.getMember());
+        model.addAttribute("actorRestCash", actorRestCash);
         return "member/profile";
     }
 

@@ -1,6 +1,6 @@
 package com.project.Week_Mission.app.member.service;
 
-import com.project.Week_Mission.app.mybook.MyBook;
+import com.project.Week_Mission.app.mybook.entity.MyBook;
 import lombok.Getter;
 import lombok.Setter;
 

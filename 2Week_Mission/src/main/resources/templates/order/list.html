@@ -26,7 +26,7 @@
                                 <th>번호</th>
                                 <th>주문이름</th>
                                 <th>결제여부</th>
-                                <th>주문상세</th>
+                                <th>주문상세 및 결제</th>
                                 <th>주문상태</th>
                             </tr>
                             </thead>
@@ -46,7 +46,7 @@
                                     <a th:href="@{|/order/${orders.id}|}"
                                        class="btn btn-sm btn-primary"
                                        sec:authorize="isAuthenticated()"
-                                       th:text="주문상세"></a>
+                                       th:text="주문상세i결제"></a>
                                 </td>
 
                                 <td th:text="${orders.status}"></td>

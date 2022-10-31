@@ -1,4 +1,4 @@
-package com.project.Week_Mission.app.order.entity;
+package com.project.Week_Mission.app.cash.entity;
 
 import com.project.Week_Mission.app.base.entity.BaseEntity;
 import com.project.Week_Mission.app.member.entity.Member;
@@ -24,8 +24,8 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 public class CashLog extends BaseEntity {
 
-    private int price; //변동가격
-    private String eventType; //변동종류
+    private long price; //변동가격
+    private String eventType; //변동종류(상품결제를 위한 충전, 상품결제, 상품환불로 인한 충전, 도서판매자로서 정산받음, 환전)
 
 
 
