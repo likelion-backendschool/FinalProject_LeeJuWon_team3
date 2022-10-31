@@ -7,7 +7,6 @@
 
 <body>
 <main layout:fragment="main">
-    <section class="section section-join flex-grow flex flex-col items-center justify-center">
 
         <script src="https://js.tosspayments.com/v1"></script>
 
@@ -23,6 +22,7 @@
         <form hidden name="payByRestCashOnlyForm" method="POST" th:action="@{|/order/${order.id}/pay|}">
 
         </form>
+    <section class="section section-join flex-grow flex flex-col items-center justify-center">
 
         <div class="px-2 pt-4">
             <h1 class="font-bold text-lg">주문상세</h1>
@@ -48,6 +48,31 @@
 <!--                <div>-->
 <!--                    주문가격 : [[${order.getPayPrice()}]]-->
 <!--                </div>-->
+
+                <div th:text="|￦ ${@ut.nf(order.calculatePayPrice)}|"></div>
+                <div class="flex justify-end gap-1">
+                    <div class="badge badge-outline" th:if="${order.cancelDate != null}">
+                        <span>취소 :</span>
+                        <span class="ml-1"
+                              th:text="${#temporals.format(order.cancelDate, 'yy-MM-dd')}"></span>
+                    </div>
+                    <div class="badge badge-outline" th:if="${order.refundDate != null}">
+                        <span>환불 :</span>
+                        <span class="ml-1"
+                              th:text="${#temporals.format(order.refundDate, 'yy-MM-dd')}"></span>
+                    </div>
+                    <div class="badge badge-outline" th:if="${order.payDate != null}">
+                        <span>결제 :</span>
+                        <span class="ml-1"
+                              th:text="${#temporals.format(order.payDate, 'yy-MM-dd')}"></span>
+                    </div>
+                    <div class="badge badge-outline" th:if="${order.createDate != null}">
+                        <span>주문 :</span>
+                        <span class="ml-1"
+                              th:text="${#temporals.format(order.createDate, 'yy-MM-dd')}"></span>
+                    </div>
+                </div>
+
 
                 <div>
                     <table class="table">
@@ -172,12 +197,11 @@
                                 </div>
                             </div>
 
-<!--                    </table>-->
                 </div>
 
             </div>
         </div>
-
+        </div>
     </section>
 
     <script>

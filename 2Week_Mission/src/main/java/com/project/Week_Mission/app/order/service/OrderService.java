@@ -77,7 +77,7 @@ public class OrderService {
             order.addOrderItem(orderItem);
         }
 
-//        order.makeName();
+        order.makeName();
 
 //        TODO 결제를 하면 주문을 저장하도록 구현하기
         orderRepository.save(order);

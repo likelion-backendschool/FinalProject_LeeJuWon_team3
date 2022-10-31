@@ -135,16 +135,16 @@ public class OrderController {
     /**
      * 환불처리
      */
-    @PostMapping("/{orderId}/refund")
+    @PostMapping("/{id}/refund")
     @PreAuthorize("isAuthenticated()")
-    public String refund(@PathVariable Long orderId) {
-        RsData rsData = orderService.refund(orderId, rq.getMember());
+    public String refund(@PathVariable Long id) {
+        RsData rsData = orderService.refund(id, rq.getMember());
 
         if (rsData.isFail()) {
-            return Rq.redirectWithErrorMsg("/order/%d".formatted(orderId), rsData);
+            return Rq.redirectWithErrorMsg("/order/%d".formatted(id), rsData);
         }
 
-        return Rq.redirectWithMsg("/order/%d".formatted(orderId), rsData);
+        return Rq.redirectWithMsg("/order/%d".formatted(id), rsData);
     }
 
 
