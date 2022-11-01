@@ -86,18 +86,41 @@ public class NotProdInitData {
             memberService.addCash(member2, 2_000_000, "충전__무통장입금");
 
 
-            MemberDto memberDto = new MemberDto(member1);
-            ProductDto productDto = new ProductDto(product1);
-            cartService.addCartItem(memberDto, productDto, 1); // productOption__RED_44 총 수량 1
-            cartService.addCartItem(memberDto, productDto, 2); // productOption__RED_44 총 수량 3
-            cartService.addCartItem(memberDto, productDto, 1); // productOption__BLUE_44 총 수량 1
+            MemberDto memberDto1 = new MemberDto(member1);
+            ProductDto productDto1 = new ProductDto(product1);
+            cartService.addCartItem(memberDto1, productDto1, 1);
+            cartService.addCartItem(memberDto1, productDto1, 2);
+            cartService.addCartItem(memberDto1, productDto1, 1);
 
-            Order order1 = orderService.createFromCart(memberDto);
+            Order order1 = orderService.createFromCart(memberDto1);
 
             int order1PayPrice = order1.calculatePayPrice();
             orderService.payByRestCashOnly(order1);
 
+            ProductDto productDto2 = new ProductDto(product2);
+            ProductDto productDto3 = new ProductDto(product3);
+            ProductDto productDto4 = new ProductDto(product4);
+            cartService.addCartItem(memberDto1, productDto2, 4);
+            cartService.addCartItem(memberDto1, productDto3, 5);
+            cartService.addCartItem(memberDto1, productDto4, 3);
+
+
 //            orderService.refund(order1);
+
+
+            MemberDto memberDto2 = new MemberDto(member2);
+            cartService.addCartItem(memberDto2, productDto1, 3);
+            cartService.addCartItem(memberDto2, productDto1, 6);
+            cartService.addCartItem(memberDto2, productDto1, 4);
+
+            Order order2 = orderService.createFromCart(memberDto2);
+
+            int order2PayPrice = order2.calculatePayPrice();
+            orderService.payByRestCashOnly(order2);
+            cartService.addCartItem(memberDto2, productDto2, 2);
+            cartService.addCartItem(memberDto2, productDto3, 7);
+            cartService.addCartItem(memberDto2, productDto4, 1);
+
         };
     }
 }
