@@ -85,32 +85,6 @@ public class NotProdInitData {
 
             memberService.addCash(member2, 2_000_000, "충전__무통장입금");
 
-//            class Helper {
-//                public Order order(Member member, List<Product> products) {
-//                    MemberDto memberDto = new MemberDto(member);
-//                    for (int i = 0; i < products.size(); i++) {
-//                        Product product = products.get(i);
-//                        ProductDto productDto = new ProductDto(product);
-//                        CartItem oldCartItem = cartRepository.findCartItemByMemberIdAndProductId(memberDto.getId(), productDto.getId()).orElse(null);
-//
-//                        cartService.addCartItem(memberDto, productDto, oldCartItem.getQuantity());
-//                    }
-//
-//                    return orderService.createFromCart(memberDto);
-//                }
-//            }
-//
-//            Helper helper = new Helper();
-//
-//            Order order1 = helper.order(member1, Arrays.asList(
-//                            product1,
-//                            product2
-//                    )
-//            );
-
-
-//            int order1PayPrice = order1.calculatePayPrice();
-//            orderService.payByRestCashOnly(order1);
 
             MemberDto memberDto = new MemberDto(member1);
             ProductDto productDto = new ProductDto(product1);

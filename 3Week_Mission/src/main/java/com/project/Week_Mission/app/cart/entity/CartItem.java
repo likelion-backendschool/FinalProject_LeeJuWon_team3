@@ -47,4 +47,8 @@ public class CartItem extends BaseEntity {
         this.product = product;
     }
 
+    public CartItem(long id) {
+        super(id);
+    }
+
 }

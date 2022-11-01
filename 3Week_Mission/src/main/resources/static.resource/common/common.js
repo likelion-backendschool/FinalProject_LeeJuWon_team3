@@ -51,3 +51,7 @@ function warningModal(msg) {
         toastr["warning"](pureMsg);
     }
 }
+
+$(document).ready(function () {
+    $('.select-2').select2();
+});
