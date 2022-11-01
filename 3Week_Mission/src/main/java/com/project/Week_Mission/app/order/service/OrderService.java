@@ -71,7 +71,7 @@ public class OrderService {
 
         Order order = Order.builder()
                 .member(member)
-                .status(OrderStatus.OrderCompleted)
+                .status(OrderStatus.READY)
                 .build();
 
         for (OrderItem orderItem : orderItems) {
@@ -102,7 +102,7 @@ public class OrderService {
                 .orElseThrow(() -> new RuntimeException(orderId + " orderId is not found."));
 
         order.setCanceled(true);
-        order.setStatus(OrderStatus.CancelCompleted);
+        order.setStatus(OrderStatus.CANCEL);
     }
 
     public List<Order> findOrdersByMemberDto(MemberDto memberDto) {

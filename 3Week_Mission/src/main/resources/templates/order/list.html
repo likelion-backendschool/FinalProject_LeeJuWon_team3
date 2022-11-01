@@ -53,7 +53,7 @@
 
 
                                 <td>
-                                    <a th:if="${orders.status.name() == 'OrderCompleted'}"
+                                    <a th:if="${orders.status.name() == 'READY'}"
                                        th:href="@{|/order/${orders.id}/cancel|}"
                                        class="btn btn-sm btn-primary"
                                        sec:authorize="isAuthenticated()"

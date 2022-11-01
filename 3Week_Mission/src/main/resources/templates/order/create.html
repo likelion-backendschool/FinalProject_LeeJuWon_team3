@@ -33,7 +33,7 @@
 <!--        </div>-->
 
         <div>
-          주문가격 : [[${order.calculatePayPrice()}]]
+          주문 총 가격 : ₩[[${@ut.nf(order.calculatePayPrice())}]]
         </div>
 
         <div>
@@ -46,7 +46,7 @@
               <th>글쓴이</th>
               <th>한개당 가격</th>
               <th>주문개수</th>
-              <th>총 가격</th>
+              <th>해당 상품 가격</th>
             </tr>
             </thead>
             <tbody>
