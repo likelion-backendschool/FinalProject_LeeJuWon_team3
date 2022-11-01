@@ -21,7 +21,8 @@
                     <div th:text="${product.author.name}"></div>
                 </div>
             </h2>
-            <div th:text="|￦ ${@ut.nf(product.salePrice)}|"></div>
+<!--            <div th:text="|￦ ${@ut.nf(product.salePrice)}|"></div>-->
+            <div th:text="|￦ ${@ut.nf(product.price)}|"></div>
             <div th:utext="${product.extra_productTagLinks}"></div>
             <div class="flex justify-end">
                 <div class="badge badge-outline">
