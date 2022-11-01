@@ -110,7 +110,7 @@ public class CartController {
 
         cartService.addCartItem(memberDto, productDto, cartItemDto.getQuantity());
 
-        return "redirect:/cart/list";
+        return "redirect:/product/list";
     }
 
 
