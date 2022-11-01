@@ -23,14 +23,16 @@ import static lombok.AccessLevel.PROTECTED;
 @NoArgsConstructor(access = PROTECTED)
 public class CashLog extends BaseEntity {
 
-    private long price; //변동가격
-    private String eventType; //변동종류(상품결제를 위한 충전, 상품결제, 상품환불로 인한 충전, 도서판매자로서 정산받음, 환전)
-
-
-
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
+
+    private long price; //변동가격
+    private String eventType; //변동종류(상품결제를 위한 충전, 상품결제, 상품환불로 인한 충전, 도서판매자로서 정산받음, 환전)
+
+    public CashLog(long id) {
+        super(id);
+    }
 
 }

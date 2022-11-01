@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -148,7 +149,7 @@ public class MemberService {
     }
 
     @Transactional
-    public void addCash(Member member, long price, String eventType) {
+    public RsData<Map<String, Object>> addCash(Member member, long price, String eventType) {
 
         CashLog cashLog = cashLogService.addCash(member, price, eventType);
 
@@ -158,6 +159,15 @@ public class MemberService {
 
         // TODO save가 왜 필요한지. set으로 왜 안되는지 의문
         memberRepository.save(member);
+
+        return RsData.of(
+                "S-1",
+                "성공",
+                Ut.mapOf(
+                        "cashLog", cashLog,
+                        "newRestCash", newRestCash
+                )
+        );
     }
 
     public long getRestCash(Member member) {

@@ -1,5 +1,6 @@
 package com.project.Week_Mission.app.rebate.controller;
 
+import com.project.Week_Mission.app.base.dto.RsData;
 import com.project.Week_Mission.app.rebate.entity.RebateOrderItem;
 import com.project.Week_Mission.app.rebate.service.RebateService;
 import com.project.Week_Mission.util.Ut;
@@ -7,10 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -49,6 +47,15 @@ public class AdmRebateController {
         model.addAttribute("items", items);
 
         return "adm/rebate/rebateOrderItemList";
+    }
+
+    @PostMapping("/rebateOne/{orderItemId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @ResponseBody
+    public String rebateOne(@PathVariable long orderItemId) {
+        RsData rebateRsData = rebateService.rebate(orderItemId);
+
+        return rebateRsData.getMsg();
     }
 
 }
