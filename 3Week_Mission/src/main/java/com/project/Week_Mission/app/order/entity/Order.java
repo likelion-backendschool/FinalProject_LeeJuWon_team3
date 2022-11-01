@@ -90,7 +90,13 @@ public class Order extends BaseEntity {
     }
 
     public int getPayPrice() {
-        return getPayPrice();
+        int payPrice = 0;
+
+        for (OrderItem orderItem : orderItems) {
+            payPrice += orderItem.getSalePrice();
+        }
+
+        return payPrice;
     }
 
     public void makeName() {
