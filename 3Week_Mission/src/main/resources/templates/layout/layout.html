@@ -39,6 +39,15 @@
         </a>
 
         <div class="flex gap-4">
+
+            <a href="/adm/home/main" class="inline-flex" sec:authorize="hasAuthority('ADMIN')">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span class="ml-[2px] hidden sm:block">
+                    관리자 홈
+                </span>
+            </a>
+
+
             <a href="/member/login" class="inline-flex" sec:authorize="isAnonymous()">
                 <i class="fa-solid fa-arrow-right-to-bracket"></i>
                 <span class="ml-[2px] hidden lg:block">
