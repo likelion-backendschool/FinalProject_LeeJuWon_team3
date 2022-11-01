@@ -13,6 +13,7 @@ import com.project.Week_Mission.app.mybook.service.MyBookService;
 import com.project.Week_Mission.app.order.controller.OrderStatus;
 import com.project.Week_Mission.app.order.entity.Order;
 import com.project.Week_Mission.app.order.entity.OrderItem;
+import com.project.Week_Mission.app.order.repository.OrderItemRepository;
 import com.project.Week_Mission.app.order.repository.OrderRepository;
 import com.project.Week_Mission.app.product.entity.Product;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,7 @@ public class OrderService {
     private final MyBookService myBookService;
     private final MemberService memberService;
     private final Rq rq;
+    private final OrderItemRepository orderItemRepository;
 
     @Transactional
     public Order createFromCart(MemberDto memberDto) {
@@ -270,5 +272,9 @@ public class OrderService {
 
     public boolean memberCanPayment(Member member, Order order) {
         return memberCanSee(member, order);
+    }
+
+    public List<OrderItem> findAllByPayDateBetween(LocalDateTime fromDate, LocalDateTime toDate) {
+        return orderItemRepository.findAllByPayDateBetween(fromDate, toDate);
     }
 }
