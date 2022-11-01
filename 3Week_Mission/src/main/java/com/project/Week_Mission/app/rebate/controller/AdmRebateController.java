@@ -24,15 +24,22 @@ public class AdmRebateController {
 
     private final RebateService rebateService;
 
+
+    /**
+     * 정산데이터생성 폼
+     */
     @GetMapping("/makeData")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String showMakeData() {
         return "adm/rebate/makeData";
     }
 
+
+    /**
+     * 정산데이터생성
+     */
     @PostMapping("/makeData")
     @PreAuthorize("hasAuthority('ADMIN')")
-    @ResponseBody
     public String makeData(String yearMonth) {
 
         RsData makeDateRsData = rebateService.makeDate(yearMonth);
@@ -41,6 +48,11 @@ public class AdmRebateController {
         return redirect;
     }
 
+
+
+    /**
+     * 정산데이터리스트
+     */
     @GetMapping("/rebateOrderItemList")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String showRebateOrderItemList(String yearMonth, Model model) {
@@ -55,6 +67,10 @@ public class AdmRebateController {
         return "adm/rebate/rebateOrderItemList";
     }
 
+
+    /**
+     * 정산(건별)
+     */
     @PostMapping("/rebateOne/{orderItemId}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String rebateOne(@PathVariable long orderItemId, HttpServletRequest req) {
@@ -70,6 +86,11 @@ public class AdmRebateController {
         return redirect;
     }
 
+
+
+    /**
+     * 정산(전체)
+     */
     @PostMapping("/rebate")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String rebate(String ids, HttpServletRequest req) {

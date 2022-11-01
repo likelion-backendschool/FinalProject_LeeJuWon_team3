@@ -48,10 +48,9 @@ public class OrderService {
         List<OrderItem> orderItems = new ArrayList<>();
 
         for (CartItem cartItem : cartItems) {
-//개수가 이동되야하는데
+
             Product product = cartItem.getProduct();
             product.setQuantity(cartItem.getQuantity());
-//            cartItem.getQuantity()
 
             if(product.isOrderable()) {
                 orderItems.add(new OrderItem(product));
