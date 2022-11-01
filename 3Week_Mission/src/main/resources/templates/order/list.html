@@ -51,14 +51,6 @@
 
                                 <td th:text="${orders.status}"></td>
 
-
-                                <td>
-                                    <a th:if="${orders.status.name() == 'READY'}"
-                                       th:href="@{|/order/${orders.id}/cancel|}"
-                                       class="btn btn-sm btn-primary"
-                                       sec:authorize="isAuthenticated()"
-                                       th:text="주문취소"></a>
-                                </td>
                             </tr>
 
                             </tbody>
@@ -72,18 +64,5 @@
 
 </main>
 </body>
-
-<script type='text/javascript'>
-    const delete_elements = document.getElementsByClassName("delete");
-    Array.from(delete_elements).forEach(function(element) {
-        element.addEventListener('click', function() {
-            if(confirm("정말로 삭제하시겠습니까?")) {
-                location.href = this.dataset.uri;
-            };
-        });
-    });
-</script>
-
-
 
 </html>

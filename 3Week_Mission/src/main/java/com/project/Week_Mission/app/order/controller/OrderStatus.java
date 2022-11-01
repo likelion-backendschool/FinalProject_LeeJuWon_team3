@@ -2,7 +2,8 @@ package com.project.Week_Mission.app.order.controller;
 
 public enum OrderStatus {
 
-    READY, //주문대기상태
+    READY, //주문대기
 
-    CANCEL; //주문취소
+    COMPLETED, //주문완료
+    CANCELED; //주문취소
 }

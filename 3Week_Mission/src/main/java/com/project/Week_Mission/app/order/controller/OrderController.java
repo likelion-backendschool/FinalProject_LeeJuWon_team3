@@ -99,6 +99,7 @@ public class OrderController {
         return "order/detail";
     }
 
+
     /**
      * 결제처리
      */
@@ -124,7 +125,7 @@ public class OrderController {
      * 주문취소
      */
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/{id}/cancel")
+    @PostMapping("/{id}/cancel")
     public String cancel(@PathVariable long id) {
 
         orderService.cancelOrder(id);

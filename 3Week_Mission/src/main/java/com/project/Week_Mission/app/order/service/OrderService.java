@@ -102,7 +102,7 @@ public class OrderService {
                 .orElseThrow(() -> new RuntimeException(orderId + " orderId is not found."));
 
         order.setCanceled(true);
-        order.setStatus(OrderStatus.CANCEL);
+        order.setStatus(OrderStatus.CANCELED);
     }
 
     public List<Order> findOrdersByMemberDto(MemberDto memberDto) {
@@ -139,6 +139,7 @@ public class OrderService {
 
     private void payDone(Order order) {
         order.setPaymentDone();
+        order.setStatus(OrderStatus.COMPLETED);
         myBookService.add(order);
         orderRepository.save(order);
     }
