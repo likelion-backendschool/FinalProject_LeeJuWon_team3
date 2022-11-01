@@ -34,7 +34,8 @@
           <tbody>
           <tr th:each="item : ${items}">
             <td>
-              <input onchange="OrderItemCheckbox__changed();" th:if="${item.rebateAvailable}" type="checkbox" class="orderItemCheckbox checkbox">
+              <input onchange="OrderItemCheckbox__changed();" th:if="${item.rebateAvailable}"
+                     type="checkbox" class="orderItemCheckbox checkbox" th:value="${item.orderItem.id}">
             </td>
             <td th:text="${item.orderItem.id}"></td>
             <td th:text="${item.payDate}"></td>
@@ -50,8 +51,8 @@
             <td>
               <a th:if="${item.rebateAvailable}" href="javascript:;" onclick="$(this).next().submit();"
               class="btn btn-primary btn-xs">건별정산</a>
-              <form method="POST" th:action="@{|/adm/rebate/rebateOne/${item.orderItem.id}|}" hidden></form>
-
+              <form method="POST" th:action="@{|/adm/rebate/rebateOne/${item.orderItem.id}|}"
+                    hidden></form>
             </td>
           </tr>
           </tbody>
@@ -60,6 +61,7 @@
         <a href="javascript:;" onclick="RebateForm__submit();" class="btn btn-primary btn-sm">선택정산</a>
         <form method="POST" name="rebateForm" th:action="@{|/adm/rebate/rebate|}" hidden>
 
+          <input type="hidden" name="ids">
         </form>
         <script>
           // 전체선택 체크박스
@@ -92,6 +94,8 @@
               return;
             }
 
+            const ids = $checked.map((index, el) => $(el).val()).get();
+            form.ids.value = ids;
             form.submit();
             RebateForm__submitDone = true;
           }
