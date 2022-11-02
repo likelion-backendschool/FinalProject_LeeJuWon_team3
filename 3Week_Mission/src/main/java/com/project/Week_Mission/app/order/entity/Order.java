@@ -42,6 +42,7 @@ public class Order extends BaseEntity {
     private boolean isRefunded; // 환불여부
 
     private OrderStatus status;
+    private int price;
 
     @Builder.Default
     @OneToMany(mappedBy = "order", cascade = ALL, orphanRemoval = true)
@@ -115,4 +116,9 @@ public class Order extends BaseEntity {
 
         return true;
     }
+
+    public void updatePrice(int price) {
+        this.price = price;
+    }
+
 }

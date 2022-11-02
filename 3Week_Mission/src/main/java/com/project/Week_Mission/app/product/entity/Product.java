@@ -24,7 +24,6 @@ import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
-@Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,6 +35,7 @@ public class Product extends BaseEntity {
     private int stockQuantity;
     private int price;
     private int pricePerOne;
+    private int salePrice;
     private int quantity;
 
     private boolean isSoldOut; // 관련 옵션들이 전부 판매불능 상태일 때 '주의:품절이 아님'
@@ -86,12 +86,17 @@ public class Product extends BaseEntity {
         this.postKeyword = postKeyword;
     }
 
+
+    // cartItem 다 가져오는 문제 있음 -> order.price로 처리함
+    // 사용하지 않는 메서드
     public int getSalePrice() {
         int price = 0;
 
         for (CartItem cartItem : cartItems) {
-            price += cartItem.getPrice() * cartItem.getQuantity();
-        }
+//            price += cartItem.getPrice() * cartItem.getQuantity();
+            price += cartItem.getPrice();
+         }
+
         return price;
     }
 
@@ -153,5 +158,17 @@ public class Product extends BaseEntity {
                 })
                 .sorted()
                 .collect(Collectors.joining(" "));
+    }
+
+    public void updateSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public void updatePrice(int price) {
+        this.price = price;
+    }
+
+    public void updateQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

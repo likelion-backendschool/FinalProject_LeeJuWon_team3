@@ -14,7 +14,10 @@
             const orderId = /*[[ ${order.id} ]]*/ null;
             const memberName = /*[[ ${order.member.name} ]]*/ null;
             const orderName = /*[[ ${order.name} ]]*/ null;
-            const orderPayPrice = /*[[ ${order.calculatePayPrice} ]]*/ null;
+
+            // const orderPayPrice = /*[[ ${order.calculatePayPrice} ]]*/ null;
+            const orderPayPrice = /*[[ ${order.price} ]]*/ null;
+
             const toss_clientKey = /*[[ ${@environment.getProperty('custom.tossPayments.clientKey')} ]]*/ null;
 
         </script>
@@ -49,7 +52,9 @@
 <!--                    주문가격 : [[${order.getPayPrice()}]]-->
 <!--                </div>-->
 
-                <div th:text="|￦ ${@ut.nf(order.calculatePayPrice)}|"></div>
+<!--                <div th:text="|￦ ${@ut.nf(order.calculatePayPrice)}|"></div>-->
+                <div th:text="|￦ ${@ut.nf(order.price)}|"></div>
+
                 <div class="flex justify-end gap-1">
                     <div class="badge badge-outline" th:if="${order.cancelDate != null}">
                         <span>취소 :</span>
@@ -105,7 +110,10 @@
 
                                 <td><span th:text="${orderItem.price}"></span></td>
                                 <td><span th:text="${orderItem.quantity}"></span></td>
-                                <td><span th:text="${orderItem.salePrice}"></span></td>
+
+<!--                                <td><span th:text="${orderItem.salePrice}"></span></td>-->
+
+                                <td th:text="${orderItem.price * orderItem.quantity}"></td>
 
                             </tr>
                         </div>
@@ -135,7 +143,7 @@
                             </div>
 
                             <div class="form-control"
-                                 th:with="maxUseRestCash = ${order.calculatePayPrice > actorRestCash ? actorRestCash : order.calculatePayPrice}">
+                                 th:with="maxUseRestCash = ${order.price > actorRestCash ? actorRestCash : order.price}">
                                 <label class="label">
                                     <span class="label-text">사용할 예치금</span>
                                 </label>

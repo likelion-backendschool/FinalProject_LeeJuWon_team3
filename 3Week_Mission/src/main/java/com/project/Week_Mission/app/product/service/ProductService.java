@@ -85,8 +85,9 @@ public class ProductService {
 
     @Transactional
     public void modify(Product product, String subject, int price, String productTagContents) {
-        product.setSubject(subject);
-        product.setPrice(price);
+
+        product.updateSubject(subject);
+        product.updatePrice(price);
 
         applyProductTags(product, productTagContents);
     }

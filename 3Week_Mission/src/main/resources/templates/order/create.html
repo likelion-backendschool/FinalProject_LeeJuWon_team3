@@ -33,7 +33,7 @@
 <!--        </div>-->
 
         <div>
-          주문 총 가격 : ₩[[${@ut.nf(order.calculatePayPrice())}]]
+          주문 총 가격 : ₩[[${@ut.nf(order.price)}]]
         </div>
 
         <div>
@@ -67,7 +67,10 @@
 
               <td><span th:text="${orderItem.price}"></span></td>
               <td><span th:text="${orderItem.quantity}"></span></td>
-              <td><span th:text="${orderItem.salePrice}"></span></td>
+
+<!--              <td><span th:text="${orderItem.salePrice}"></span></td>-->
+              <td th:text="${orderItem.price * orderItem.quantity}"></td>
+
             </tr>
 
             </tbody>

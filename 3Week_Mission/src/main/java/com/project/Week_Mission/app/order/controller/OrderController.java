@@ -195,7 +195,9 @@ public class OrderController {
 
         Member actor = memberContext.getMember();
         long restCash = memberService.getRestCash(actor);
-        long payPriceRestCash = order.calculatePayPrice() - amount;
+
+        //        long payPriceRestCash = order.calculatePayPrice() - amount;
+        long payPriceRestCash = order.getPrice() - amount;
 
         if (payPriceRestCash > restCash) {
             throw new OrderNotEnoughRestCashException();

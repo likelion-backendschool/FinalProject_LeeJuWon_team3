@@ -34,10 +34,8 @@ public class OrderService {
     private final CartRepository cartRepository;
     private final CartService cartService;
     private final MemberRepository memberRepository;
-
     private final MyBookService myBookService;
     private final MemberService memberService;
-    private final Rq rq;
     private final OrderItemRepository orderItemRepository;
 
     @Transactional
@@ -50,7 +48,7 @@ public class OrderService {
         for (CartItem cartItem : cartItems) {
 
             Product product = cartItem.getProduct();
-            product.setQuantity(cartItem.getQuantity());
+            product.updateQuantity(cartItem.getQuantity());
 
             if(product.isOrderable()) {
                 orderItems.add(new OrderItem(product));
@@ -74,10 +72,13 @@ public class OrderService {
                 .status(OrderStatus.READY)
                 .build();
 
+        int price = 0;
         for (OrderItem orderItem : orderItems) {
             order.addOrderItem(orderItem);
+            price += orderItem.getPrice() * orderItem.getQuantity();
         }
 
+        order.updatePrice(price);
         order.makeName();
 
 //        TODO 결제를 하면 주문을 저장하도록 구현하기
@@ -123,7 +124,8 @@ public class OrderService {
 
         long restCash = member.getRestCash();
 
-        int payPrice = order.calculatePayPrice();
+//        int payPrice = order.calculatePayPrice();
+        int payPrice = order.getPrice();
 
         if(payPrice > restCash) {
             throw new RuntimeException("예치금이 부족합니다.");
@@ -201,7 +203,9 @@ public class OrderService {
 
         Member member = order.getMember();
         long restCash = member.getRestCash();
-        int payPrice = order.calculatePayPrice();
+//        int payPrice = order.calculatePayPrice();
+        int payPrice = order.getPrice();
+
 
         long pgPayPrice = payPrice - useRestCash;
         memberService.addCash(member, pgPayPrice, "주문__%d__충전__토스페이먼츠".formatted(order.getId()));
@@ -257,7 +261,9 @@ public class OrderService {
     public RsData payByRestCashOnly(Order order) {
         Member member = order.getMember();
         long restCash = member.getRestCash();
-        int payPrice = order.calculatePayPrice();
+//        int payPrice = order.calculatePayPrice();
+        int payPrice = order.getPrice();
+
 
         if (payPrice > restCash) {
             throw new RuntimeException("예치금이 부족합니다.");

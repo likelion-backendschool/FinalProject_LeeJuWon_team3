@@ -102,8 +102,8 @@ public class NotProdInitData {
             ProductDto productDto3 = new ProductDto(product3);
             ProductDto productDto4 = new ProductDto(product4);
             cartService.addCartItem(memberDto1, productDto2, 4);
-            cartService.addCartItem(memberDto1, productDto3, 5);
-            cartService.addCartItem(memberDto1, productDto4, 3);
+//            cartService.addCartItem(memberDto1, productDto3, 5);
+//            cartService.addCartItem(memberDto1, productDto4, 3);
 
 
 //            orderService.refund(order1);
@@ -120,7 +120,6 @@ public class NotProdInitData {
             orderService.payByRestCashOnly(order2);
             cartService.addCartItem(memberDto2, productDto2, 2);
             cartService.addCartItem(memberDto2, productDto3, 7);
-            cartService.addCartItem(memberDto2, productDto4, 1);
 
         };
     }

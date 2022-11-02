@@ -21,7 +21,7 @@ import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 public class PostService {
     private final PostRepository postRepository;
     private final PostTagService postTagService;
@@ -55,6 +55,7 @@ public class PostService {
         return postTagService.getPostTags(post);
     }
 
+    @Transactional
     public void modify(PostDto postDto, String subject, String content, String contentHtml, String postTagContents) {
 
         Post post = postRepository.findById(postDto.getId()).orElseThrow(
@@ -83,6 +84,7 @@ public class PostService {
         return postTags;
     }
 
+    @Transactional
     public PostDto findForPrintById(long id) {
 
         Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException(id + "postId is not found."));
@@ -104,6 +106,8 @@ public class PostService {
         loadForPrintData(posts);
     }
 
+
+    @Transactional
     public void loadForPrintData(List<Post> posts) {
         long[] ids = posts
                 .stream()
@@ -135,6 +139,7 @@ public class PostService {
                 .collect(toList());
     }
 
+    @Transactional
     public void remove(PostDto postDto) {
         Post post = postRepository.findById(postDto.getId())
                 .orElseThrow(
