@@ -1,5 +1,6 @@
 package com.project.Week_Mission.app.post.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.Week_Mission.app.base.entity.BaseEntity;
 import com.project.Week_Mission.app.member.entity.Member;
 import com.project.Week_Mission.app.postTag.entity.PostTag;
@@ -12,6 +13,8 @@ import lombok.experimental.SuperBuilder;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -36,6 +39,12 @@ public class Post extends BaseEntity {
 
     @ManyToOne(fetch = LAZY)
     private Member author;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "post")
+    List<PostTag> postTags = new ArrayList<>();
+
 
     public String getForPrintContentHtml() {
         return contentHtml.replaceAll("toastui-editor-ww-code-block-highlighting", "");

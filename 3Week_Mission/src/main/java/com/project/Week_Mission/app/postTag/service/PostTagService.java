@@ -1,6 +1,7 @@
 package com.project.Week_Mission.app.postTag.service;
 
 import com.project.Week_Mission.app.member.entity.Member;
+import com.project.Week_Mission.app.post.dto.PostDto;
 import com.project.Week_Mission.app.post.entity.Post;
 import com.project.Week_Mission.app.postTag.entity.PostTag;
 import com.project.Week_Mission.app.postTag.repository.PostTagRepository;

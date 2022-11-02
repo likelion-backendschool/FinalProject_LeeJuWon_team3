@@ -1,11 +1,14 @@
 package com.project.Week_Mission.app.post.service;
 
+import com.project.Week_Mission.app.base.rq.Rq;
 import com.project.Week_Mission.app.member.entity.Member;
+import com.project.Week_Mission.app.post.dto.PostDto;
 import com.project.Week_Mission.app.post.entity.Post;
 import com.project.Week_Mission.app.post.repository.PostRepository;
 import com.project.Week_Mission.app.postTag.entity.PostTag;
 import com.project.Week_Mission.app.postTag.service.PostTagService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +27,7 @@ public class PostService {
     private final PostTagService postTagService;
 
     @Transactional
-    public Post write(Member author, String subject, String content, String contentHtml, String postTagContents) {
+    public PostDto write(Member author, String subject, String content, String contentHtml, String postTagContents) {
         Post post = Post.builder()
                 .subject(subject)
                 .content(content)
@@ -35,11 +38,13 @@ public class PostService {
 
         applyPostTags(post, postTagContents);
 
-        return post;
+        return new PostDto(post);
     }
 
-    public Optional<Post> findById(long postId) {
-        return postRepository.findById(postId);
+    public PostDto findById(long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(
+                () -> new RuntimeException(postId + " postId is not found."));
+        return new PostDto(post);
     }
 
     public void applyPostTags(Post post, String postTagContents) {
@@ -50,19 +55,23 @@ public class PostService {
         return postTagService.getPostTags(post);
     }
 
-    public void modify(Post post, String subject, String content, String contentHtml, String postTagContents) {
+    public void modify(PostDto postDto, String subject, String content, String contentHtml, String postTagContents) {
+
+        Post post = postRepository.findById(postDto.getId()).orElseThrow(
+                () -> new RuntimeException(postDto.getId() + " postDtoId is not found."));
+
         post.setSubject(subject);
         post.setContent(content);
         post.setContentHtml(contentHtml);
         applyPostTags(post, postTagContents);
     }
 
-    public boolean actorCanModify(Member author, Post post) {
-        return author.getId().equals(post.getAuthor().getId());
+    public boolean actorCanModify(Member author, PostDto postDto) {
+        return author.getId().equals(postDto.getAuthor().getId());
     }
 
-    public boolean actorCanRemove(Member author, Post post) {
-        return actorCanModify(author, post);
+    public boolean actorCanRemove(Member author, PostDto postDto) {
+        return actorCanModify(author, postDto);
     }
 
     public List<PostTag> getPostTags(Member author, String postKeywordContent) {
@@ -73,17 +82,18 @@ public class PostService {
         return postTags;
     }
 
-    public Optional<Post> findForPrintById(long id) {
-        Optional<Post> opPost = findById(id);
+    public PostDto findForPrintById(long id) {
 
-        if (opPost.isEmpty()) return opPost;
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException(id + "postId is not found."));
 
-        List<PostTag> postTags = getPostTags(opPost.get());
+        List<PostTag> postTags = getPostTags(post);
 
-        opPost.get().getExtra().put("postTags", postTags);
+        post.getExtra().put("postTags", postTags);
 
-        return opPost;
+        return new PostDto(post);
     }
+
 
     private void loadForPrintDataOnPostTagList(List<PostTag> postTags) {
         List<Post> posts = postTags
@@ -116,14 +126,20 @@ public class PostService {
         });
     }
 
-    public List<Post> findAllForPrintByAuthorIdOrderByIdDesc(long authorId) {
+    public List<PostDto> findAllForPrintByAuthorIdOrderByIdDesc(long authorId) {
         List<Post> posts = postRepository.findAllByAuthorIdOrderByIdDesc(authorId);
         loadForPrintData(posts);
 
-        return posts;
+        return posts.stream()
+                .map(o -> new PostDto(o))
+                .collect(toList());
     }
 
-    public void remove(Post post) {
+    public void remove(PostDto postDto) {
+        Post post = postRepository.findById(postDto.getId())
+                .orElseThrow(
+                        () -> new RuntimeException(postDto.getId() + " is not found."));
+
         postRepository.delete(post);
     }
 

@@ -60,6 +60,7 @@ public class AdmRebateController {
             yearMonth = "2022-10";
         }
 
+//        List<RebateOrderItemDto> items = rebateService.findRebateOrderItemsByPayDateIn(yearMonth);
         List<RebateOrderItem> items = rebateService.findRebateOrderItemsByPayDateIn(yearMonth);
 
         model.addAttribute("items", items);

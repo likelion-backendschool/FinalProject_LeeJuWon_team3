@@ -75,6 +75,10 @@ public class RebateService {
 
         return rebateOrderItemRepository.findAllByPayDateBetweenOrderByIdAsc(fromDate, toDate);
 
+//        return rebateOrderItems
+//                .stream()
+//                .map(o -> new RebateOrderItemDto(o))
+//                .collect(Collectors.toList());
     }
 
     @Transactional

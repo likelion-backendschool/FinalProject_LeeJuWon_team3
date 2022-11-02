@@ -4,6 +4,7 @@ import com.project.Week_Mission.app.base.exception.ActorCanNotModifyException;
 import com.project.Week_Mission.app.base.exception.ActorCanNotRemoveException;
 import com.project.Week_Mission.app.base.rq.Rq;
 import com.project.Week_Mission.app.member.entity.Member;
+import com.project.Week_Mission.app.post.dto.PostDto;
 import com.project.Week_Mission.app.post.entity.Post;
 import com.project.Week_Mission.app.post.form.PostForm;
 import com.project.Week_Mission.app.post.service.PostService;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -39,15 +41,14 @@ public class PostController {
     @PostMapping("/write")
     public String write(@Valid PostForm postForm) {
         Member author = rq.getMember();
-        Post post = postService.write(author, postForm.getSubject(), postForm.getContent(), postForm.getContentHtml(), postForm.getPostTagContents());
+        PostDto post = postService.write(author, postForm.getSubject(), postForm.getContent(), postForm.getContentHtml(), postForm.getPostTagContents());
         return Rq.redirectWithMsg("/post/" + post.getId(), "%d번 글이 생성되었습니다.".formatted(post.getId()));
     }
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}/modify")
     public String showModify(@PathVariable long id, Model model) {
-        Post post = postService.findForPrintById(id).get();
-
+        PostDto post = postService.findForPrintById(id);
         Member actor = rq.getMember();
 
         if (postService.actorCanModify(actor, post) == false) {
@@ -62,7 +63,7 @@ public class PostController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/{id}/modify")
     public String modify(@Valid PostForm postForm, @PathVariable long id) {
-        Post post = postService.findById(id).get();
+        PostDto post = postService.findById(id);
         Member actor = rq.getMember();
 
         if (postService.actorCanModify(actor, post) == false) {
@@ -76,8 +77,7 @@ public class PostController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
-        Post post = postService.findForPrintById(id).get();
-
+        PostDto post = postService.findForPrintById(id);
         Member actor = rq.getMember();
 
         if (postService.actorCanModify(actor, post) == false) {
@@ -92,7 +92,7 @@ public class PostController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/list")
     public String list(Model model) {
-        List<Post> posts = postService.findAllForPrintByAuthorIdOrderByIdDesc(rq.getId());
+        List<PostDto> posts = postService.findAllForPrintByAuthorIdOrderByIdDesc(rq.getId());
 
         model.addAttribute("posts", posts);
 
@@ -111,7 +111,7 @@ public class PostController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/{id}/remove")
     public String remove(@PathVariable long id) {
-        Post post = postService.findById(id).get();
+        PostDto post = postService.findById(id);
         Member actor = rq.getMember();
 
         if (postService.actorCanRemove(actor, post) == false) {
