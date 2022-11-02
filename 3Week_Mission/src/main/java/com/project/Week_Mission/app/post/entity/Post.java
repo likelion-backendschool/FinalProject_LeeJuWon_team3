@@ -24,7 +24,6 @@ import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Getter
-@Setter
 @SuperBuilder
 @ToString(callSuper = true)
 @NoArgsConstructor(access = PROTECTED)
@@ -100,5 +99,17 @@ public class Post extends BaseEntity {
 
     public String getJdenticon() {
         return "post__" + getId();
+    }
+
+    public void updateSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public void updateContent(String content) {
+        this.content = content;
+    }
+
+    public void updateContentHtml(String contentHtml) {
+        this.contentHtml = contentHtml;
     }
 }

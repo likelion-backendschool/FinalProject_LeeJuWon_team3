@@ -60,9 +60,10 @@ public class PostService {
         Post post = postRepository.findById(postDto.getId()).orElseThrow(
                 () -> new RuntimeException(postDto.getId() + " postDtoId is not found."));
 
-        post.setSubject(subject);
-        post.setContent(content);
-        post.setContentHtml(contentHtml);
+        post.updateSubject(subject);
+        post.updateContent(content);
+        post.updateContentHtml(contentHtml);
+
         applyPostTags(post, postTagContents);
     }
 
