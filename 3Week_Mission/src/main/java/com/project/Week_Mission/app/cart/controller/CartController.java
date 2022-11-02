@@ -73,7 +73,7 @@ public class CartController {
     public String remove(@PathVariable long productId, Principal principal) {
 
         MemberDto memberDto = memberService.findByUsername(principal.getName());
-        ProductDto productDto = productService.findByProductId(productId);
+        ProductDto productDto = productService.findProductDtoByProductId(productId);
 
         cartService.removeCartItem(memberDto, productDto);
 
@@ -90,7 +90,7 @@ public class CartController {
                               @PathVariable long productId,
                               Model model) {
 
-        ProductDto productDto = productService.findByProductId(productId);
+        ProductDto productDto = productService.findProductDtoByProductId(productId);
 
         model.addAttribute("productDto", productDto);
         model.addAttribute("cartItemDto", cartItemDto);
@@ -106,7 +106,7 @@ public class CartController {
                               @PathVariable long productId, Principal principal) {
 
         MemberDto memberDto = memberService.findByUsername(principal.getName());
-        ProductDto productDto = productService.findByProductId(productId);
+        ProductDto productDto = productService.findProductDtoByProductId(productId);
 
         cartService.addCartItem(memberDto, productDto, cartItemDto.getQuantity());
 

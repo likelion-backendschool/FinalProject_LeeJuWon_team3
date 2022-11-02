@@ -8,7 +8,6 @@ import com.project.Week_Mission.app.post.entity.Post;
 import com.project.Week_Mission.app.postkeyword.entity.PostKeyword;
 import com.project.Week_Mission.app.postkeyword.service.PostKeywordService;
 import com.project.Week_Mission.app.product.dto.ProductDto;
-import com.project.Week_Mission.app.product.entity.Product;
 import com.project.Week_Mission.app.product.form.ProductForm;
 import com.project.Week_Mission.app.product.form.ProductModifyForm;
 import com.project.Week_Mission.app.product.service.ProductService;
@@ -88,7 +87,7 @@ public class ProductController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/{id}/modify")
     public String modify(@Valid ProductModifyForm productForm, @PathVariable long id) {
-        ProductDto product = productService.findById(id);
+        ProductDto product = productService.findProductDtoByProductId(id);
         Member actor = rq.getMember();
 
         if (productService.actorCanModify(actor, product) == false) {
@@ -102,7 +101,7 @@ public class ProductController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/{id}/remove")
     public String remove(@PathVariable long id) {
-        ProductDto product = productService.findById(id);
+        ProductDto product = productService.findProductDtoByProductId(id);
         Member actor = rq.getMember();
 
         if (productService.actorCanRemove(actor, product) == false) {
