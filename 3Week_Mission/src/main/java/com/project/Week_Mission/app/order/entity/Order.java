@@ -3,7 +3,7 @@ package com.project.Week_Mission.app.order.entity;
 
 import com.project.Week_Mission.app.base.entity.BaseEntity;
 import com.project.Week_Mission.app.member.entity.Member;
-import com.project.Week_Mission.app.order.controller.OrderStatus;
+import com.project.Week_Mission.app.order.status.OrderStatus;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

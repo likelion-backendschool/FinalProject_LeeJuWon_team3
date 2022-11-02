@@ -1,7 +1,6 @@
 package com.project.Week_Mission.app.order.service;
 
 import com.project.Week_Mission.app.base.dto.RsData;
-import com.project.Week_Mission.app.base.rq.Rq;
 import com.project.Week_Mission.app.cart.entity.CartItem;
 import com.project.Week_Mission.app.cart.repository.CartRepository;
 import com.project.Week_Mission.app.cart.service.CartService;
@@ -10,7 +9,7 @@ import com.project.Week_Mission.app.member.repository.MemberRepository;
 import com.project.Week_Mission.app.member.service.MemberDto;
 import com.project.Week_Mission.app.member.service.MemberService;
 import com.project.Week_Mission.app.mybook.service.MyBookService;
-import com.project.Week_Mission.app.order.controller.OrderStatus;
+import com.project.Week_Mission.app.order.status.OrderStatus;
 import com.project.Week_Mission.app.order.entity.Order;
 import com.project.Week_Mission.app.order.entity.OrderItem;
 import com.project.Week_Mission.app.order.repository.OrderItemRepository;

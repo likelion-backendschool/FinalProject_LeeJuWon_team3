@@ -1,4 +1,4 @@
-package com.project.Week_Mission.app.order.controller;
+package com.project.Week_Mission.app.order.status;
 
 public enum OrderStatus {
 
