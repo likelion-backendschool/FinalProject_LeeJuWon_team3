@@ -84,8 +84,7 @@ public class PostService {
 
     public PostDto findForPrintById(long id) {
 
-        Post post = postRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(id + "postId is not found."));
+        Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException(id + "postId is not found."));
 
         List<PostTag> postTags = getPostTags(post);
 

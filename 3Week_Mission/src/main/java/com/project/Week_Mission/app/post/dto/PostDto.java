@@ -33,6 +33,8 @@ public class PostDto {
     private String extra_postTagLinks;
 
     private String forPrintContentHtml;
+    private String extra_inputValue_hashTagContents;
+
     public PostDto(Post post) {
         id = post.getId();
         createDate = post.getCreateDate();
@@ -46,6 +48,7 @@ public class PostDto {
         authorJdenticon = post.getAuthor().getJdenticon();
         extra_postTagLinks = post.getExtra_postTagLinks();
         forPrintContentHtml = post.getForPrintContentHtml();
+        extra_inputValue_hashTagContents = post.getExtra_inputValue_hashTagContents();
 
 //        TODO: null일 수도 있는 값은 dto에 넣으면 안되나?
 //        postTags = post.getPostTags()
