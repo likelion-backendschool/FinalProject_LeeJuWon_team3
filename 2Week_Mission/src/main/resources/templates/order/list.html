@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout/layout.html}" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>주문목록</title>
+</head>
+
+<body>
+<main layout:fragment="main">
+    <section class="section section-post-list container mx-auto">
+
+        <div class="px-2 pt-4">
+            <h1 class="font-bold text-lg">
+                <i class="fa-solid fa-book"></i>
+                주문목록
+            </h1>
+
+            <div class="mt-2">
+                <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+
+
+                    <div>
+                        <table class="table">
+                            <thead class="table-dark">
+                            <tr class="text-center">
+                                <th>번호</th>
+                                <th>주문이름</th>
+                                <th>결제여부</th>
+                                <th>주문상세 및 결제</th>
+                                <th>주문상태</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr class="text-center" th:each="orders : ${orderList}">
+
+                                <td th:text="${orders.id}"></td>
+
+                                <td class="text-start">
+                                    <span th:text="${orders.name}"></span>
+                                </td>
+
+                                <td><span th:text="${orders.isPaid}"></span></td>
+
+                                <td>
+                                    <a th:href="@{|/order/${orders.id}|}"
+                                       class="btn btn-sm btn-primary"
+                                       sec:authorize="isAuthenticated()"
+                                       th:text="주문상세i결제"></a>
+                                </td>
+
+                                <td th:text="${orders.status}"></td>
+
+
+                                <td>
+                                    <a th:if="${orders.status.name() == 'OrderCompleted'}"
+                                       th:href="@{|/order/${orders.id}/cancel|}"
+                                       class="btn btn-sm btn-primary"
+                                       sec:authorize="isAuthenticated()"
+                                       th:text="주문취소"></a>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </ul>
+            </div>
+        </div>
+    </section>
+
+</main>
+</body>
+
+<script type='text/javascript'>
+    const delete_elements = document.getElementsByClassName("delete");
+    Array.from(delete_elements).forEach(function(element) {
+        element.addEventListener('click', function() {
+            if(confirm("정말로 삭제하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            };
+        });
+    });
+</script>
+
+
+
+</html>

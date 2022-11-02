@@ -4,11 +4,22 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+<<<<<<< HEAD
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/3Week_Mission" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/3Week_Mission" />
+=======
+        <option name="delegatedBuild" value="false" />
+        <option name="testRunner" value="PLATFORM" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/2Week_Mission" />
+        <option name="gradleJvm" value="corretto-17" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/2Week_Mission" />
+>>>>>>> d8ccf635713ef9733266b7efcf80ba62cae25c5e
           </set>
         </option>
       </GradleProjectSettings>

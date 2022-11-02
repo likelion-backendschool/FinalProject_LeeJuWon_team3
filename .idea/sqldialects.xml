@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+<<<<<<< HEAD
     <file url="file://$PROJECT_DIR$/3Week_Mission/db/init.sql" dialect="MariaDB" />
+=======
+    <file url="file://$PROJECT_DIR$/2Week_Mission/db/init.sql" dialect="MariaDB" />
+>>>>>>> d8ccf635713ef9733266b7efcf80ba62cae25c5e
   </component>
 </project>
