@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
-<<<<<<< HEAD
+
     <file type="web" url="file://$PROJECT_DIR$/3Week_Mission" />
-=======
-    <file type="web" url="file://$PROJECT_DIR$/2Week_Mission" />
->>>>>>> d8ccf635713ef9733266b7efcf80ba62cae25c5e
+
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="corretto-17" project-jdk-type="JavaSDK" />
   <component name="ProjectType">
