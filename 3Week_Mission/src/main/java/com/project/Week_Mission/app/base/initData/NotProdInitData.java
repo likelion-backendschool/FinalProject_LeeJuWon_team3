@@ -76,10 +76,10 @@ public class NotProdInitData {
             postService.write(member2, "제목 7", "내용 7", "내용 7", "#IT# 프론트엔드 #HTML #CSS");
             postService.write(member2, "제목 8", "내용 8", "내용 8", "#IT #스프링부트 #자바");
 
-            Product product1 = productService.create(member1, "상품명1", 30_000, "카프카", "#IT #카프카");
-            Product product2 = productService.create(member2, "상품명2", 40_000, "스프링부트", "#IT #REACT");
-            Product product3 = productService.create(member1, "상품명3", 50_000, "REACT", "#IT #REACT");
-            Product product4 = productService.create(member2, "상품명4", 60_000, "HTML", "#IT #HTML");
+            ProductDto productDto1 = productService.create(member1, "상품명1", 30_000, "카프카", "#IT #카프카");
+            ProductDto productDto2 = productService.create(member2, "상품명2", 40_000, "스프링부트", "#IT #REACT");
+            ProductDto productDto3 = productService.create(member1, "상품명3", 50_000, "REACT", "#IT #REACT");
+            ProductDto productDto4 = productService.create(member2, "상품명4", 60_000, "HTML", "#IT #HTML");
 
             memberService.addCash(member1, 1_000_000, "충전__무통장입금");
             memberService.addCash(member1, 2_000_000, "충전__무통장입금");
@@ -88,7 +88,6 @@ public class NotProdInitData {
 
 
             MemberDto memberDto1 = new MemberDto(member1);
-            ProductDto productDto1 = new ProductDto(product1);
             cartService.addCartItem(memberDto1, productDto1, 1);
             cartService.addCartItem(memberDto1, productDto1, 2);
             cartService.addCartItem(memberDto1, productDto1, 1);
@@ -98,12 +97,9 @@ public class NotProdInitData {
             int order1PayPrice = order1.calculatePayPrice();
             orderService.payByRestCashOnly(order1);
 
-            ProductDto productDto2 = new ProductDto(product2);
-            ProductDto productDto3 = new ProductDto(product3);
-            ProductDto productDto4 = new ProductDto(product4);
             cartService.addCartItem(memberDto1, productDto2, 4);
-//            cartService.addCartItem(memberDto1, productDto3, 5);
-//            cartService.addCartItem(memberDto1, productDto4, 3);
+            cartService.addCartItem(memberDto1, productDto3, 5);
+            cartService.addCartItem(memberDto1, productDto4, 3);
 
 
 //            orderService.refund(order1);

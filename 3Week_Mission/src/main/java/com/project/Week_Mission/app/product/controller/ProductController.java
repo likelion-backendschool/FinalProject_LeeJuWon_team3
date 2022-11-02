@@ -7,6 +7,7 @@ import com.project.Week_Mission.app.member.entity.Member;
 import com.project.Week_Mission.app.post.entity.Post;
 import com.project.Week_Mission.app.postkeyword.entity.PostKeyword;
 import com.project.Week_Mission.app.postkeyword.service.PostKeywordService;
+import com.project.Week_Mission.app.product.dto.ProductDto;
 import com.project.Week_Mission.app.product.entity.Product;
 import com.project.Week_Mission.app.product.form.ProductForm;
 import com.project.Week_Mission.app.product.form.ProductModifyForm;
@@ -44,13 +45,13 @@ public class ProductController {
     @PostMapping("/create")
     public String create(@Valid ProductForm productForm) {
         Member author = rq.getMember();
-        Product product = productService.create(author, productForm.getSubject(), productForm.getPrice(), productForm.getPostKeywordId(), productForm.getProductTagContents());
+        ProductDto product = productService.create(author, productForm.getSubject(), productForm.getPrice(), productForm.getPostKeywordId(), productForm.getProductTagContents());
         return "redirect:/product/" + product.getId();
     }
 
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
-        Product product = productService.findForPrintById(id).get();
+        ProductDto product = productService.findForPrintById(id);
         List<Post> posts = productService.findPostsByProduct(product);
 
         model.addAttribute("product", product);
@@ -61,7 +62,7 @@ public class ProductController {
 
     @GetMapping("/list")
     public String list(Model model) {
-        List<Product> products = productService.findAllForPrintByOrderByIdDesc(rq.getMember());
+        List<ProductDto> products = productService.findAllForPrintByOrderByIdDesc(rq.getMember());
 
         model.addAttribute("products", products);
 
@@ -71,7 +72,7 @@ public class ProductController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}/modify")
     public String showModify(@PathVariable long id, Model model) {
-        Product product = productService.findForPrintById(id).get();
+        ProductDto product = productService.findForPrintById(id);
 
         Member actor = rq.getMember();
 
@@ -87,7 +88,7 @@ public class ProductController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/{id}/modify")
     public String modify(@Valid ProductModifyForm productForm, @PathVariable long id) {
-        Product product = productService.findById(id).get();
+        ProductDto product = productService.findById(id);
         Member actor = rq.getMember();
 
         if (productService.actorCanModify(actor, product) == false) {
@@ -101,16 +102,16 @@ public class ProductController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/{id}/remove")
     public String remove(@PathVariable long id) {
-        Product post = productService.findById(id).get();
+        ProductDto product = productService.findById(id);
         Member actor = rq.getMember();
 
-        if (productService.actorCanRemove(actor, post) == false) {
+        if (productService.actorCanRemove(actor, product) == false) {
             throw new ActorCanNotRemoveException();
         }
 
-        productService.remove(post);
+        productService.remove(product);
 
-        return Rq.redirectWithMsg("/post/list", "%d번 글이 삭제되었습니다.".formatted(post.getId()));
+        return Rq.redirectWithMsg("/product/list", "%d번 상품이 삭제되었습니다.".formatted(product.getId()));
     }
 
     @GetMapping("/tag/{tagContent}")

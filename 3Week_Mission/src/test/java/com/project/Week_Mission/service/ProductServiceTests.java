@@ -23,26 +23,26 @@ public class ProductServiceTests {
     @Autowired
     private MemberRepository memberRepository;
 
-    @Test
-    @DisplayName("상품 등록")
-    void t1() {
-        Member author = memberRepository.findByUsername("user1").get();
+//    @Test
+//    @DisplayName("상품 등록")
+//    void t1() {
+//        Member author = memberRepository.findByUsername("user1").get();
+//
+//        Product product3 = productService.create(author, "상품명3", 50_000, "자바", "#IT #자바");
+//        Product product4 = productService.create(author, "상품명4", 60_000, "프론트엔드", "#IT #프론트엔드");
+//
+//        assertThat(product3).isNotNull();
+//        assertThat(product4).isNotNull();
+//    }
 
-        Product product3 = productService.create(author, "상품명3", 50_000, "자바", "#IT #자바");
-        Product product4 = productService.create(author, "상품명4", 60_000, "프론트엔드", "#IT #프론트엔드");
-
-        assertThat(product3).isNotNull();
-        assertThat(product4).isNotNull();
-    }
-
-    @Test
-    @DisplayName("상품 수정")
-    void t2() {
-        Product product = productService.findById(2).get();
-
-        productService.modify(product, "상품명2 NEW", 70_000, "#기술 #테크");
-
-        assertThat(product.getSubject()).isEqualTo("상품명2 NEW");
-        assertThat(product.getPrice()).isEqualTo(70_000);
-    }
+//    @Test
+//    @DisplayName("상품 수정")
+//    void t2() {
+//        Product product = productService.findById(2).get();
+//
+//        productService.modify(product, "상품명2 NEW", 70_000, "#기술 #테크");
+//
+//        assertThat(product.getSubject()).isEqualTo("상품명2 NEW");
+//        assertThat(product.getPrice()).isEqualTo(70_000);
+//    }
 }
