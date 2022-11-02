@@ -32,7 +32,7 @@ public class ProductService {
     private final PostKeywordService postKeywordService;
     private final ProductTagService productTagService;
     private final PostTagService postTagService;
-    private final MemberRepository memberRepository;
+    private final ProductQueryService productQueryService;
 
     @Transactional
     public ProductDto create(Member author, String subject, int price, long postKeywordId, String productTagContents) {
@@ -68,7 +68,7 @@ public class ProductService {
     @Transactional
     public void modify(ProductDto productDto, String subject, int price, String productTagContents) {
 
-        Product product = findProductByProductDtoId(productDto.getId());
+        Product product = productQueryService.findProductByProductDtoId(productDto.getId());
 
         product.updateSubject(subject);
         product.updatePrice(price);
@@ -84,110 +84,26 @@ public class ProductService {
     @Transactional
     public void remove(ProductDto productdto) {
 
-        Product product = findProductByProductDtoId(productdto.getId());
+        Product product = productQueryService.findProductByProductDtoId(productdto.getId());
 
         productRepository.delete(product);
     }
 
-
-    public ProductDto findProductDtoByProductId(long id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(id + " productId is not found."));
-
-        return new ProductDto(product);
-    }
-
-
-    private Product findProductByProductDtoId(Long productDtoId) {
-        return productRepository.findById(productDtoId)
-                .orElseThrow(() -> new RuntimeException(productDtoId + " productDtoId is not found."));
-    }
-
-    public List<Product> findAllByOrderByIdDesc() {
-        return productRepository.findAllByOrderByIdDesc();
-    }
-
     public ProductDto findForPrintById(long id) {
-        Product product = findProductByProductId(id);
+        Product product = productQueryService.findProductByProductId(id);
 
-        List<ProductTag> productTags = getProductTags(product);
+        List<ProductTag> productTags = productQueryService.getProductTags(product);
 
         product.getExtra().put("productTags", productTags);
 
         return new ProductDto(product);
     }
 
-    private Product findProductByProductId(long id) {
-        return productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(id + " productId is not found."));
-    }
-
-
-    private List<ProductTag> getProductTags(Product product) {
-        return productTagService.getProductTags(product);
-    }
-
-
-    public List<ProductTag> getProductTags(String productTagContent, Member actor) {
-        List<ProductTag> productTags = productTagService.getProductTags(productTagContent);
-
-        loadForPrintDataOnProductTagList(productTags, actor);
-
-        return productTags;
-    }
-
-
-    private void loadForPrintDataOnProductTagList(List<ProductTag> productTags, Member actor) {
-        List<Product> products = productTags
-                .stream()
-                .map(ProductTag::getProduct)
-                .collect(toList());
-
-        loadForPrintData(products, actor);
-    }
-
-
-    private void loadForPrintData(List<Product> products, Member actor) {
-        long[] ids = products
-                .stream()
-                .mapToLong(Product::getId)
-                .toArray();
-
-        List<ProductTag> productTagsByProductIds = productTagService.getProductTagsByProductIdIn(ids);
-
-        Map<Long, List<ProductTag>> productTagsByProductIdMap = productTagsByProductIds.stream()
-                .collect(groupingBy(
-                        productTag -> productTag.getProduct().getId(), toList()
-                ));
-
-        products.stream().forEach(product -> {
-            List<ProductTag> productTags = productTagsByProductIdMap.get(product.getId());
-
-            if (productTags == null || productTags.size() == 0) return;
-
-            product.getExtra().put("productTags", productTags);
-        });
-    }
-
-
-    public boolean actorCanModify(Member actor, ProductDto productDto) {
-        if (actor == null) return false;
-
-        Product product = findProductByProductDtoId(productDto.getId());
-
-        return actor.getId().equals(product.getAuthor().getId());
-    }
-
-
-    public boolean actorCanRemove(Member actor, ProductDto productDto) {
-        return actorCanModify(actor, productDto);
-    }
-
 
     public List<Post> findPostsByProduct(ProductDto productDto) {
 
-        Member author = findMemberByProductDto(productDto);
-        Product product = findProductByProductDtoId(productDto.getId());
+        Member author = productQueryService.findMemberByProductDto(productDto);
+        Product product = productQueryService.findProductByProductDtoId(productDto.getId());
 
         PostKeyword postKeyword = product.getPostKeyword();
         List<PostTag> postTags = postTagService.getPostTags(author.getId(), postKeyword.getId());
@@ -201,19 +117,5 @@ public class ProductService {
         return list;
     }
 
-    private Member findMemberByProductDto(ProductDto productDto) {
-        return memberRepository.findById(productDto.getAuthorId())
-                .orElseThrow(() -> new RuntimeException(productDto.getAuthorId() + " productDto.getAuthorId() is not found."));
-    }
 
-
-    public List<ProductDto> findAllForPrintByOrderByIdDesc(Member actor) {
-        List<Product> products = findAllByOrderByIdDesc();
-
-        loadForPrintData(products, actor);
-
-        return products.stream()
-                .map(o -> new ProductDto(o))
-                .collect(toList());
-    }
 }

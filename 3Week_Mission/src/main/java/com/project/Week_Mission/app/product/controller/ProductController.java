@@ -10,6 +10,7 @@ import com.project.Week_Mission.app.postkeyword.service.PostKeywordService;
 import com.project.Week_Mission.app.product.dto.ProductDto;
 import com.project.Week_Mission.app.product.form.ProductForm;
 import com.project.Week_Mission.app.product.form.ProductModifyForm;
+import com.project.Week_Mission.app.product.service.ProductQueryService;
 import com.project.Week_Mission.app.product.service.ProductService;
 import com.project.Week_Mission.app.productTag.entity.ProductTag;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
     private final ProductService productService;
+    private final ProductQueryService productQueryService;
     private final PostKeywordService postKeywordService;
     private final Rq rq;
 
@@ -61,7 +63,7 @@ public class ProductController {
 
     @GetMapping("/list")
     public String list(Model model) {
-        List<ProductDto> products = productService.findAllForPrintByOrderByIdDesc(rq.getMember());
+        List<ProductDto> products = productQueryService.findAllForPrintByOrderByIdDesc(rq.getMember());
 
         model.addAttribute("products", products);
 
@@ -75,7 +77,7 @@ public class ProductController {
 
         Member actor = rq.getMember();
 
-        if (productService.actorCanModify(actor, product) == false) {
+        if (productQueryService.actorCanModify(actor, product) == false) {
             throw new ActorCanNotModifyException();
         }
 
@@ -87,10 +89,10 @@ public class ProductController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/{id}/modify")
     public String modify(@Valid ProductModifyForm productForm, @PathVariable long id) {
-        ProductDto product = productService.findProductDtoByProductId(id);
+        ProductDto product = productQueryService.findProductDtoByProductId(id);
         Member actor = rq.getMember();
 
-        if (productService.actorCanModify(actor, product) == false) {
+        if (productQueryService.actorCanModify(actor, product) == false) {
             throw new ActorCanNotModifyException();
         }
 
@@ -101,10 +103,10 @@ public class ProductController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/{id}/remove")
     public String remove(@PathVariable long id) {
-        ProductDto product = productService.findProductDtoByProductId(id);
+        ProductDto product = productQueryService.findProductDtoByProductId(id);
         Member actor = rq.getMember();
 
-        if (productService.actorCanRemove(actor, product) == false) {
+        if (productQueryService.actorCanRemove(actor, product) == false) {
             throw new ActorCanNotRemoveException();
         }
 
@@ -115,7 +117,7 @@ public class ProductController {
 
     @GetMapping("/tag/{tagContent}")
     public String tagList(Model model, @PathVariable String tagContent) {
-        List<ProductTag> productTags = productService.getProductTags(tagContent, rq.getMember());
+        List<ProductTag> productTags = productQueryService.getProductTags(tagContent, rq.getMember());
 
         model.addAttribute("productTags", productTags);
         return "product/tagList";

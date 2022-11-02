@@ -6,6 +6,7 @@ import com.project.Week_Mission.app.cart.service.CartService;
 import com.project.Week_Mission.app.member.service.MemberDto;
 import com.project.Week_Mission.app.member.service.MemberService;
 import com.project.Week_Mission.app.product.dto.ProductDto;
+import com.project.Week_Mission.app.product.service.ProductQueryService;
 import com.project.Week_Mission.app.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,6 +29,7 @@ public class CartController {
     private final CartService cartService;
     private final MemberService memberService;
     private final ProductService productService;
+    private final ProductQueryService productQueryService;
     private final Rq rq;
 
 
@@ -73,7 +75,7 @@ public class CartController {
     public String remove(@PathVariable long productId, Principal principal) {
 
         MemberDto memberDto = memberService.findByUsername(principal.getName());
-        ProductDto productDto = productService.findProductDtoByProductId(productId);
+        ProductDto productDto = productQueryService.findProductDtoByProductId(productId);
 
         cartService.removeCartItem(memberDto, productDto);
 
@@ -90,7 +92,7 @@ public class CartController {
                               @PathVariable long productId,
                               Model model) {
 
-        ProductDto productDto = productService.findProductDtoByProductId(productId);
+        ProductDto productDto = productQueryService.findProductDtoByProductId(productId);
 
         model.addAttribute("productDto", productDto);
         model.addAttribute("cartItemDto", cartItemDto);
@@ -106,7 +108,7 @@ public class CartController {
                               @PathVariable long productId, Principal principal) {
 
         MemberDto memberDto = memberService.findByUsername(principal.getName());
-        ProductDto productDto = productService.findProductDtoByProductId(productId);
+        ProductDto productDto = productQueryService.findProductDtoByProductId(productId);
 
         cartService.addCartItem(memberDto, productDto, cartItemDto.getQuantity());
 
