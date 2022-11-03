@@ -25,10 +25,11 @@
 ## 3주차 미션 요약
 [접근 방법]
 - 홈, 주문, 정산 구현에 있어서 강사님 깃허브 코드를 이용했습니다.
+- Product 서비스에 대해서 CQS(Command Query Separation) 패턴을 적용하였습니다.
+- Post, Product에 DTO를 적용하였습니다.
 
 [특이사항]
 
 - [아쉬웠던 점] 배치 부분에 대한 공부가 필요합니다.
 
-- [Refactoring] Product 서비스에 대해서 CQS(Command Query Separation) 패턴을 적용하였습니다.
-- [Refactoring] Post, Product에 DTO를 적용하였습니다.
+- [Refactoring] DTO 미적용 부분 DTO 적용할 예정입니다.
